@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return (
     <>
-      <div><p>MOI :D lisaa koodia enemman koodia</p></div>
+      <div><p>MOI :D lisaa koodia koodimuokkaus</p></div>
     </>
   )
 }
