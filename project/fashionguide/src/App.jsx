@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import './App.css'
-
+import MainPanel from './components/MainPanel'
 function App() {
   return (
     <>
-      <div><p>MOI :D lisaa koodia koodimuokkaus</p></div>
+      <div>
+      <MainPanel/>  
+      </div>
     </>
   )
 }
 
-export default App
+export default App;
