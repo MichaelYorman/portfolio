@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return (
     <>
-      <div><p>MOI</p></div>
+      <div><p>MOI :D</p></div>
     </>
   )
 }
