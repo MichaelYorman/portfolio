@@ -1,13 +1,20 @@
 import { useState } from 'react'
 import './App.css'
-import MainPanel from './components/MainPanel'
+import MainMenu from './components/MainMenu'
+import Footer from './components/Footer'
+import * from "react-router-dom"
+import LoginRegister from './components/LoginRegister'
+
 function App() {
   return (
     <>
       <div>
-      <MainPanel/>  
+      <MainMenu/>
+      <Footer/>
       </div>
+
     </>
+    
   )
 }
 
