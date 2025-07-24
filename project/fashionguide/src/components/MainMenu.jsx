@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import Language from "../assets/icons/Language.svg"
 import ThemePalette from "../assets/icons/Theme_Palette.svg"
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import {useState} from 'react';
+import LoginRegister from "./LoginRegister";
+import Info from "./Info";
+import Links from "./Links";
+
 const StyledLinkButton = styled(Link)`
   background-color: #007bff;
   color: white;
@@ -55,10 +60,15 @@ const ButtonPlacementDiv=styled.div`
 display:flex;
 gap:50px;
 flex-direction:row;
-margin-top:50px;
+margin-top:100px;
 `;
 
 function MainMenu() {
+
+const[showLoginPage,setLoginPage]=useState(false);
+const[showInfoPage,setInfoPage]=useState(false);
+const[showLinkPage,setLinkPage]=useState(false);
+
   return (
     <>
       <div>
@@ -69,8 +79,20 @@ function MainMenu() {
         </ThemeLanguageDiv>
         <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <ButtonPlacementDiv>
-        <Button>INFO</Button>
-        <Button>LINKS</Button>
+         {showLoginPage ? (
+        <LoginRegister/>
+         ): showInfoPage ? (
+          <Info/>
+         ) : showLinkPage ? (
+          <Links/>
+         )
+       : (
+        <>
+        <Button onClick={() => setLoginPage(true)}>START</Button>
+        <Button onClick={() => setInfoPage(true)}>INFO</Button>
+        <Button onClick={() => setLinkPage(true)}>LINKS</Button>
+        </>
+      )}
         </ButtonPlacementDiv>
         </ContentMenu>
       </div>
