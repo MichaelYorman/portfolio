@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import Language from "../assets/icons/Language.svg"
 import ThemePalette from "../assets/icons/Theme_Palette.svg"
-import { Link } from 'react-router-dom'
+import { NavLink,Link } from 'react-router-dom'
 import {useState} from 'react';
-import LoginRegister from "./LoginRegister";
-import Info from "./Info";
-import Links from "./Links";
+
+const NavButton = styled(NavLink)`
+  background-color: black;
+  color:whitesmoke;
+  text-decoration: none;
+  padding: 10px;
+  font-size:1.5em;
+`;
 
 const StyledLinkButton = styled(Link)`
   background-color: #007bff;
@@ -52,23 +57,12 @@ text-align:center;
 color:black;
 margin-top:400px;
 `;
-const Button=styled.button`
-font-size:1.5em;
-text-align:center;
-`;
-const ButtonPlacementDiv=styled.div`
+const ButtonDiv=styled.div`
 display:flex;
 gap:50px;
-flex-direction:row;
-margin-top:100px;
+margin-top:90px;
 `;
-
 function MainMenu() {
-
-const[showLoginPage,setLoginPage]=useState(false);
-const[showInfoPage,setInfoPage]=useState(false);
-const[showLinkPage,setLinkPage]=useState(false);
-
   return (
     <>
       <div>
@@ -78,22 +72,10 @@ const[showLinkPage,setLinkPage]=useState(false);
         <Logo src={ThemePalette} alt="Artist palette and a paintbrush"/> 
         </ThemeLanguageDiv>
         <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
-        <ButtonPlacementDiv>
-         {showLoginPage ? (
-        <LoginRegister/>
-         ): showInfoPage ? (
-          <Info/>
-         ) : showLinkPage ? (
-          <Links/>
-         )
-       : (
-        <>
-        <Button onClick={() => setLoginPage(true)}>START</Button>
-        <Button onClick={() => setInfoPage(true)}>INFO</Button>
-        <Button onClick={() => setLinkPage(true)}>LINKS</Button>
-        </>
-      )}
-        </ButtonPlacementDiv>
+        <ButtonDiv>
+        <NavButton to="/loginregister">START</NavButton>
+        <NavButton to="/info">ABOUT</NavButton>
+        </ButtonDiv>
         </ContentMenu>
       </div>
     </>
