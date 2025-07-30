@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { NavLink,Link } from 'react-router-dom'
-import {useState} from 'react';
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -56,23 +55,23 @@ color:black;
 margin-top:400px;
 `;
 const ButtonDiv=styled.div`
-background-color:rgba(255, 255, 255, 0.5);
-padding:50px;
-margin-top:50px;
+display:flex;
+gap:50px;
+margin-top:90px;
 `;
-function Info() {
+function MainMenuTemplate() {
   return (
     <>
       <div>
         <ContentMenu>
-        <ThemeLanguageDiv>
+    <ThemeLanguageDiv>
     <Logo src="/icons/language.svg" alt="Language symbol"/> 
     <Logo src="/icons/theme_palette.svg" alt="Artist palette and a paintbrush"/>
-        </ThemeLanguageDiv>
+    </ThemeLanguageDiv>   
         <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <ButtonDiv>
-          <p>some info</p>
-        <NavButton to="/">BACK TO MAIN MENU</NavButton>
+        <NavButton to="/login_register">START</NavButton>
+        <NavButton to="/info">ABOUT</NavButton>
         </ButtonDiv>
         </ContentMenu>
       </div>
@@ -80,4 +79,4 @@ function Info() {
   )
 }
 
-export default Info;
+export default MainMenuTemplate;

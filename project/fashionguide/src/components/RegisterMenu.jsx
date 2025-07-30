@@ -1,9 +1,6 @@
 import styled from "styled-components";
-import {useState} from 'react';
-import MainMenu from "./MainMenu";
-import Language from "../assets/icons/Language.svg"
-import ThemePalette from "../assets/icons/Theme_Palette.svg"
 import { NavLink } from "react-router-dom";
+import RegisterForm from "./RegisterForm";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -42,40 +39,36 @@ const Logo=styled.img`
 width:50px;
 height:auto;
 `;
-const LoginRegisterDiv=styled.div`
-display:flex;
-gap:50px;
-flex-direction:row;
-margin-top:90px;
-`;
 const BackButtonDiv=styled.div`
 display:flex;
 flex-direction:column;
-margin-top:50px;
+margin-top:00px;
 `;
 
-function LoginRegister() {
+const LoginFormDiv=styled.div`
+background-color:white;
+gap:100px;
+font-size:2em;
+`;
+
+function RegisterMenu() {
 
   return (
     <>
       <div>
       <ContentMenu>
       <ThemeLanguageDiv>
-      <Logo src={Language} alt="Language symbol"/> 
-      <Logo src={ThemePalette} alt="Artist palette and a paintbrush"/> 
+    <Logo src="/icons/language.svg" alt="Language symbol"/> 
+    <Logo src="/icons/theme_palette.svg" alt="Artist palette and a paintbrush"/>
       </ThemeLanguageDiv>
       <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
-        <LoginRegisterDiv>
-      <NavButton to="/">LOGIN</NavButton>
-      <NavButton to="/">REGISTER</NavButton>
-        </LoginRegisterDiv>
-        <BackButtonDiv>
-        <NavButton to="/">BACK TO MAIN MENU</NavButton>
-        </BackButtonDiv>
+      <div style={{marginTop:"90px"}}>
+      <RegisterForm/>
+      </div>
         </ContentMenu>
       </div>
     </>
   )
 }
 
-export default LoginRegister;
+export default RegisterMenu;
