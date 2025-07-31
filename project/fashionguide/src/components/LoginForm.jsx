@@ -1,11 +1,19 @@
 import styled from "styled-components";
+import { NavLink,Link } from 'react-router-dom'
 
-const LoginMenuDiv=styled.div`
-text-align:center;
-font-size:2em;
+
+const StyledForm=styled.form`
+display:flex;
+flex-direction:column;
+gap:10px;
+font-size:1.5em;
+`;
+
+const StyledInput=styled.input`
+font-size:16px;
 `;
 const LoginButton = styled.button`
- margin-top:50px;
+margin-top:15px;
  padding: 10px 10px;
   font-size: 20px;
   background-color: #3498db;
@@ -22,19 +30,13 @@ function LoginForm () {
   return (
     <div>
       <>
-    <LoginMenuDiv>
-    <form action={search}>
-      <div>
-      <p>Username or Email</p>
-      <input type="text" name="query" />
-      </div>
-      <div>
-      <p>Password</p>
-      <input type="password" name="query" />
-      </div>
-      <LoginButton type="submit">LOGIN</LoginButton>
-    </form>
-    </LoginMenuDiv>
+    <StyledForm action={search}>
+      <label for="name_or_email">Name or email: </label>
+      <StyledInput  type="text" id="name_or_email" placeholder="Your name or email here..." name="account_name" required />
+      <label for="password">Password: </label>
+      <StyledInput type="password" id="my_password" placeholder="Your password here..." name="password" required/>
+      <LoginButton to="/user_home" type="submit">LOGIN</LoginButton>
+    </StyledForm>
     </>
     </div>
   );

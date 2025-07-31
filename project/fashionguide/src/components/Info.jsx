@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink,Link } from 'react-router-dom'
-import {useState} from 'react';
+import LanguageThemeSettings from "../LanguageThemeSettings";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -35,15 +35,6 @@ min-height:100vh;
 margin: 0 auto;
 `;
 
-const ThemeLanguageDiv=styled.div`
-display:flex;
-flex-direction:row;
-gap:15px;
-position:absolute;
-top:15px;
-left:15px;
-`;
-
 const Logo=styled.img`
 width:50px;
 height:auto;
@@ -65,10 +56,7 @@ function Info() {
     <>
       <div>
         <ContentMenu>
-        <ThemeLanguageDiv>
-    <Logo src="/icons/language.svg" alt="Language symbol"/> 
-    <Logo src="/icons/theme_palette.svg" alt="Artist palette and a paintbrush"/>
-        </ThemeLanguageDiv>
+          <LanguageThemeSettings/>
         <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <ButtonDiv>
           <p>some info</p>

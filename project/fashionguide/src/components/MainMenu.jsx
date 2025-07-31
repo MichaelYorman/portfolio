@@ -1,10 +1,68 @@
-import  MainMenuTemplate from "./templates/MainMenuTemplate"
+import styled from "styled-components";
+import { NavLink,Link } from 'react-router-dom'
+import LanguageThemeSettings from "../LanguageThemeSettings";
 
+const NavButton = styled(NavLink)`
+  background-color: black;
+  color:whitesmoke;
+  text-decoration: none;
+  padding: 10px;
+  font-size:1.5em;
+`;
+
+const StyledLinkButton = styled(Link)`
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+const ContentMenu = styled.div`
+display:flex;
+flex-direction:column;
+position:relative;
+align-items:center;
+background-color:green;
+width: 1080px;
+min-height:100vh;
+margin: 0 auto;
+`;
+
+const Logo=styled.img`
+width:50px;
+height:auto;
+`;
+
+const MainHeader=styled.h1`
+font-size:3em;
+text-align:center;
+color:black;
+margin-top:400px;
+`;
+const ButtonDiv=styled.div`
+display:flex;
+gap:50px;
+margin-top:90px;
+`;
 function MainMenu() {
   return (
     <>
       <div>
-        <MainMenuTemplate/>
+        <ContentMenu>
+          <LanguageThemeSettings/>
+        <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
+        <ButtonDiv>
+        <NavButton to="/login_register">START</NavButton>
+        <NavButton to="/info">ABOUT</NavButton>
+        </ButtonDiv>
+        </ContentMenu>
       </div>
     </>
   )

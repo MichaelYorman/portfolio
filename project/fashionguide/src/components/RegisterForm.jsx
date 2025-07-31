@@ -1,11 +1,17 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
-const RegisterFormDiv=styled.div`
-text-align:center;
-font-size:2em;
+const StyledForm=styled.form`
+display:flex;
+flex-direction:column;
+gap:10px;
+font-size:1.5em;
+`;
+
+const StyledInput=styled.input`
+font-size:16px;
 `;
 const RegisterButton = styled.button`
- margin-top:50px;
  padding: 10px 10px;
   font-size: 20px;
   background-color: #3498db;
@@ -23,27 +29,19 @@ function RegisterForm () {
   return (
     <div>
       <>
-    <RegisterFormDiv>
-    <form action={search} autoComplete="off">
-      <div>
-      <p>Username</p>
-      <input type="text" name="query" />
-      </div>
-      <div>
-      <p>Email</p>
-      <input type="text" name="query" />
-      </div>
-      <div>
-    <p>Password</p>
-    <input type="password" name="query" />
-    </div>
-    <RegisterButton type="submit">REGISTER</RegisterButton>
-    <div style={{display:"none"}}>
+    <StyledForm action={search}>
+      <label for="account_name">Account Name:</label>
+      <StyledInput type="text" id="my_account_name"  placeholder="Your account name here..." name="account_name" required/>
+      <label for="email_address">Email:</label>
+      <StyledInput type="text" id="my_email_address"  placeholder="Your email address here..." name="email_address" required/>
+      <label for="password">Password: </label>
+      <StyledInput type="password" id="my_password" placeholder="Your password here..." name="password" required/>
+      <RegisterButton to="/user_home" type="submit">LOGIN</RegisterButton>
+      <div style={{display:"none"}}>
     <label>Leave this field empty:</label>
     <input type="text" name="website" />
-  </div>
-    </form>
-    </RegisterFormDiv>
+    </div>
+    </StyledForm>
     </>
     </div>
   );
