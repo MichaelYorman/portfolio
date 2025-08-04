@@ -6,8 +6,8 @@ import Info from './components/Info'
 import LoginRegisterHead from './components/LoginRegisterHead'
 import LoginMenu from './components/LoginMenu'
 import RegisterMenu from './components/RegisterMenu'
-import UserHome from './UserHome'
-import CreateList from './CreateList'
+import UserHome from './components/UserHome'
+import CreateList from './components/CreateList'
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 
 function App() {

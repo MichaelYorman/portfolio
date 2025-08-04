@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
-import LanguageThemeSettings from "../LanguageThemeSettings";
+import LanguageThemeSettings from "./LanguageThemeSettings";
 
 const NavButton = styled(NavLink)`
   background-color: black;

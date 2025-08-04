@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink,Link } from 'react-router-dom'
-import LanguageThemeSettings from "../LanguageThemeSettings";
+import LanguageThemeSettings from "./LanguageThemeSettings";
 
 const NavButton = styled(NavLink)`
   background-color: black;
