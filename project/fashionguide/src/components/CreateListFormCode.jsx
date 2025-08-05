@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import AsyncSelect from "react-select/async";
 
-const CreateListFormDiv=styled.div`
-text-align:center;
-color:black;
+const CreateListFormGrid1=styled.div`
+display:grid;
+gap:10px;
+grid-template-columns:repeat(3,1fr);
 margin-top:400px;
 `;
-
 const Source= {
 DestinationTypes: [
     {value:'forest',label:'Forest'},
@@ -59,10 +59,32 @@ Temperature: [
     { value: 'chilly', label: 'Chilly (0-10°C / 32-50°F)', minTemp: 0, maxTemp: 10 },
     { value: 'coldish', label: 'Coldish (-10 to -1°C / 14-30°F)', minTemp: -10, maxTemp: -1 },
     { value: 'cold', label: 'Cold (-19 to -11°C / -2 to 12°F)', minTemp: -19, maxTemp: -11 },
-    { value: 'verycold', label: 'Very Cold (Between -20°C / -4°F and -30°C / -22°F)', minTemp: -29, maxTemp: -20 },
+    { value: 'verycold', label: 'Very Cold (-20°C-29°C / -4°F-22°F))', minTemp: -29, maxTemp: -20 },
     { value: 'freezing', label: 'Freezing (Below -30°C / -22°F)', minTemp: -50, maxTemp: -30 }
 ]
 }
+const TemperatureStyle=({
+option: (base, state) => {
+    const isScorching = state.data.value === 'scorching';
+    const isHot = state.data.value === 'hot';
+    const isWarm = state.data.value === 'warm';
+    const isTemperate = state.data.value === 'temperate';
+    const isChilly = state.data.value === 'chilly';
+    const isColdish = state.data.value === 'coldish';
+    const isCold = state.data.value === 'cold';
+    const isVeryCold = state.data.value === 'verycold';
+    const isFreezing = state.data.value === 'freezing';
+
+
+    return {
+      ...base,
+      backgroundColor: isScorching?'#fc0000ff'
+      : isHot?'#fd8700ff'
+      : isWarm?``
+      :'#ffffff22',
+    };
+}
+})
 const loadOptions = (sourceKey) => (inputValue, callback) => {
     const list=Source[sourceKey];
   setTimeout(() => {
@@ -78,30 +100,48 @@ function CreateListFormCode() {
     return (
         <>
         <div>
-        <CreateListFormDiv>
+        <CreateListFormGrid1>
+        <div className="box1">
         <label>
             List name: <input name="input" type="text"/>
         </label>
+        </div>
+        <div  className="box2">
         <label>
             Destination name: <input name="input" type="text"/>
         </label>
+        </div>
+        <div className="box3">
         <label>
             Overnight stay? <input name="input" type="checkbox"/>
         </label>
+        </div>
+        <div  className="box4">
         <label>
             Let program automatically assign clothes and accessories? <input name="input" type="checkbox"/>
         </label>
+        </div>
+        <div  className="box5">
         <h3>Destination Type</h3>
         <AsyncSelect cacheOptions loadOptions={loadOptions('DestinationTypes')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        </div>
+        <div className="box6">
         <h3>Temperature</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('Temperature')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        <AsyncSelect styles={TemperatureStyle} cacheOptions loadOptions={loadOptions('Temperature')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        </div>
+        <div className="box7">
         <h3>Weather Conditions</h3>
         <AsyncSelect cacheOptions loadOptions={loadOptions('WeatherConditions')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        <h3>Vehicle</h3>
+        </div>
+        <div className="box8">
+        <h3>Transportation</h3>
         <AsyncSelect cacheOptions loadOptions={loadOptions('Vehicles')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        </div>
+        <div className="box9">
         <h3>Purpose</h3>
         <AsyncSelect cacheOptions loadOptions={loadOptions('DestinationPurpose')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        </CreateListFormDiv>
+        </div>
+        </CreateListFormGrid1>
         </div>
         </>
     )
