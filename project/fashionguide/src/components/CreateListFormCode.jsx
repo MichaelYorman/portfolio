@@ -80,8 +80,14 @@ option: (base, state) => {
       ...base,
       backgroundColor: isScorching?'#fc0000ff'
       : isHot?'#fd8700ff'
-      : isWarm?``
-      :'#ffffff22',
+      : isWarm?'#fffb00ff'
+      : isTemperate?'#2ee600ff'
+      : isChilly? '#00ffbfff'
+      : isColdish? '#00e0e0ff'
+      : isCold? '#008cffff'
+      : isVeryCold? '#2600ffff'
+      : isFreezing? '#7700ffff'
+      : '#e9e9e9ff'
     };
 }
 })
