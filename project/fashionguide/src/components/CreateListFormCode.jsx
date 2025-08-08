@@ -3,10 +3,36 @@ import AsyncSelect from "react-select/async";
 
 const CreateListFormGrid1=styled.div`
 display:grid;
-gap:10px;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,1fr);
+grid-template-rows:(5,1fr); 
 margin-top:400px;
 `;
+const Box1=styled.div`
+grid-column:1/3;
+grid-row:1;
+`
+const Box2=styled.div`
+grid-column:1/3;
+grid-row:2;
+`
+const Box3=styled.div`
+grid-column:1;
+grid-row:3;
+`
+const Box4=styled.div`
+grid-column:2;
+grid-row:3
+`
+const Box5=styled.div`
+`
+const Box6=styled.div`
+`
+const Box7=styled.div`
+`
+const Box8=styled.div`
+`
+const Box9=styled.div`
+`
 const Source= {
 DestinationTypes: [
     {value:'forest',label:'Forest'},
@@ -107,46 +133,42 @@ function CreateListFormCode() {
         <>
         <div>
         <CreateListFormGrid1>
-        <div className="box1">
+        <Box1>
         <label>
             List name: <input name="input" type="text"/>
         </label>
-        </div>
-        <div  className="box2">
+        </Box1>
+        <Box2>
         <label>
             Destination name: <input name="input" type="text"/>
         </label>
-        </div>
-        <div className="box3">
-        <label>
-            Overnight stay? <input name="input" type="checkbox"/>
-        </label>
-        </div>
-        <div  className="box4">
-        <label>
-            Let program automatically assign clothes and accessories? <input name="input" type="checkbox"/>
-        </label>
-        </div>
-        <div  className="box5">
-        <h3>Destination Type</h3>
+        </Box2>
+        <Box3>
+         <h3>Destination Type</h3>
         <AsyncSelect cacheOptions loadOptions={loadOptions('DestinationTypes')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        </div>
-        <div className="box6">
-        <h3>Temperature</h3>
-        <AsyncSelect styles={TemperatureStyle} cacheOptions loadOptions={loadOptions('Temperature')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        </div>
-        <div className="box7">
-        <h3>Weather Conditions</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('WeatherConditions')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        </div>
-        <div className="box8">
-        <h3>Transportation</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('Vehicles')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        </div>
-        <div className="box9">
+        </Box3>
+        <Box4>
         <h3>Purpose</h3>
         <AsyncSelect cacheOptions loadOptions={loadOptions('DestinationPurpose')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
-        </div>
+        </Box4>
+        <Box5>
+        Overnight stay? <input name="input" type="checkbox"/>
+        </Box5>
+        <Box6>
+        <h3>Temperature</h3>
+        <AsyncSelect styles={TemperatureStyle} cacheOptions loadOptions={loadOptions('Temperature')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        </Box6>
+        <Box7>
+        <h3>Weather Conditions</h3>
+        <AsyncSelect cacheOptions loadOptions={loadOptions('WeatherConditions')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        </Box7>
+        <Box8>
+        <h3>Transportation</h3>
+        <AsyncSelect cacheOptions loadOptions={loadOptions('Vehicles')} defaultOptions placeholder="Type some" isMulti className="basic-multi-select" classNamePrefix="select"/>
+        </Box8>
+        <Box9>
+        Let program automatically assign clothes and accessories? <input name="input" type="checkbox"/>
+        </Box9>
         </CreateListFormGrid1>
         </div>
         </>
