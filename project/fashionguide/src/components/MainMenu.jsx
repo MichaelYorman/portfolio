@@ -59,7 +59,7 @@ function MainMenu() {
           <LanguageThemeSettings/>
         <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <ButtonDiv>
-        <NavButton to="/login_register">START</NavButton>
+        <NavButton to="/user_home">START</NavButton>
         <NavButton to="/info">ABOUT</NavButton>
         </ButtonDiv>
         </ContentMenu>
