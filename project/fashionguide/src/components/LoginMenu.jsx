@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import LoginForm from "./LoginForm";
-import LanguageThemeSettings from "./LanguageThemeSettings";
+import LanguageThemePanel from "./LanguageThemePanel";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -50,7 +50,7 @@ function LoginMenu() {
     <>
       <div>
       <ContentMenu>
-      <LanguageThemeSettings/>
+      <LanguageThemePanel/>
       <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
       <div style={{marginTop:"90px"}}>
       <LoginForm/>

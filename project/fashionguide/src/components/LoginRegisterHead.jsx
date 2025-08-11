@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import LanguageThemeSettings from "./LanguageThemeSettings";
+import LanguageThemePanel from "./LanguageThemePanel";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -9,8 +9,6 @@ const NavButton = styled(NavLink)`
   padding: 10px;
   font-size:1.5em;
 `;
-
-
 const MainHeader=styled.h1`
 font-size:3em;
 text-align:center;
@@ -26,10 +24,6 @@ background-color:green;
 width: 1080px;
 min-height:100vh;
 margin: 0 auto;
-`;
-const Logo=styled.img`
-width:50px;
-height:auto;
 `;
 const LoginRegisterDiv=styled.div`
 display:flex;
@@ -49,7 +43,7 @@ function LoginRegister() {
     <>
       <div>
       <ContentMenu>
-        <LanguageThemeSettings/>
+        <LanguageThemePanel/>
       <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <LoginRegisterDiv>
       <NavButton to="/login">LOGIN</NavButton>

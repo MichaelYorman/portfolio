@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink,Link } from 'react-router-dom'
-import LanguageThemeSettings from "./LanguageThemeSettings";
+import LanguageThemePanel from "./LanguageThemePanel";
 import CreateListForm from "./CreateListForm";
 
 const NavButton = styled(NavLink)`
@@ -23,7 +23,7 @@ function CreateList() {
     <>
       <div>
         <ContentMenu>
-        <LanguageThemeSettings/>
+        <LanguageThemePanel/>
         <CreateListForm/>
         </ContentMenu>
       </div>

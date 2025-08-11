@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { NavLink,Link } from 'react-router-dom'
-import LanguageThemeSettings from "./LanguageThemeSettings";
+import LanguageThemePanel from "./LanguageThemePanel";
+import WidgetPanel from "./WidgetPanel";
 
 const NavButton = styled(NavLink)`
   text-decoration: none;
   color:black;
 `;
+
 const ContentMenu = styled.div`
 display:flex;
 flex-direction:column;
 position:relative;
-align-items:center;
 background-color:green;
 width: 1080px;
 min-height:100vh;
@@ -20,6 +21,9 @@ margin: 0 auto;
 const CreateNewListDiv=styled.h1`
 text-align:center;
 margin-top:400px;
+&:hover{
+text-decoration:underline;
+}
 `;
 
 const NewListLogo=styled.img`
@@ -28,17 +32,39 @@ height:auto;
 margin-right:60px;
 `;
 
+const ListingDiv=styled.div`
+display:flex;
+flex-direction:row;
+justify-content:center;
+align-items:flex-end;
+margin:100px 10px 0px 10px;
+`;
+
+const Block=styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+height:250px;
+width:250px;
+outline:5px dashed black;
+`;
 function UserHome() {
   return (
     <>
       <div>
         <ContentMenu>
-        <LanguageThemeSettings/>
+        <WidgetPanel/>
+        <LanguageThemePanel/>
         <CreateNewListDiv>
         <NavButton to="/create_list">
-        <NewListLogo src="/icons/language.svg" alt="Language symbol"/>    
+        <NewListLogo src="/icons/language.svg" alt="Language symbol"/>
         CREATE NEW LIST</NavButton>
         </CreateNewListDiv>
+        <ListingDiv>
+          <Block>
+            <h4>You have nothing here yet...</h4>
+            </Block>
+        </ListingDiv>
         </ContentMenu>
       </div>
     </>

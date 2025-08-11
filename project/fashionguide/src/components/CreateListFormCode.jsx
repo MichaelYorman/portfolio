@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
+import WidgetPanel from "./WidgetPanel";
 
 const CreateListFormGrid1=styled.div`
 display:grid;
@@ -26,11 +27,10 @@ const Box6=styled.div`
 grid-column:2;
 `
 const Box7=styled.div`
+grid-column:1;
 `
 const Box8=styled.div`
-`
-const Box9=styled.div`
-grid-column:2
+grid-column:2;
 `
 const GenerateList=styled.button`
 `
@@ -88,18 +88,9 @@ Temperature: [
     { value: 'cold', label: 'Cold (-11 to -19°C) 🥶', minTemp: -19, maxTemp: -11 },
     { value: 'verycold', label: 'Very Cold (-20°C to -29°C) 🧊', minTemp: -29, maxTemp: -20 },
     { value: 'freezing', label: 'Freezing (Below -30°C) 🧊💀', minTemp: -50, maxTemp: -30 }
-]
+],
 }
-const BoxStyle=({
-    option: (base,state) => {
-        const listName=state.data.value==='input';
-        return {
-            ...base,
-            backgroundColor: listName?'#640000ff'
-            :'#005864ff'
-        }
-    }
-})
+
 const loadOptions = (sourceKey) => (inputValue, callback) => {
     const list=Source[sourceKey];
   setTimeout(() => {
@@ -116,6 +107,7 @@ function CreateListFormCode() {
     return (
         <>
         <div>
+        <WidgetPanel/>
         <CreateListFormGrid1>
         <Box1>
         <label>

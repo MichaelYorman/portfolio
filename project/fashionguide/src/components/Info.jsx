@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { NavLink,Link } from 'react-router-dom'
-import LanguageThemeSettings from "./LanguageThemeSettings";
+import LanguageThemePanel from "./LanguageThemePanel";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -56,7 +56,7 @@ function Info() {
     <>
       <div>
         <ContentMenu>
-          <LanguageThemeSettings/>
+          <LanguageThemePanel/>
         <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <ButtonDiv>
           <p>some info</p>
