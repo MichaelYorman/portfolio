@@ -1,27 +1,14 @@
 import styled from "styled-components";
-import { NavLink,Link } from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import LanguageThemePanel from "./LanguageThemePanel";
 
 const NavButton = styled(NavLink)`
-  background-color: black;
-  color:whitesmoke;
+  color:black;
   text-decoration: none;
-  padding: 10px;
-  font-size:1.5em;
-`;
-
-const StyledLinkButton = styled(Link)`
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  text-decoration: none;
-  border-radius: 5px;
-  display: inline-block;
-  cursor: pointer;
-
+  padding:10px;
   &:hover {
-    background-color: #0056b3;
+  background-color:lightgray;
+  text-decoration:underline;
   }
 `;
 const ContentMenu = styled.div`
@@ -57,10 +44,20 @@ function MainMenu() {
       <div>
         <ContentMenu>
           <LanguageThemePanel/>
-        <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
+        <MainHeader>FASHION AND ACCESSORY GUIDE</MainHeader>
         <ButtonDiv>
-        <NavButton to="/user_home">START</NavButton>
-        <NavButton to="/info">ABOUT</NavButton>
+        <NavButton to="/user_home">
+        <Logo src="/icons/arrow.svg" alt="Arrow bubble symbol"/>
+        <h2>START</h2>
+        </NavButton>
+        <NavButton to="/info">
+        <Logo src="/icons/info.svg" alt="Info bubble symbol"/>
+        <h2>INFO</h2>
+        </NavButton>
+        <NavButton to="/info">
+        <Logo src="/icons/links.svg" alt="Info bubble symbol"/>
+        <h2>LINKS</h2>
+        </NavButton>
         </ButtonDiv>
         </ContentMenu>
       </div>

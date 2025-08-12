@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink,Link } from 'react-router-dom'
+import { NavLink} from 'react-router-dom'
 import LanguageThemePanel from "./LanguageThemePanel";
 import WidgetPanel from "./WidgetPanel";
 
@@ -57,7 +57,7 @@ function UserHome() {
         <LanguageThemePanel/>
         <CreateNewListDiv>
         <NavButton to="/create_list">
-        <NewListLogo src="/icons/language.svg" alt="Language symbol"/>
+        <NewListLogo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
         CREATE NEW LIST</NavButton>
         </CreateNewListDiv>
         <ListingDiv>
