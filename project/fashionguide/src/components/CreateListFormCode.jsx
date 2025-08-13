@@ -139,12 +139,20 @@ const loadOptions = (sourceKey) => (inputValue, callback) => {
 };
 
 function CreateListFormCode() {
-    const [checkedBox,SetChecked]=useState(true);
+    const [checkedAutoBox,SetChecked]=useState(true);
+    const [checkedOverNightBox,SetCheckedOverNight]=useState(true);
     function ToggleAutoBox() {
-        if (checkedBox) {
+        if (checkedAutoBox) {
             SetChecked(false)
         } else {
             SetChecked(true)
+        }
+    }
+    function ToggleOverNightBox() {
+        if (checkedOverNightBox) {
+            SetCheckedOverNight(false)
+        } else {
+            SetCheckedOverNight(true)
         }
     }
     return (
@@ -152,6 +160,7 @@ function CreateListFormCode() {
         <div>
         <WidgetPanel/>
         <CreateListFormGrid1>
+        <h1>Travel list maker</h1>
         <Box1>
         <h3>List name 🏷️</h3>
         <textarea name="listname" rows={4} cols={40} placeholder="Type your list name here...">
@@ -189,7 +198,7 @@ function CreateListFormCode() {
         Destination travel time: <input type="number" id="quantity" name="quantity" min="1" max="24"/> hours
         </div>
         <div>
-        <input name="input" type="checkbox"/> Stay overnight for <input type="number" id="quantity" name="quantity" min="1" max="5" disabled/> days
+        <input name="input" type="checkbox" onClick={ToggleOverNightBox}/> Stay overnight for <input type="number" id="quantity" name="quantity" min="1" max="24" disabled={checkedOverNightBox}/> days
         </div>
         
         </DurationBoxDiv>
@@ -202,7 +211,7 @@ function CreateListFormCode() {
         <Box10>
         <AutomaticAssignDiv>
         <label>
-         <input name="input" id='autoassign' type="checkbox" checked={checkedBox} onClick={ToggleAutoBox}/>
+         <input name="input" id='autoassign' type="checkbox" checked={checkedAutoBox} onClick={ToggleAutoBox}/>
         </label>
         <p>Let program automatically assign <br></br> clothes and accessories?</p>
         <ToolTipImage src="/icons/questionmark.svg" alt="Home cottage symbol"/>
