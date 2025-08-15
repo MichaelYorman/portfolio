@@ -9,6 +9,7 @@ gap:15px;
 margin-top:400px;
 padding:20px;
 background-color:whitesmoke;
+outline:3px solid black;
 `;
 
 const AutomaticAssignDiv=styled.div`

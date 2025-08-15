@@ -7,5 +7,5 @@ export default defineConfig({
     build: {
     outDir: 'fashionguide' // folder name instead of 'dist'
   },
-  base: '/portfolio/projects/fashionguide/' // public path on your server
+  //base: '/portfolio/projects/fashionguide/' // public path on your server
 })
