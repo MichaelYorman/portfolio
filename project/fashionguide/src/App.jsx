@@ -1,4 +1,5 @@
 import './App.css'
+import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import GlobalStyle from './components/CreateGlobalStyle'
 import MainMenu from './components/MainMenu'
 import Footer from './components/Footer'
@@ -8,11 +9,14 @@ import LoginMenu from './components/LoginMenu'
 import RegisterMenu from './components/RegisterMenu'
 import UserHome from './components/UserHome'
 import CreateList from './components/CreateList'
-import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
+import LanguageSwitch from './components/LanguageSwitch';
 
 function App() {
 
   return (
+    <>
+    <div>
+    <LanguageSwitch/>
     <Router>
       <GlobalStyle/>
       <Routes>
@@ -33,7 +37,8 @@ function App() {
       </Routes>
       <Footer/>
     </Router>
-    
+    </div>
+    </>
   )
 }
 

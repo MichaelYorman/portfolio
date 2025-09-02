@@ -1,0 +1,44 @@
+{
+  "mainheader": "Muoti ja Varusteopas",
+  "start": "Aloita",
+  "info": "Info",
+  "links": "Linkkejä",
+  "language": "Kieli",
+  "theme": "Teema",
+
+    
+  "home": "Etusivu",
+  "settings": "Asetukset",
+  "logout": "Kirjaudu ulos",
+  "createlist": "Luo uusi lista",
+
+  "listheader": "Matkalistasovellus",
+  "listname": "Listan nimi",
+  "destinationname": "Sijainnin nimi",
+  "destinationtype": "Sijainnin tyyppi",
+  "purpose": "Matkan tarkoitus",
+  "temperature": "Lämpötila",
+  "weathercondition": "Sääolosuhteet",
+  "transportation": "Ajoneuvo",
+  "duration": "Matkan kesto",
+  "traveltime": "Matkaan käytettävä aika",
+  "hours":"tunti/tuntia",
+  "overnight": "Yöpyminen",
+  "nights":"yö/yötä",
+  "automaticassign": "Anna ohjelman arpoa itse",
+  "automaticassign2": "vaatekappaleet ja varusteet?",
+  "typelistname":"Kirjoita listasi nimi tähän...",
+  "typelistdestination":"Kirjoita sijaintisi nimi tähän...",
+  "starttyping":"Kirjoita jotakin tai valitse listasta...",
+  
+  "typeforest": "Metsä",
+  "typemountain": "Vuoristo",
+  "typebeach": "Ranta",
+  "typedesert": "Aavikko/Erämaa",
+  "typecave": "Luola",
+  "typebodyofwater": "Vesistö",
+  "typeresidentialarea": "Asutusalue",
+  "typecountryside": "Maaseutu",
+
+  "footer":"Henri Jormanainen. Kaikki oikeudet pidätetetty"
+}

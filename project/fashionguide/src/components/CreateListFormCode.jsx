@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
 import WidgetPanel from "./WidgetPanel";
+import { useTranslate } from "./LanguageContext";
 
 const CreateListFormGrid1=styled.div`
 display:grid;
@@ -72,16 +73,16 @@ margin-top:10px;
 font-size:14px;
 gap:10px;
 `;
-const Source= {
+const getSource = (t) => ({
 DestinationTypes: [
-    {value:'forest',label:'Forest 🌲'},
-    {value:'mountain',label:'Mountain  🏔️'},
-    {value:'beach',label:'Beach 🏖️'},
-    {value:'desert',label:'Desert 🏜️'},
-    {value:'cave',label:'Cave 🪨'},
-    {value:'bodyofwater',label:'Body Of Water 🌊'},
-    {value:'residentialarea',label:'Residential area 🏙️'},
-    {value:'countryside',label:'Countryside 🌻'},
+    {value:'forest',label:`${t("typeforest")} 🌲`},
+    {value:'mountain',label:`${t("typemountain")} 🏔️`},
+    {value:'beach',label:`${t("typebeach")} 🏖️`},
+    {value:'desert',label:`${t("typedesert")} 🏜️`},
+    {value:'cave',label:`${t("typecave")}🪨`},
+    {value:'bodyofwater',label:`${t("typebodyofwater")} 🌊`},
+    {value:'residentialarea',label:`${t("typeresidentialarea")} 🏙️`},
+    {value:'countryside',label:`${t("typecountryside")}🌻`},
 ],
 DestinationPurpose: [
     {value:'hangingout',label:'Hanging out 😎☕'},
@@ -127,19 +128,10 @@ Temperature: [
     { value: 'verycold', label: 'Very Cold (-20°C to -29°C) 🧊', minTemp: -29, maxTemp: -20 },
     { value: 'freezing', label: 'Freezing (Below -30°C) 🧊💀', minTemp: -50, maxTemp: -30 }
 ]
-}
-
-const loadOptions = (sourceKey) => (inputValue, callback) => {
-    const list=Source[sourceKey];
-  setTimeout(() => {
-    const filtered = list.filter(item =>
-      item.label.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    callback(filtered);
-  }, 500);
-};
-
+});
 function CreateListFormCode() {
+    const {t,setLang}=useTranslate();
+    const Source = getSource(t)
     const [checkedAutoBox,SetChecked]=useState(true);
     const [checkedOverNightBox,SetCheckedOverNight]=useState(true);
     function ToggleAutoBox() {
@@ -155,58 +147,68 @@ function CreateListFormCode() {
         } else {
             SetCheckedOverNight(true)
         }
+    
     }
+const loadOptions = (sourceKey) => (inputValue, callback) => {
+    const list=Source[sourceKey];
+  setTimeout(() => {
+    const filtered = list.filter(item =>
+      item.label.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    callback(filtered);
+  }, 500);
+};
     return (
         <>
         <div>
         <WidgetPanel/>
         <CreateListFormGrid1>
-        <h1>Travel list maker</h1>
+        <h1>{t("listheader")}</h1>
         <Box1>
-        <h3>List name 🏷️</h3>
-        <textarea name="listname" rows={4} cols={40} placeholder="Type your list name here...">
+        <h3>{t("listname")} 🏷️</h3>
+        <textarea name="listname" rows={4} cols={40} placeholder={t("typelistname")}>
         </textarea>
         </Box1>
         <Box2>
-        <h3>Destination name 🏷️</h3>
-        <textarea name="destinationname" rows={4} cols={40} placeholder="Type your destination name here...">
+        <h3>{t("destinationname")} 🏷️</h3>
+        <textarea name="destinationname" rows={4} cols={40} placeholder={t("typelistdestination")}>
         </textarea>
         </Box2>
         <Box3>
-         <h3>Destination Type 🧭</h3>
-        <AsyncSelect className="DestinationType" cacheOptions loadOptions={loadOptions('DestinationTypes')} defaultOptions placeholder="Start typing or choose from list" isMulti/>
+         <h3>{t("destinationtype")} 🧭</h3>
+        <AsyncSelect className="DestinationType" cacheOptions loadOptions={loadOptions('DestinationTypes')} defaultOptions placeholder={t("starttyping")} isMulti/>
         </Box3>
         <Box4>
-        <h3>Purpose ⚙️</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('DestinationPurpose')} defaultOptions placeholder="Start typing or choose from list" isMulti/>
+        <h3>{t("purpose")} ⚙️</h3>
+        <AsyncSelect cacheOptions loadOptions={loadOptions('DestinationPurpose')} defaultOptions placeholder={t("starttyping")} isMulti/>
         </Box4>
         <Box5>
-        <h3>Temperature 🌡️</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('Temperature')} defaultOptions placeholder="Start typing or choose from list" isMulti/>
+        <h3>{t("temperature")} 🌡️</h3>
+        <AsyncSelect cacheOptions loadOptions={loadOptions('Temperature')} defaultOptions placeholder={t("starttyping")} isMulti/>
         </Box5>
         <Box6>
-        <h3>Weather Conditions 🌥️</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('WeatherConditions')} defaultOptions placeholder="Start typing or choose from list" isMulti/>
+        <h3>{t("weathercondition")} 🌥️</h3>
+        <AsyncSelect cacheOptions loadOptions={loadOptions('WeatherConditions')} defaultOptions placeholder={t("starttyping")} isMulti/>
         </Box6>
         <Box7>
-        <h3>Transportation 🚗</h3>
-        <AsyncSelect cacheOptions loadOptions={loadOptions('Vehicles')} defaultOptions placeholder="Start typing or choose from list" isMulti/>
+        <h3>{t("transportation")} 🚗</h3>
+        <AsyncSelect cacheOptions loadOptions={loadOptions('Vehicles')} defaultOptions placeholder={t("starttyping")} isMulti/>
         </Box7>
         <Box8>
-        <h3>Duration 🕒</h3>
+        <h3>{t("duration")} 🕒</h3>
         <DurationBoxDiv>
         <div>
-        Destination travel time: <input type="number" id="quantity" name="quantity" min="1" max="24"/> hours
+        {t("traveltime")}: <input type="number" id="quantity" name="quantity" min="1" max="24"/> {t("hours")}
         </div>
         <div>
-        <input name="input" type="checkbox" onClick={ToggleOverNightBox}/> Stay overnight for <input type="number" id="quantity" name="quantity" min="1" max="24" disabled={checkedOverNightBox}/> days
+        <input name="input" type="checkbox" onClick={ToggleOverNightBox}/> {t("overnight")} <input type="number" id="quantity" name="quantity" min="1" max="31" disabled={checkedOverNightBox}/> {t("nights")}
         </div>
         
         </DurationBoxDiv>
         </Box8>
         <Box9>
         <GenerateListButton>
-        <h4>CREATE LIST</h4>    
+        <h4>{t("createlist")}</h4>    
         </GenerateListButton>
         </Box9>
         <Box10>
@@ -214,7 +216,7 @@ function CreateListFormCode() {
         <label>
          <input name="input" id='autoassign' type="checkbox" checked={checkedAutoBox} onClick={ToggleAutoBox}/>
         </label>
-        <p>Let program automatically assign <br></br> clothes and accessories?</p>
+        <p>{t("automaticassign")} <br></br> {t("automaticassign2")}</p>
         <ToolTipImage src="/icons/questionmark.svg" alt="Home cottage symbol"/>
         </AutomaticAssignDiv></Box10>
         </CreateListFormGrid1>

@@ -1,47 +1,64 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import { useTranslate } from "./LanguageContext";
 
-const FooterDiv=styled.footer`
-display:grid;
-grid-template-columns: 50% 50%;
-gap:50px;
-background-color:black;
+const FooterDiv=styled.div`
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:center;
+width:auto;
+height:200px;
+background-color:rgba(36, 36, 36, 1);
 color:white;
-margin: 0 auto;
-min-width:100wh;
-font-size:0.8em;
-`;
-const Disclaimer=styled.div`
-display:flex;
-flex-direction:column;
-margin: 25px 0px 25px 25px;
-grid-column:1;
-`;
 
-const Links=styled.div`
+.Some {
 display:flex;
-flex-direction:column;
-margin-top:25px;
-grid-column:2;
+flex-direction:row;
+gap:10px;
+margin-bottom:20px;
+padding:10px;
+background-color:white;
+}
+`;
+const Logo=styled.img`
+width:50px;
+height:auto;
+`;
+const CopyRight=styled.div`
+display:flex;
+flex-direction:row;
+`
+const AllRightReserved=styled.div`
+margin-bottom:10px;
 `;
 
 function Footer() {
-  return (
-      <div>
+        const {t,setLang}=useTranslate()
+        const d=new Date();
+        let year=d.getFullYear()+1;
+        return (
+        <>
+        <div>
         <FooterDiv>
-          <Disclaimer>
-            <h4>Disclaimer</h4>
-            <p>The information provided on this site is for general guidance and entertainment purposes only.<br/>
-            While we aim to keep content accurate and practical, users are responsible for their own safety and preparedness.<br/> 
-            Always check current conditions, local regulations, and use your best judgment. <br/>
-            The creators of this site are not liable for any harm, injury, or loss resulting from its use.</p>
-          </Disclaimer>
-          <Links>
-          <h3>Links</h3>
-          <a href="https://github.com/MichaelYorman" target="_blank">Github</a>
-          <a href="https://google.com" target="_blank">Portfolio</a>
-          </Links>
+        <CopyRight>
+        <div className="Some">
+        <div>
+        <Logo src="/icons/github-mark.svg" alt="Github Invertocat Logo">
+        </Logo>
+        </div>
+        <div>
+        <Logo src="/icons/linkedin.png" alt="LinkedIn Logo">
+        </Logo>
+        </div>
+        </div>
+        </CopyRight>
+        <AllRightReserved>
+        <h2>&copy; 2025-{year} {t("footer")}</h2>
+        </AllRightReserved>
         </FooterDiv>
-      </div>
-  )
+        </div>
+        </>
+    )
 }
+
 export default Footer;

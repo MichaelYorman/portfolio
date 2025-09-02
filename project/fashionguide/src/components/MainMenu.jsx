@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom';
 import LanguageThemePanel from "./LanguageThemePanel";
+import { useTranslate } from "./LanguageContext";
 
 const NavButton = styled(NavLink)`
   color:black;
@@ -39,24 +40,25 @@ gap:50px;
 margin-top:90px;
 `;
 function MainMenu() {
+  const {t,setLang}=useTranslate();
   return (
     <>
       <div>
         <ContentMenu>
           <LanguageThemePanel/>
-        <MainHeader>FASHION AND ACCESSORY GUIDE</MainHeader>
+        <MainHeader>{t("mainheader")}</MainHeader>
         <ButtonDiv>
         <NavButton to="/user_home">
         <Logo src="/icons/arrow.svg" alt="Arrow bubble symbol"/>
-        <h2>START</h2>
+        <h2>{t("start")}</h2>
         </NavButton>
         <NavButton to="/info">
         <Logo src="/icons/info.svg" alt="Info bubble symbol"/>
-        <h2>INFO</h2>
+        <h2>{t("info")}</h2>
         </NavButton>
         <NavButton to="/info">
         <Logo src="/icons/links.svg" alt="Info bubble symbol"/>
-        <h2>LINKS</h2>
+        <h2>{t("links")}</h2>
         </NavButton>
         </ButtonDiv>
         </ContentMenu>

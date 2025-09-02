@@ -1,0 +1,43 @@
+{
+  "mainheader": "Fashion and Accessory Guide",
+  "start": "Start",
+  "info": "Info",
+  "links": "Links",
+  "language": "Language",
+  "theme": "Theme",
+  
+  "home": "Home",
+  "settings": "Settings",
+  "logout": "Logout",
+  "createlist": "Create new list",
+
+  "listheader": "Travel list maker",
+  "listname": "List name",
+  "destinationname": "Destination name",
+  "destinationtype": "Destination type",
+  "purpose": "Purpose",
+  "temperature": "Temperature",
+  "weathercondition": "Weather Condition",
+  "transportation": "Transportation",
+  "duration": "Duration",
+  "traveltime": "Destination travel time",
+  "hours":"hour(s)",
+  "overnight": "Stay overnight for",
+  "nights":"night(s)",
+  "automaticassign":"Let program automatically",
+  "automaticassign2":"assign clothes and accessories?",
+  "typelistname":"Type your list name here...",
+  "typelistdestination":"Type your destination name here...",
+  "starttyping":"Start typing or choose from list...",
+
+  "typeforest": "Forest",
+  "typemountain": "Mountain",
+  "typebeach": "Beach",
+  "typedesert": "Desert/Badland",
+  "typecave": "Cave",
+  "typebodyofwater": "Body of water",
+  "typeresidentialarea": "Residential area",
+  "typecountryside": "Countryside",
+
+  "footer":"Henri Jormanainen. All rights reserved"
+}

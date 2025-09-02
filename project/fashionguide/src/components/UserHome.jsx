@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
 import LanguageThemePanel from "./LanguageThemePanel";
 import WidgetPanel from "./WidgetPanel";
+import { useTranslate } from "./LanguageContext";
 
 const NavButton = styled(NavLink)`
   text-decoration: none;
@@ -49,6 +50,7 @@ width:250px;
 outline:5px dashed black;
 `;
 function UserHome() {
+  const {t,setLang}=useTranslate();
   return (
     <>
       <div>
@@ -58,7 +60,7 @@ function UserHome() {
         <CreateNewListDiv>
         <NavButton to="/create_list">
         <NewListLogo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
-        CREATE NEW LIST</NavButton>
+        {t("createlist")}</NavButton>
         </CreateNewListDiv>
         <ListingDiv>
           <Block>
