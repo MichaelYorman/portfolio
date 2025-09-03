@@ -39,5 +39,46 @@
   "typeresidentialarea": "Residential area",
   "typecountryside": "Countryside",
 
+  "typehangingout": "Hanging out",
+  "typevacation": "Vacation",
+  "typeswimming": "Swimming",
+  "typesightseeing": "Sightseeing",
+  "typephotography": "Photography",
+  "typestargazing": "Stargazing",
+  "typecamping": "Camping",
+  "typeclimbing": "Climbing",
+  "typewildlifewatching": "Wildlife watching",
+  "typefishing": "Fishing",
+  "typeforaging": "Foraging",
+
+  "typefoot": "Foot",
+  "typebike": "Bike",
+  "typecar": "Car",
+  "typepublictransportation": "Public transportation",
+  "typemotorbike": "Motorbike",
+  "typeairplane": "Airplane",
+  "typewatervehicle": "Boat",
+  "typeskateboard": "Skateboard",
+  "typescooter": "Scooter",
+  "typerollerblades": "Rollerblades",
+  "typepersonalelectricvehicle": "Personal electric vehicle",
+
+  "typeclear": "Clear",
+  "typeraining": "Raining",
+  "typelowvisibility": "Low visibility",
+  "typesandstorm": "Sandstorm",
+  "typefog": "Fog",
+
+  
+  "typescorching": "Scorching (Above 40°C)",
+  "typehot": "Hot (30-39°C)",
+  "typewarm": "Warm (20-29°C)",
+  "typetemperate": "Temperate (11-19°C)",
+  "typecool": "Cool (0-10°C)",
+  "typechilly": "Chilly (-1 to -10°C)",
+  "typecold": "Cold (-11 to -19°C)",
+  "typeverycold": "Very Cold (-20°C to -29°C)",
+  "typefreezing": "Freezing (Below -30°C)",
+
   "footer":"Henri Jormanainen. All rights reserved"
 }

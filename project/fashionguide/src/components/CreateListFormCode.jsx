@@ -85,48 +85,48 @@ DestinationTypes: [
     {value:'countryside',label:`${t("typecountryside")}🌻`},
 ],
 DestinationPurpose: [
-    {value:'hangingout',label:'Hanging out 😎☕'},
-    {value:'vacation',label:'Vacation 🏖️'},
-    {value:'swimming',label:'Swimming 🏊‍♂️'},
-    {value:'sightseeing',label:'Sightseeing 🗽'},
-    {value:'photography',label:'Photography 📸'},
-    {value:'stargazing',label:'Stargazing 🌕'},
-    {value:'camping',label:'Camping 🏕️'},
-    {value:'climbing',label:'Climbing 🧗‍♂️'},
-    {value:'wildlifewatching',label:'Wildlife watching 🦉'},
-    {value:'fishing',label:'Fishing 🎣'},
-    {value:'foraging',label:'Foraging 🍄'}
+{ value: 'hangingout', label: `${t("typehangingout")}  😎☕` },
+  { value: 'vacation', label: `${t("typevacation")} 🏖️` },
+  { value: 'swimming', label: `${t("typeswimming")}  🏊‍♂️` },
+  { value: 'sightseeing', label: `${t("typesightseeing")} 🗽` },
+  { value: 'photography', label: `${t("typephotography")} 📸` },
+  { value: 'stargazing', label: `${t("typestargazing")} 🌕` },
+  { value: 'camping', label: `${t("typecamping")} 🏕️` },
+  { value: 'climbing', label: `${t("typeclimbing")} 🧗‍♂️` },
+  { value: 'wildlifewatching', label: `${t("typewildlifewatching")} 🦉` },
+  { value: 'fishing', label: `${t("typefishing")} 🎣` },
+  { value: 'foraging', label: `${t("typeforaging")} 🍄🫐` }
 ],
 Vehicles: [
-    {value:'foot',label:'Foot 🚶'},
-    {value:'bike',label:'Bike 🚲'},
-    {value:'car',label:'Car 🚗'},
-    {value:'publictransportation',label:'Public transportation 🚌'},
-    {value:'motorbike',label:'Motorbike 🏍️'},
-    {value:'Airplane',label:'Airplane ✈️'},
-    {value:'watervehicle', label:'Boat ⛵'},
-    {value:'skateboard',label:'Skateboard 🛹'},
-    {value:'scooter',label:'Manual Scooter 🛴'},
-    {value:'rollerblades',label:'Rollerblades 🛼'},
-    {value:'personalelectricvehicle',label:'Personal Electric Vehicle ⚡🛴'},
+  { value: 'foot', label: `${t("typefoot")} 🚶` },
+  { value: 'bike', label: `${t("typebike")} 🚲` },
+  { value: 'car', label: `${t("typecar")} 🚗` },
+  { value: 'publictransportation', label: `${t("typepublictransportation")} 🚌` },
+  { value: 'motorbike', label: `${t("typemotorbike")} 🏍️` },
+  { value: 'airplane', label: `${t("typeairplane")} ✈️` },
+  { value: 'watervehicle', label: `${t("typewatervehicle")} ⛵` },
+  { value: 'skateboard', label: `${t("typeskateboard")} 🛹` },
+  { value: 'scooter', label: `${t("typescooter")} 🛴` },
+  { value: 'rollerblades', label: `${t("typerollerblades")} 🛼` },
+  { value: 'personalelectricvehicle', label: `${t("typepersonalelectricvehicle")} ⚡🛴` }
 ],
 WeatherConditions: [
-    {value:'clear',label:'Clear ☀️'},
-    {value:'raining', label:'Raining 🌧️'},
-    {value:'lowvisibility',label:'Low visibility 👁🚫'},
-    {value:'sandstorm', label: 'Sandstorm 💨'},
-    {value:'fog',label:'Fog 🌫️'}
+  { value: 'clear', label: `${t("typeclear")} ☀️` },
+  { value: 'raining', label: `${t("typeraining")} 🌧️` },
+  { value: 'lowvisibility', label: `${t("typelowvisibility")} 👁🚫` },
+  { value: 'sandstorm', label: `${t("typesandstorm")} 💨🏜️` },
+  { value: 'fog', label: `${t("typefog")} 🌫️` }
 ],
 Temperature: [
-    { value: 'scorching', label: 'Scorching (Above 40°C) 🔥💀', minTemp: 40 },
-    { value: 'hot', label: 'Hot (30-39°C) 🔥', minTemp: 30, maxTemp: 39 },
-    { value: 'warm', label: 'Warm (20-29°C) ☀️', minTemp: 20, maxTemp: 29 },
-    { value: 'temperate', label: 'Temperate (11-19°C) 🌳', minTemp: 11, maxTemp: 19 },
-    { value: 'chilly', label: 'Chilly (0-10°C) 🌬️', minTemp: 0, maxTemp: 10 },
-    { value: 'coldish', label: 'Coldish (-1 to -10°C) ❄️', minTemp: -10, maxTemp: -1 },
-    { value: 'cold', label: 'Cold (-11 to -19°C) 🥶', minTemp: -19, maxTemp: -11 },
-    { value: 'verycold', label: 'Very Cold (-20°C to -29°C) 🧊', minTemp: -29, maxTemp: -20 },
-    { value: 'freezing', label: 'Freezing (Below -30°C) 🧊💀', minTemp: -50, maxTemp: -30 }
+  { value: 'scorching', label:`${t("typescorching")} 🔥💀`, minTemp: 40 },
+  { value: 'hot', label: `${t("typehot")} 🔥`, minTemp: 30, maxTemp: 39 },
+  { value: 'warm', label: `${t("typewarm")} ☀️`, minTemp: 20, maxTemp: 29 },
+  { value: 'temperate', label: `${t("typetemperate")} 🌳`, minTemp: 11, maxTemp: 19 },
+  { value: 'cool', label: `${t("typecool")} ☀️⚖️❄️`, minTemp: 0, maxTemp: 10 },
+  { value: 'chilly', label: `${t("typechilly")} ❄️`, minTemp: -10, maxTemp: -1 },
+  { value: 'cold', label: `${t("typecold")} 🥶`, minTemp: -19, maxTemp: -11 },
+  { value: 'verycold', label: `${t("typeverycold")} 🧊`, minTemp: -29, maxTemp: -20 },
+  { value: 'freezing', label: `${t("typefreezing")} 🧊💀`, minTemp: -50, maxTemp: -30 }
 ]
 });
 function CreateListFormCode() {
@@ -166,7 +166,7 @@ const loadOptions = (sourceKey) => (inputValue, callback) => {
         <h1>{t("listheader")}</h1>
         <Box1>
         <h3>{t("listname")} 🏷️</h3>
-        <textarea name="listname" rows={4} cols={40} placeholder={t("typelistname")}>
+        <textarea name="listname" rows={4} cols={40} placeholder={t("typelistname")} required>
         </textarea>
         </Box1>
         <Box2>

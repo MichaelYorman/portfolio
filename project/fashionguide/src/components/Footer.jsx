@@ -47,7 +47,7 @@ function Footer() {
         </Logo>
         </div>
         <div>
-        <Logo src="/icons/linkedin.png" alt="LinkedIn Logo">
+        <Logo src="/icons/linkedin.svg" alt="LinkedIn Logo">
         </Logo>
         </div>
         </div>
