@@ -1,14 +1,8 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
+import { useTranslate } from "./LanguageContext";
 import LanguageThemePanel from "./LanguageThemePanel";
 
-const NavButton = styled(NavLink)`
-  background-color: black;
-  color:whitesmoke;
-  text-decoration: none;
-  padding: 10px;
-  font-size:1.5em;
-`;
 const ContentMenu = styled.div`
 display:flex;
 flex-direction:column;
@@ -20,33 +14,46 @@ min-height:100vh;
 margin: 0 auto;
 `;
 
+const NavButton = styled(NavLink)`
+  background-color: black;
+  color:whitesmoke;
+  text-decoration: none;
+  padding: 10px;
+  font-size:1.5em;
+`;
+
 const Logo=styled.img`
 width:50px;
 height:auto;
 `;
 
-const MainHeader=styled.h1`
+const MainMenuHeader=styled.h1`
 font-size:3em;
 text-align:center;
 color:black;
 margin-top:400px;
 `;
-const ButtonDiv=styled.div`
+const ButtonPlacementDiv=styled.div`
 background-color:rgba(255, 255, 255, 0.5);
 padding:50px;
 margin-top:50px;
 `;
 function Info() {
+   const {t,setLang}=useTranslate();
   return (
     <>
       <div>
         <ContentMenu>
           <LanguageThemePanel/>
-        <MainHeader>FASHION AND ACCESSORY GUIDE</MainHeader>
-        <ButtonDiv>
+        <header>
+        <MainMenuHeader>
+          {t("mainheader")}
+        </MainMenuHeader>
+          </header>
+        <ButtonPlacementDiv>
           <p>some info</p>
         <NavButton to="/">BACK TO MAIN MENU</NavButton>
-        </ButtonDiv>
+        </ButtonPlacementDiv>
         </ContentMenu>
       </div>
     </>

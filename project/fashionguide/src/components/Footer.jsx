@@ -4,32 +4,28 @@ import { useTranslate } from "./LanguageContext";
 const FooterDiv=styled.div`
 display:flex;
 flex-direction:column;
-justify-content:flex-end;
+justify-content:center;
 align-items:center;
-width:auto;
-height:200px;
+width:100%;
+height:auto;
 background-color:rgba(36, 36, 36, 1);
 color:white;
-
-.Some {
-display:flex;
-flex-direction:row;
-gap:10px;
-margin-bottom:20px;
-padding:10px;
-background-color:white;
-}
 `;
+
 const Logo=styled.img`
 width:50px;
 height:auto;
 `;
-const CopyRight=styled.div`
+const SocialMediaDiv=styled.div`
 display:flex;
 flex-direction:row;
+margin: 20px 0px 20px 0px;
+gap:30px;
+padding:20px;
+background-color:white;
 `
-const AllRightReserved=styled.div`
-margin-bottom:10px;
+const AllRightReservedDiv=styled.div`
+margin: 10px 0px 10px; 0px;
 `;
 
 function Footer() {
@@ -40,21 +36,20 @@ function Footer() {
         <>
         <div>
         <FooterDiv>
-        <CopyRight>
-        <div className="Some">
+        <SocialMediaDiv>
+        <a href="https://github.com/MichaelYorman" target="_blank" rel="nopener noreferrer">
+        <Logo src="/icons/github-mark.svg" alt="Github Invertocat Logo"/>
+        </a>
         <div>
-        <Logo src="/icons/github-mark.svg" alt="Github Invertocat Logo">
-        </Logo>
-        </div>
-        <div>
+        <a href="https://www.linkedin.com/in/henri-jormanainen-74293637b" target="_blank" rel="nopener noreferrer">
         <Logo src="/icons/linkedin.svg" alt="LinkedIn Logo">
         </Logo>
+        </a>
         </div>
-        </div>
-        </CopyRight>
-        <AllRightReserved>
+        </SocialMediaDiv>
+        <AllRightReservedDiv>
         <h2>&copy; 2025-{year} {t("footer")}</h2>
-        </AllRightReserved>
+        </AllRightReservedDiv>
         </FooterDiv>
         </div>
         </>

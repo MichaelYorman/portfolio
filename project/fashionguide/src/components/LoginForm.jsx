@@ -35,7 +35,7 @@ function LoginForm () {
       <StyledInput  type="text" id="name_or_email" placeholder="Your name or email here..." name="account_name" required />
       <label for="password">Password: </label>
       <StyledInput type="password" id="my_password" placeholder="Your password here..." name="password" required/>
-      <LoginButton to="/user_home" type="submit">LOGIN</LoginButton>
+      <LoginButton to="/user-home" type="submit">LOGIN</LoginButton>
     </StyledForm>
     </>
     </div>

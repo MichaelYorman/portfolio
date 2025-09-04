@@ -32,25 +32,25 @@ function WidgetPanel() {
     <div>
     <WidgetPanelStyle>
     <div>
-    <NavButton to="/user_home">
+    <NavButton to="/user-home">
     <Logo src="/icons/home.svg" alt="Home cottage symbol"/>
     <h4>{t("home")}</h4>
     </NavButton>
     </div>
     <div>
-    <NavButton to="/user_home">
+    <NavButton to="/user-home">
      <Logo src="/icons/info.svg" alt="Info circle symbol"/> 
      <h4>{t("info")}</h4>
      </NavButton>
     </div>
     <div>
-    <NavButton to="/user_home">
+    <NavButton to="/use-home">
      <Logo src="/icons/links.svg" alt="Two links together symbol"/> 
      <h4>{t("links")}</h4>
      </NavButton>
     </div>
     <div>
-    <NavButton to="/user_home">
+    <NavButton to="/user-home">
      <Logo src="/icons/settings.svg" alt="Settings gear symbol"/> 
      <h4>{t("settings")}</h4>
      </NavButton>

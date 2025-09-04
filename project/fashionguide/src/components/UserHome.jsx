@@ -58,7 +58,7 @@ function UserHome() {
         <WidgetPanel/>
         <LanguageThemePanel/>
         <CreateNewListDiv>
-        <NavButton to="/create_list">
+        <NavButton to="/create-list">
         <NewListLogo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
         {t("createlist")}</NavButton>
         </CreateNewListDiv>

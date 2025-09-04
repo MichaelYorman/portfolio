@@ -36,7 +36,7 @@ function RegisterForm () {
       <StyledInput type="text" id="my_email_address"  placeholder="Your email address here..." name="email_address" required/>
       <label for="password">Password: </label>
       <StyledInput type="password" id="my_password" placeholder="Your password here..." name="password" required/>
-      <RegisterButton to="/user_home" type="submit">LOGIN</RegisterButton>
+      <RegisterButton to="/user-home" type="submit">LOGIN</RegisterButton>
       <div style={{display:"none"}}>
     <label>Leave this field empty:</label>
     <input type="text" name="website" />

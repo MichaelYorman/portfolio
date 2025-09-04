@@ -1,6 +1,6 @@
 import './App.css'
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
-import GlobalStyle from './components/CreateGlobalStyle'
+import GlobalStyle from './components/GlobalStyle'
 import MainMenu from './components/MainMenu'
 import Footer from './components/Footer'
 import Info from './components/Info'
@@ -10,6 +10,7 @@ import RegisterMenu from './components/RegisterMenu'
 import UserHome from './components/UserHome'
 import CreateList from './components/CreateList'
 import LanguageSwitch from './components/LanguageSwitch';
+import NewList from './components/NewList';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
       <Routes>
        <Route path="/" element={<MainMenu/>}>
         </Route>
-        <Route path="/login_register" element={<LoginRegisterHead/>}>
+        <Route path="/login-register" element={<LoginRegisterHead/>}>
         </Route>
         <Route path="/info" element={<Info/>}>
         </Route>
@@ -30,9 +31,11 @@ function App() {
         </Route>
         <Route path="/register" element={<RegisterMenu/>}>
         </Route>
-        <Route path="/user_home" element={<UserHome/>}>
+        <Route path="/user-home" element={<UserHome/>}>
         </Route>
-        <Route path="/create_list" element={<CreateList/>}>
+        <Route path="/create-list" element={<CreateList/>}>
+        </Route>
+        <Route path="/new-list" element={<NewList/>}>
         </Route>
       </Routes>
       <Footer/>
