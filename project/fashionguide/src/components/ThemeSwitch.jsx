@@ -1,8 +1,8 @@
-import {useTranslate} from "./LanguageContext"
+import { useTheme } from "./ThemeContext";
 import {setCookie,getCookie,checkCookie,deleteCookie} from "./Cookies"
 import styled from "styled-components"
 
-const DropDownBlockEn=styled.div`
+const DropDownBlockDefault=styled.div`
 &:hover {
 background-color:rgba(138, 138, 138, 1);
 text-decoration:underline;
@@ -14,7 +14,7 @@ cursor:pointer;
 p {
 margin-bottom:5px;}
 `;
-const DropDownBlockFi=styled.div`
+const DropDownBlockNight=styled.div`
 &:hover {
 background-color:rgba(138, 138, 138, 1);
 text-decoration:underline;
@@ -56,11 +56,11 @@ display:flex;
 flex-direction:row;
 }
 `;
-function LanguageSwitch() {
-    const {setLang}=useTranslate();
-    function changeLanguage(langName) {
-        setCookie("language",langName,"7");
-        setLang(langName);
+function ThemeSwitch() {
+    const {setTheme}=useTheme();
+    function changeTheme(themeName) {
+        setCookie("theme",themeName,"7");
+        setTheme(themeName);
     
     }
 
@@ -70,14 +70,14 @@ function LanguageSwitch() {
         <DropdownDiv>
         <DropDownBtn src="/icons/language.svg" alt="language symbol"/>
         <DropDownContent>
-        <DropDownBlockEn onClick={()=>changeLanguage("en")}>
-        <Logo  src="/icons/uk-flag.svg" alt="uk-flag" onClick={()=>changeLanguage("en")}></Logo>
-        <p>EN</p>
-        </DropDownBlockEn>
-        <DropDownBlockFi onClick={()=>changeLanguage("fi")}>
-        <Logo  src="/icons/fi-flag.svg" alt="fi-flag" onClick={()=>changeLanguage("fi")}></Logo>
-        <p>FI</p>
-        </DropDownBlockFi>
+        <DropDownBlockDefault onClick={()=>changeTheme("defaultmode")}>
+        <Logo  src="/icons/uk-flag.svg" alt="uk-flag"></Logo>
+        <p>Light</p>
+        </DropDownBlockDefault>
+        <DropDownBlockNight onClick={()=>changeTheme("nightmode")}>
+        <Logo  src="/icons/fi-flag.svg" alt="fi-flag"></Logo>
+        <p>Dark</p>
+        </DropDownBlockNight>
         </DropDownContent>
         </DropdownDiv>
         </div>
@@ -85,4 +85,4 @@ function LanguageSwitch() {
     )
 }
 
-export default LanguageSwitch;
+export default ThemeSwitch;

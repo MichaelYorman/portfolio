@@ -29,13 +29,23 @@ function deleteCookie(name) {
     document.cookie=name+"=; Max-Age=-99999999; path=/"
 }
 
-function checkCookie() {
-    let lang=getCookie("language");
+function checkCookie(keyword) {
+  if (keyword=="language") {
+  let lang=getCookie("language");
     if (lang!="") {
         return(lang)
     } else {
         return("")
     }
+  } else if (keyword=="theme") {
+    let theme=getCookie("theme");
+    if(theme!="") {
+      return(theme)
+    } else {
+      return("")
+    }
+  }
+
 }
 
 export {setCookie,getCookie,deleteCookie,checkCookie};

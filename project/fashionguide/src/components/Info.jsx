@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
 import { useTranslate } from "./LanguageContext";
-import LanguageThemePanel from "./LanguageThemePanel";
 
 const ContentMenu = styled.div`
 display:flex;
@@ -44,7 +43,6 @@ function Info() {
     <>
       <div>
         <ContentMenu>
-          <LanguageThemePanel/>
         <header>
         <MainMenuHeader>
           {t("mainheader")}

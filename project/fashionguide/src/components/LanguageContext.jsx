@@ -6,7 +6,7 @@ import {setCookie,getCookie,checkCookie,deleteCookie} from "./Cookies"
 const LanguageContext=createContext();
 
 function LanguageProvider({children}) {
-    let cookie=checkCookie()
+    let cookie=checkCookie("language")
     //if no cookie is found, set default cookie to "en"
     if (!cookie) {cookie="en"}
     const[lang,setLang]=useState(cookie);

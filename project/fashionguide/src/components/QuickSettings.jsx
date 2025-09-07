@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import LanguageSwitch from "./LanguageSwitch";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Logo=styled.img`
 width:50px;
@@ -7,7 +9,7 @@ height:auto;
 background-color:lightgray;
 }
 `;
-const Button = styled.div`
+const SettingButtonDiv = styled.div`
 text-decoration:none;
 color:black;
 cursor:pointer;
@@ -26,22 +28,22 @@ top:15px;
 left:15px;
 `;
 
-function LanguageThemePanel() {
+function QuickSettings() {
     return (
         <>
         <div>
     <ThemeLanguageStyle>
     <div>
-    <Button>
-    <Logo src="/icons/language.svg" alt="Language bubble symbol"/>
+    <SettingButtonDiv>
+    <LanguageSwitch/>
     <h4>Language</h4>
-    </Button>
+    </SettingButtonDiv>
     </div>
     <div>
-    <Button>
-    <Logo src="/icons/theme.svg" alt="Theme palette symbol"/>
+    <SettingButtonDiv>
+    <ThemeSwitch/>
     <h4>Theme</h4>
-    </Button>
+    </SettingButtonDiv>
     </div> 
     </ThemeLanguageStyle>
         </div>
@@ -49,4 +51,4 @@ function LanguageThemePanel() {
     )
 }
 
-export default LanguageThemePanel;
+export default QuickSettings;

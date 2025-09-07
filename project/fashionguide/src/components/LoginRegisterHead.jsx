@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import LanguageThemePanel from "./LanguageThemePanel";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -43,7 +42,6 @@ function LoginRegister() {
     <>
       <div>
       <ContentMenu>
-        <LanguageThemePanel/>
       <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
         <LoginRegisterDiv>
       <NavButton to="/login">LOGIN</NavButton>

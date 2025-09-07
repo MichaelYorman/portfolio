@@ -44,7 +44,7 @@ function WidgetPanel() {
      </NavButton>
     </div>
     <div>
-    <NavButton to="/use-home">
+    <NavButton to="/user-home">
      <Logo src="/icons/links.svg" alt="Two links together symbol"/> 
      <h4>{t("links")}</h4>
      </NavButton>

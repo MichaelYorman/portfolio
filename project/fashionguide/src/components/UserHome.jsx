@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
-import LanguageThemePanel from "./LanguageThemePanel";
 import WidgetPanel from "./WidgetPanel";
 import { useTranslate } from "./LanguageContext";
+import { useTheme } from "./ThemeContext";
 
 const NavButton = styled(NavLink)`
   text-decoration: none;
@@ -13,7 +13,7 @@ const ContentMenu = styled.div`
 display:flex;
 flex-direction:column;
 position:relative;
-background-color:green;
+background-color: ${(p) => p.$bg};
 width: 1080px;
 min-height:100vh;
 margin: 0 auto;
@@ -50,13 +50,14 @@ width:250px;
 outline:5px dashed black;
 `;
 function UserHome() {
+  const {s}=useTheme();
+  const bgColor = s("background"); 
   const {t,setLang}=useTranslate();
   return (
     <>
       <div>
-        <ContentMenu>
+        <ContentMenu $bg={s("background")}>
         <WidgetPanel/>
-        <LanguageThemePanel/>
         <CreateNewListDiv>
         <NavButton to="/create-list">
         <NewListLogo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>

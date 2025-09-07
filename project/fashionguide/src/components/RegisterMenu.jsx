@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
-import LanguageThemePanel from "./LanguageThemePanel";
 
 const NavButton = styled(NavLink)`
   background-color: black;
@@ -50,7 +49,6 @@ function RegisterMenu() {
     <>
       <div>
       <ContentMenu>
-<LanguageThemePanel/>
       <MainHeader>FASHION AND ACCESSORY GUIDE FOR VENTURE</MainHeader>
       <div style={{marginTop:"90px"}}>
       <RegisterForm/>
