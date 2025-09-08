@@ -3,7 +3,7 @@ import { NavLink} from 'react-router-dom';
 import { useTranslate } from "./LanguageContext";
 
 
-const ContentMenu = styled.div`
+const Wrapper = styled.div`
 display:flex;
 flex-direction:column;
 position:relative;
@@ -44,7 +44,7 @@ function MainMenu() {
   return (
     <>
       <div>
-        <ContentMenu>
+        <Wrapper>
         <header>
         <MainMenuHeader>
         {t("mainheader")}
@@ -64,7 +64,7 @@ function MainMenu() {
         <h2>{t("links")}</h2>
         </NavButton>
         </ButtonPlacementDiv>
-        </ContentMenu>
+        </Wrapper>
       </div>
     </>
   )

@@ -1,15 +1,17 @@
 import styled from "styled-components"
 import { useTranslate } from "./LanguageContext";
 
-const FooterDiv=styled.div`
+const FooterDiv=styled.footer`
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+position:relative;
 width:100%;
 height:auto;
 background-color:rgba(36, 36, 36, 1);
 color:white;
+bottom:0;
 `;
 
 const Logo=styled.img`
