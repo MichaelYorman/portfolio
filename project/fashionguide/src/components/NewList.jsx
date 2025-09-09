@@ -18,32 +18,29 @@ flex-direction:column;
 background-color:whitesmoke;
 margin-top:50%;
 width:1080px;
-height:fit-content;
-padding-bottom:100px;
 `;
-const OverviewTextDiv=styled.div`
+const OverviewSettingsDiv=styled.div`
 display:flex;
 flex-direction:column;
+width:fit-content;
+gap:20px;
+margin-top:50px;
+margin-left:100px;
+`;
+const MapDiv=styled.div`
 background-color:gray;
-gap:10px;
-width:auto;
-align-items:center;
-.mylist-textarea {
-display: ${(props) => (props.$isHidden ? "none" : "inline-block")};
-}
-.mylist {&:hover{
-.mylist-textarea{display:inline-block}
-}}
+position:absolute;
+right:0;
+height:512px;
+width:512px;
 `;
 const OverviewContentDiv=styled.div`
 display:flex;
 flex-direction:column;
-background-color:gray;
 margin-top:100px;
 width:1080px;
 height:auto;
 align-items:center;
-align-self:center;
 padding-bottom:100px;
 }
 `;
@@ -63,8 +60,8 @@ display:flex;
 flex-direction:column;
 padding:10px;
 margin-top:50px;
-margin-right:100px;
-width:900px;
+margin-right:200px;
+width:800px;
 height:auto;
 outline-style:dashed;
 background-color:white;
@@ -86,7 +83,42 @@ const Logo=styled.img`
 width:50px;
 height:auto;
 `;
-const MyListHeader=styled.header`
+const Figure=styled.img`
+width:300px;
+height:auto;
+position:sticky;
+top:20px;
+margin-left:850px;
+margin-top:100px;
+`;
+const MyListNameHeader=styled.header`
+display:flex;
+flex-direction:column;
+gap:10px;
+header{text-decoration:underline}
+h1{cursor:pointer;}
+`;
+const MyListDestinationNameHeader=styled.header`
+display:flex;
+flex-direction:column;
+gap:10px;
+header{
+text-decoration:underline}
+h1{cursor:pointer;}
+`;
+const MyListDestinationTypeHeader=styled.header`
+display:flex;
+flex-direction:column;
+gap:10px;
+header{text-decoration:underline}
+h1{cursor:pointer;}
+`;
+const MyListVehicleHeader=styled.header`
+display:flex;
+flex-direction:column;
+gap:10px;
+header{text-decoration:underline}
+h1{cursor:pointer;}
 `;
 function NewList() {
 const {t,setLang}=useTranslate();
@@ -96,70 +128,63 @@ return (
     <div>
     <Wrapper>
     <NewListDiv>
-    <OverviewTextDiv>
-        <div className="mylist" onClick={() => setHidden((prev) => !prev)}>
-        <MyListHeader><h4>testilista</h4></MyListHeader>
-        <div className="mylist-textarea" $isHidden={isHidden}>
-        <textarea name="listname" rows={1} cols={40} placeholder="listname" required>
-        </textarea>
-        </div>
-        </div>
-        <div>
-        <textarea name="destinationname" rows={1} cols={40} placeholder="destinationname" required disabled>
-        </textarea>
-        </div>
-        <div>
-        <textarea name="destinationtype" rows={1} cols={40} placeholder="destinationtype" required disabled>
-        </textarea>
-        </div>
-        <div>
-         <textarea name="vehicle" rows={1} cols={40} placeholder="vehicle" required disabled>
-        </textarea>
-        </div>
-    </OverviewTextDiv>
+    <OverviewSettingsDiv>
+    <MyListNameHeader><header>{t("newlist-listname")}</header>
+    <h1>Listan nimi</h1>
+    </MyListNameHeader>
+    <MyListDestinationNameHeader><header>{t("newlist-destinationname")}</header>
+    <h1>Paikan nimi</h1></MyListDestinationNameHeader>
+    <MyListDestinationTypeHeader><header>{t("newlist-destinationtype")}</header>
+    <h1>Paikan tyyppi</h1></MyListDestinationTypeHeader>
+    <MyListVehicleHeader><header>{t("newlist-vehicle")}</header>
+    <h1>Ajoneuvo</h1></MyListVehicleHeader>    
+    </OverviewSettingsDiv>
+
+    <MapDiv/>
     <OverviewContentDiv>
+    <Figure src="icons/man-silhouette-1.svg" alt="Black stick figure resembling a man"/> 
     <ClothHeaderDiv>
-    <h2>Päähineet</h2>
+    <h2>{t("headwear")}</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
     <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg"/>
+    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
     </AddMoreButtonDiv>
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>Ylävartalo</h2>
+    <h2>{t("bodywear")}</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
     <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg"/>
+    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
     </AddMoreButtonDiv>
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>Käsineet</h2>
+    <h2>{t("handwear")}</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
     <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg"/>
+    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
     </AddMoreButtonDiv>
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>Alavartalo</h2>
+    <h2>{t("legwear")}</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
     <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg"/>
+    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
     </AddMoreButtonDiv>
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>Jalkineet</h2>
+    <h2>{t("footwear")}</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
     <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg"/>
+    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
     </AddMoreButtonDiv>
     </ClothContentDiv>
 

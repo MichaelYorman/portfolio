@@ -80,5 +80,15 @@
   "typeverycold": "Erittäin kylmä (-20°C (-) -29°C)",
   "typefreezing": "Jäätävä (Alle -30°C)",
 
+  "headwear":"Päähineet",
+  "bodywear":"Ylävartalo",
+  "handwear":"Käsineet",
+  "legwear":"Alavartalo",
+  "footwear":"Jalkineet",
+
+  "newlist-listname":"Listan nimi",
+  "newlist-destinationname":"Sijainnin nimi",
+  "newlist-destinationtype":"Sijainnin tyyppi",
+  "newlist-vehicle":"Ajoneuvo",
   "footer":"Henri Jormanainen. Kaikki oikeudet pidätetetty."
 }

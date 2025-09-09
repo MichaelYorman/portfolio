@@ -80,5 +80,16 @@
   "typeverycold": "Very Cold (-20°C to -29°C)",
   "typefreezing": "Freezing (Below -30°C)",
 
+  "headwear":"Headwear",
+  "bodywear":"Bodywear",
+  "handwear":"Handwear",
+  "legwear":"Legwear",
+  "footwear":"Footwear",
+
+  "newlist-listname":"List name",
+  "newlist-destinationname":"Destination name",
+  "newlist-destinationtype":"Destination type",
+  "newlist-vehicle":"Vehicle",
+
   "footer":"Henri Jormanainen. All rights reserved."
 }
