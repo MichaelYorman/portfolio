@@ -90,6 +90,8 @@
   "newlist-destinationname":"Destination name",
   "newlist-destinationtype":"Destination type",
   "newlist-vehicle":"Vehicle",
+  "newlist-purpose":"Purpose",
+  "newlist-weather":"Weather Conditions",
 
   "footer":"Henri Jormanainen. All rights reserved."
 }

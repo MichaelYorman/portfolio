@@ -90,5 +90,7 @@
   "newlist-destinationname":"Sijainnin nimi",
   "newlist-destinationtype":"Sijainnin tyyppi",
   "newlist-vehicle":"Ajoneuvo",
+  "newlist-purpose":"Matkan tarkoitus",
+  "newlist-weather":"Sääolosuhteet",
   "footer":"Henri Jormanainen. Kaikki oikeudet pidätetetty."
 }
