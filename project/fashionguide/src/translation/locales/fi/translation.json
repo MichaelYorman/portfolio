@@ -30,6 +30,8 @@
   "typelistname":"Kirjoita listasi nimi tähän...",
   "typelistdestination":"Kirjoita sijaintisi nimi tähän...",
   "starttyping":"Kirjoita jotakin tai valitse listasta...",
+  "starttypingtype":"Kirjoita jotakin paikan olemuksesta...",
+  "starttypingpurpose":"Kirjoita jotakin matkan tarkoituksesta...",
   
   "typeforest": "Metsä",
   "typemountain": "Vuoristo",
@@ -92,5 +94,8 @@
   "newlist-vehicle":"Ajoneuvo",
   "newlist-purpose":"Matkan tarkoitus",
   "newlist-weather":"Sääolosuhteet",
+
+  "or":"tai",
+
   "footer":"Henri Jormanainen. Kaikki oikeudet pidätetetty."
 }

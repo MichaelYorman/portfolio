@@ -29,6 +29,8 @@
   "typelistname":"Type your list name here...",
   "typelistdestination":"Type your destination name here...",
   "starttyping":"Start typing or choose from list...",
+  "starttypingtype":"Describe the environment of the destination...",
+  "starttypingpurpose":"Describe the purpose of your travel...",
 
   "typeforest": "Forest",
   "typemountain": "Mountain",
@@ -92,6 +94,8 @@
   "newlist-vehicle":"Vehicle",
   "newlist-purpose":"Purpose",
   "newlist-weather":"Weather Conditions",
+
+  "or":"or",
 
   "footer":"Henri Jormanainen. All rights reserved."
 }
