@@ -2,22 +2,12 @@ import styled from "styled-components";
 import { useTranslate } from "./LanguageContext";
 import { useState } from "react";
 
-const Wrapper = styled.div`
-display:flex;
-flex-direction:column;
-position:relative;
-align-items:center;
-background-color:green;
-width:1080px;
-min-height:100vh;
-margin: 0 auto;
-`;
 const NewListDiv=styled.div`
 display:flex;
 flex-direction:column;
+position:relative;
 background-color:whitesmoke;
-margin-top:10%;
-width:1080px;
+margin-top:250px;
 `;
 const UpperListSection=styled.div`
 display:grid;
@@ -107,8 +97,8 @@ const Figure=styled.img`
 width:400px;
 height:auto;
 position:sticky;
-top:20px;
-margin-left:850px;
+top:50px;
+margin-left:1050px;
 `;
 const MyListHeader=styled.header`
 display:flex;
@@ -222,10 +212,10 @@ let listName=""
 return (
     <>
     <div>
-    <Wrapper>
     <NewListDiv>
+    <MapDiv/>
     <UpperListSection>
-        <OverViewSettingsDiv1>
+    <OverViewSettingsDiv1>
     <MyListHeader><header>{t("newlist-listname")}</header>
     <h2>Listan nimi</h2>
     <StyledTextArea name="listname" rows={4} cols={40} placeholder={t("typelistname")} required/>
@@ -370,8 +360,6 @@ return (
     </MyListHeader>
     </OverViewSettingsDiv2>
     </UpperListSection>
-    
-    <MapDiv/>
 
     <OverviewContentDiv>
     <Figure src="icons/man-silhouette-1.svg" alt="Black stick figure resembling a male person"/> 
@@ -466,7 +454,6 @@ return (
 
     </OverviewContentDiv>
     </NewListDiv>
-    </Wrapper>
     </div>
     </>
 )

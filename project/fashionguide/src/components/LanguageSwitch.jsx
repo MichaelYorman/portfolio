@@ -35,10 +35,13 @@ cursor:pointer;
 `;
 
 const DropDownBtn=styled.img`;
-padding:16px;
-border:none;
-width:70px;
-height:auto;
+margin:10px;
+width:50px;
+height:50px;
+background-color:whitesmoke;
+background-image:url("/icons/language.svg");
+background-size: cover;
+background-position: center;
 `;
 const DropDownContent=styled.div`
 display:none;
@@ -68,7 +71,7 @@ function LanguageSwitch() {
         <>
         <div>
         <DropdownDiv>
-        <DropDownBtn src="/icons/language.svg" alt="language symbol"/>
+        <DropDownBtn/>
         <DropDownContent>
         <DropDownBlockEn onClick={()=>changeLanguage("en")}>
         <Logo  src="/icons/uk-flag.svg" alt="uk-flag" onClick={()=>changeLanguage("en")}></Logo>

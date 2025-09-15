@@ -7,9 +7,6 @@ display:flex;
 flex-direction:column;
 position:relative;
 align-items:center;
-background-color:green;
-width: 1080px;
-min-height:100vh;
 margin: 0 auto;
 `;
 

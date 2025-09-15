@@ -1,17 +1,24 @@
 import styled from "styled-components"
 import { useTranslate } from "./LanguageContext";
 
-const FooterDiv=styled.footer`
+const FooterDiv = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(36, 36, 36, 1);
+  color: white;
+  width: 100%;
+`;
+const ContactMe=styled.div`
 display:flex;
 flex-direction:column;
-justify-content:center;
-align-items:center;
-position:relative;
-width:100%;
-height:auto;
-background-color:rgba(36, 36, 36, 1);
-color:white;
-bottom:0;
+text-align:center;
+width:fit-content;
+height:50%;
+
+h2 {text-decoration:underline}
 `;
 
 const Logo=styled.img`
@@ -21,23 +28,29 @@ height:auto;
 const SocialMediaDiv=styled.div`
 display:flex;
 flex-direction:row;
-margin: 20px 0px 20px 0px;
 gap:30px;
 padding:20px;
 background-color:white;
+width:fit-content;
 `
 const AllRightReservedDiv=styled.div`
-margin: 10px 0px 10px; 0px;
+display:flex;
+flex-direction:row;
+width:fit-content;
 `;
 
 function Footer() {
         const {t,setLang}=useTranslate()
         const d=new Date();
         let year=d.getFullYear()+1;
+        const name="Henri Jormanainen.";
+        const allRightsReserved="All rights reserved."
         return (
         <>
         <div>
         <FooterDiv>
+        <ContactMe>
+        <h2>Connect</h2>
         <SocialMediaDiv>
         <a href="https://github.com/MichaelYorman" target="_blank" rel="nopener noreferrer">
         <Logo src="/icons/github-mark.svg" alt="Github Invertocat Logo"/>
@@ -49,8 +62,9 @@ function Footer() {
         </a>
         </div>
         </SocialMediaDiv>
+        </ContactMe>
         <AllRightReservedDiv>
-        <h2>&copy; 2025-{year} {t("footer")}</h2>
+        <h2>&copy; {year} {name} {allRightsReserved} </h2>
         </AllRightReservedDiv>
         </FooterDiv>
         </div>
