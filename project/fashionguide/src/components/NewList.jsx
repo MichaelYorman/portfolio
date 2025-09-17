@@ -24,7 +24,6 @@ margin-left:150px;
 `;
 
 const StyledTextArea=styled.textarea`
-cursor:pointer;
 `;
 
 const OverViewSettingsDiv2=styled.div`
@@ -135,7 +134,7 @@ flex-direction:row;
 align-items:center;
 justify-content:center;
 gap:10px;
-background-color:${(props)=>(props.$aBc ? "green":"whitesmoke")};
+background-color:${props => (props.$isActive ? "green" : "whitesmoke")};
 outline-style:solid;
 outline-width:2px;
 cursor:pointer;
@@ -192,23 +191,65 @@ WeatherConditions: [
   { value: 'fog', label: `${t("typefog")}`, symbol: "🌫️" }
 ],
 Temperature: [
-  { value: 'scorching', label:`${t("typescorching")} 🔥💀`, minTemp: 40 },
-  { value: 'hot', label: `${t("typehot")} 🔥`, minTemp: 30, maxTemp: 39 },
-  { value: 'warm', label: `${t("typewarm")} ☀️`, minTemp: 20, maxTemp: 29 },
-  { value: 'temperate', label: `${t("typetemperate")} 🌳`, minTemp: 11, maxTemp: 19 },
-  { value: 'cool', label: `${t("typecool")} ☀️⚖️❄️`, minTemp: 0, maxTemp: 10 },
-  { value: 'chilly', label: `${t("typechilly")} ❄️`, minTemp: -10, maxTemp: -1 },
-  { value: 'cold', label: `${t("typecold")} 🥶`, minTemp: -19, maxTemp: -11 },
-  { value: 'verycold', label: `${t("typeverycold")} 🧊`, minTemp: -29, maxTemp: -20 },
-  { value: 'freezing', label: `${t("typefreezing")} 🧊💀`, minTemp: -50, maxTemp: -30 }
+  { value: 'scorching', label:`${t("typescorching")} 🔥💀`},
+  { value: 'hot', label: `${t("typehot")} 🔥`},
+  { value: 'warm', label: `${t("typewarm")} ☀️`},
+  { value: 'temperate', label: `${t("typetemperate")} 🌳`},
+  { value: 'cool', label: `${t("typecool")} ☀️⚖️❄️`},
+  { value: 'chilly', label: `${t("typechilly")} ❄️`},
+  { value: 'cold', label: `${t("typecold")} 🥶`},
+  { value: 'verycold', label: `${t("typeverycold")} 🧊`},
+  { value: 'freezing', label: `${t("typefreezing")} 🧊💀`}
 ]
 });
+const getStuff = () => ({
+});
 function NewList() {
+//Translation
 const {t,setLang}=useTranslate();
-const [isToggled,setToggled]=useState(false);
+// With Source, can take hold of different values with ease
 const Source = getSource(t);
-let listName=""
-
+const DestinationTypes=Source.DestinationTypes;
+const DestinationPurposes=Source.DestinationPurpose;
+const Vehicles=Source.Vehicles;
+const WeatherConditions=Source.WeatherConditions;
+const optionsChosen = {
+listName:"",
+destinationName:"",
+types:[],
+purposes:[],
+vehicles:[],
+destination:[],
+weather:[]
+}
+//UseState of multi-choose items
+const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
+const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
+const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
+const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
+console.log(ActiveTypeBoxes)
+const toggleTypeBox=(index)=> {
+setActiveTypeBoxes(prev=> ({
+    ...prev,[index]: !prev[index]
+}))
+optionsChosen.types.push("2")
+console.log(optionsChosen)
+};
+const togglePurposeBox=(index)=> {
+setActivePurposeBoxes(prev=> ({
+    ...prev,[index]: !prev[index]
+}))
+};
+const toggleVehicleBox=(index)=> {
+setActiveVehicleBoxes(prev=> ({
+    ...prev,[index]: !prev[index]
+}))
+};
+const toggleWeatherBox=(index)=> {
+setActiveWeatherBoxes(prev=> ({
+    ...prev,[index]: !prev[index]
+}))
+};
 return (
     <>
     <div>
@@ -227,30 +268,16 @@ return (
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
     <h2>Paikan tyyppi</h2>
     <MultiItemDiv>
-    <MultiItem $aBC={isToggled} onMouseOver={()=>setToggled(prev=>!prev)}>
-    <p>{Source.DestinationTypes[0].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[1].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[2].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[3].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[4].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[5].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[6].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationTypes[7].symbol}</p>
-    </MultiItem>
+      {DestinationTypes.map((item, i) => (
+        <MultiItem
+          key={i}
+          $isActive={!!ActiveTypeBoxes[i]}
+          onClick={() => toggleTypeBox(i)
+          }
+        >
+          {item.symbol}
+        </MultiItem>
+      ))}
     </MultiItemDiv>
     <OrDiv>
     <h2>{t("or").toUpperCase()}</h2>
@@ -260,39 +287,16 @@ return (
     </MyListHeader>
     <MyListHeader><header>{t("newlist-purpose")}</header>
     <MultiItemDiv>
-    <MultiItem>
-    <p>{Source.DestinationPurpose[0].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[1].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[2].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[3].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[4].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[5].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[6].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[7].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[8].symbol}</p>
-    </MultiItem>
-    <MultiItem>
-    <p>{Source.DestinationPurpose[9].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.DestinationPurpose[10].symbol}</p>
-    </MultiItem>
+          {DestinationPurposes.map((item, i) => (
+        <MultiItem
+          key={i}
+          $isActive={!!ActivePurposeBoxes[i]}
+          onClick={() => togglePurposeBox(i)
+          }
+        >
+          {item.symbol}
+        </MultiItem>
+      ))}
     </MultiItemDiv>
     <OrDiv>
     <h2>{t("or").toUpperCase()}</h2>
@@ -303,59 +307,31 @@ return (
     </OverViewSettingsDiv1>
     <OverViewSettingsDiv2>
         <MyListHeader><header>{t("newlist-vehicle")}</header>
-    <MultiItemDiv className="vehicles">
-    <MultiItem>
-    <p>{Source.Vehicles[0].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[1].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[2].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[3].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[4].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[5].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[6].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[7].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[8].symbol}</p>
-    </MultiItem>
-    <MultiItem>
-    <p>{Source.Vehicles[9].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.Vehicles[10].symbol}</p>
-    </MultiItem>
+    <MultiItemDiv>
+        {Vehicles.map((item, i) => (
+        <MultiItem
+          key={i}
+          $isActive={!!ActiveVehicleBoxes[i]}
+          onClick={() => toggleVehicleBox(i)
+          }
+        >
+          {item.symbol}
+        </MultiItem>
+      ))}  
     </MultiItemDiv>
     </MyListHeader>
     <MyListHeader><header>{t("newlist-weather")}</header>
         <MultiItemDiv>
-    <MultiItem>
-    <p>{Source.WeatherConditions[0].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.WeatherConditions[1].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.WeatherConditions[2].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.WeatherConditions[3].symbol}</p>
-    </MultiItem>
-        <MultiItem>
-    <p>{Source.WeatherConditions[4].symbol}</p>
-    </MultiItem>
+            {WeatherConditions.map((item, i) => (
+        <MultiItem
+          key={i}
+          $isActive={!!ActiveWeatherBoxes[i]}
+          onClick={() => toggleWeatherBox(i)
+          }
+        >
+          {item.symbol}
+        </MultiItem>
+      ))}  
     </MultiItemDiv>
     </MyListHeader>
     </OverViewSettingsDiv2>
@@ -370,50 +346,6 @@ return (
     <AddMoreButtonDiv>
     <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
     </AddMoreButtonDiv>
-    <Object/>
-    <Object/>
-    <Object/>
-        <Object/>
-            <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-                <Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-<Object/>
-                <Object/>
     </ClothContentDiv>
 
     <ClothHeaderDiv>
