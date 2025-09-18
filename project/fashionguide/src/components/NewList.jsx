@@ -146,6 +146,11 @@ display:flex;
 justify-content:center;
 margin:10px 0px 10px 0px;
 `;
+const N=styled.div`
+width:100px;
+height:100px;
+background-color:yellow;
+`;
 const getSource = (t) => ({
 DestinationTypes: [
   { value: 'forest', label: `${t("typeforest")}`, symbol: '🌲' },
@@ -205,6 +210,19 @@ Temperature: [
 const getStuff = () => ({
 });
 function NewList() {
+const [optionsChosen, setOptionsChosen] = useState({
+listName:"",
+destinationName:"",
+types:[],
+purposes:[],
+vehicles:[],
+destination:[],
+weather:[]
+})
+  function clickMe() {
+    console.log(optionsChosen)
+    //window.location.reload();
+  }
 //Translation
 const {t,setLang}=useTranslate();
 // With Source, can take hold of different values with ease
@@ -213,28 +231,39 @@ const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const WeatherConditions=Source.WeatherConditions;
-const optionsChosen = {
-listName:"",
-destinationName:"",
-types:[],
-purposes:[],
-vehicles:[],
-destination:[],
-weather:[]
-}
 //UseState of multi-choose items
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
 const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
 const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
 const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
-console.log(ActiveTypeBoxes)
-const toggleTypeBox=(index)=> {
-setActiveTypeBoxes(prev=> ({
-    ...prev,[index]: !prev[index]
-}))
-optionsChosen.types.push("2")
-console.log(optionsChosen)
+
+const toggleTypeBox = (index) => {
+  const value = DestinationTypes[index].value; // get "forest", "beach", etc.
+
+  // 1. Update UI state
+  setActiveTypeBoxes(prev => ({
+    ...prev,
+    [index]: !prev[index]
+  }));
+
+  // 2. Update chosen options
+  setOptionsChosen(prev => {
+    if (prev.types.includes(value)) {
+      // If value exists, remove it
+      return {
+        ...prev,
+        types: prev.types.filter(item => item !== value)
+      };
+    } else {
+      // If value not in list, add it
+      return {
+        ...prev,
+        types: [...prev.types, value]
+      };
+    }
+  });
 };
+
 const togglePurposeBox=(index)=> {
 setActivePurposeBoxes(prev=> ({
     ...prev,[index]: !prev[index]
@@ -267,6 +296,7 @@ return (
     </textarea></MyListHeader>
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
     <h2>Paikan tyyppi</h2>
+    <N onClick={clickMe}/>
     <MultiItemDiv>
       {DestinationTypes.map((item, i) => (
         <MultiItem
