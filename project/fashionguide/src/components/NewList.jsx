@@ -23,9 +23,6 @@ margin-top:50px;
 margin-left:150px;
 `;
 
-const StyledTextArea=styled.textarea`
-`;
-
 const OverViewSettingsDiv2=styled.div`
 display:flex;
 flex-direction:column;
@@ -141,15 +138,30 @@ cursor:pointer;
 &:hover {background-color:green;}
 transition:background-color:0.3s;
 `;
-const OrDiv=styled.div`
-display:flex;
-justify-content:center;
-margin:10px 0px 10px 0px;
-`;
+
 const N=styled.div`
 width:100px;
 height:100px;
 background-color:yellow;
+`;
+const StyledTextArea=styled.textarea`
+`;
+const ConfirmOrCancel=styled.div`
+display:flex;
+flex-direction:row;
+position:absolute;
+gap:10px;
+margin-left:320px;
+margin-top:20px;
+display:${props => (props.$DisplayButtons ? "" : "none")};
+`;
+const ConfirmButton=styled.div`
+font-size:25px;
+cursor:pointer;
+`;
+const CancelButton=styled.div`
+font-size:25px;
+cursor:pointer;
 `;
 const getSource = (t) => ({
 DestinationTypes: [
@@ -173,7 +185,8 @@ DestinationPurpose: [
   { value: 'climbing', label: `${t("typeclimbing")}`, symbol: "🧗‍♂️" },
   { value: 'wildlifewatching', label: `${t("typewildlifewatching")}`, symbol: "🔭🦉" },
   { value: 'fishing', label: `${t("typefishing")}`, symbol: "🎣" },
-  { value: 'foraging', label: `${t("typeforaging")}`, symbol: "🍄🫐" }
+  { value: 'foraging', label: `${t("typeforaging")}`, symbol: "🍄🫐" },
+  { value: 'picnic', label: `${t("typepicnic")}`, symbol: "🧺🥪" }
 ],
 Vehicles: [
   { value: 'foot', label: `${t("typefoot")}`, symbol: "🚶" },
@@ -207,8 +220,7 @@ Temperature: [
   { value: 'freezing', label: `${t("typefreezing")} 🧊💀`}
 ]
 });
-const getStuff = () => ({
-});
+//NewList function
 function NewList() {
 const [optionsChosen, setOptionsChosen] = useState({
 listName:"",
@@ -221,7 +233,6 @@ weather:[]
 })
   function clickMe() {
     console.log(optionsChosen)
-    //window.location.reload();
   }
 //Translation
 const {t,setLang}=useTranslate();
@@ -230,15 +241,32 @@ const Source = getSource(t);
 const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
-const WeatherConditions=Source.WeatherConditions;
+const Weather=Source.WeatherConditions;
+//UseState of List Name and Destination Name
+const defaultText="testing";
+const [ListName,SetListName]=useState("");
+const [text,setText]=useState("");
+
+const handleFocus = () => {
+    if (!text) setText(defaultText); // fill default value on focus
+  };
+   const handleBlur = () => {
+    if (text) {
+      SetListName(text); // move text above
+    }
+    setText(""); // clear textarea back to placeholder
+  };
+const [DestinationName,SetDestinationName]=useState("testings")
 //UseState of multi-choose items
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
 const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
 const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
 const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
 
+const [confirmOrCancelActive,setConfirmOrCancelActive] =useState();
+
 const toggleTypeBox = (index) => {
-  const value = DestinationTypes[index].value; // get "forest", "beach", etc.
+  const value = DestinationTypes[index].value; // get types
 
   // 1. Update UI state
   setActiveTypeBoxes(prev => ({
@@ -265,19 +293,70 @@ const toggleTypeBox = (index) => {
 };
 
 const togglePurposeBox=(index)=> {
+const value = DestinationPurposes[index].value; // get purposes
 setActivePurposeBoxes(prev=> ({
     ...prev,[index]: !prev[index]
 }))
+  // 2. Update chosen options
+  setOptionsChosen(prev => {
+    if (prev.purposes.includes(value)) {
+      // If value exists, remove it
+      return {
+        ...prev,
+        purposes: prev.purposes.filter(item => item !== value)
+      };
+    } else {
+      // If value not in list, add it
+      return {
+        ...prev,
+        purposes: [...prev.purposes, value]
+      };
+    }
+  });
 };
 const toggleVehicleBox=(index)=> {
+  const value = Vehicles[index].value; // get vehicles
 setActiveVehicleBoxes(prev=> ({
     ...prev,[index]: !prev[index]
 }))
+  // 2. Update chosen options
+  setOptionsChosen(prev => {
+    if (prev.vehicles.includes(value)) {
+      // If value exists, remove it
+      return {
+        ...prev,
+        vehicles: prev.vehicles.filter(item => item !== value)
+      };
+    } else {
+      // If value not in list, add it
+      return {
+        ...prev,
+        vehicles: [...prev.vehicles, value]
+      };
+    }
+  });
 };
 const toggleWeatherBox=(index)=> {
+  const value = Weather[index].value; // get weatherconditions
 setActiveWeatherBoxes(prev=> ({
     ...prev,[index]: !prev[index]
 }))
+  // 2. Update chosen options
+  setOptionsChosen(prev => {
+    if (prev.weather.includes(value)) {
+      // If value exists, remove it
+      return {
+        ...prev,
+        weather: prev.weather.filter(item => item !== value)
+      };
+    } else {
+      // If value not in list, add it
+      return {
+        ...prev,
+        weather: [...prev.weather, value]
+      };
+    }
+  });
 };
 return (
     <>
@@ -287,11 +366,19 @@ return (
     <UpperListSection>
     <OverViewSettingsDiv1>
     <MyListHeader><header>{t("newlist-listname")}</header>
-    <h2>Listan nimi</h2>
-    <StyledTextArea name="listname" rows={4} cols={40} placeholder={t("typelistname")} required/>
+    <h2>{defaultText}</h2>
+    <div>
+    <ConfirmOrCancel $DisplayButtons={confirmOrCancelActive}>
+    <ConfirmButton onClick={() => SetListName("changed")}>✅</ConfirmButton>
+    <CancelButton onClick={() => SetListName("changed")}>❌</CancelButton>
+    </ConfirmOrCancel>
+    <StyledTextArea value={defaultText} onFocus={handleFocus}
+    onBlur={handleBlur}
+    rows={4} cols={40} placeholder={t("typelistname")} required/>
+    </div>
     </MyListHeader>
-    <MyListHeader><header>{t("newlist-destinationname")}</header>
-    <h2>Paikan nimi</h2>
+    <MyListHeader ><header>{t("newlist-destinationname")}</header>
+    <h2>{DestinationName}</h2>
     <textarea name="destinationname" rows={4} cols={40} placeholder={t("typelistdestination")}>
     </textarea></MyListHeader>
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
@@ -309,11 +396,6 @@ return (
         </MultiItem>
       ))}
     </MultiItemDiv>
-    <OrDiv>
-    <h2>{t("or").toUpperCase()}</h2>
-    </OrDiv>
-    <textarea name="destinationtype" rows={5} cols={40} placeholder={t("starttypingtype")}>
-    </textarea>
     </MyListHeader>
     <MyListHeader><header>{t("newlist-purpose")}</header>
     <MultiItemDiv>
@@ -328,11 +410,6 @@ return (
         </MultiItem>
       ))}
     </MultiItemDiv>
-    <OrDiv>
-    <h2>{t("or").toUpperCase()}</h2>
-    </OrDiv>
-    <textarea name="destinationtype" rows={5} cols={40} placeholder={t("starttypingpurpose")}>
-    </textarea>
     </MyListHeader> 
     </OverViewSettingsDiv1>
     <OverViewSettingsDiv2>
@@ -352,7 +429,7 @@ return (
     </MyListHeader>
     <MyListHeader><header>{t("newlist-weather")}</header>
         <MultiItemDiv>
-            {WeatherConditions.map((item, i) => (
+            {Weather.map((item, i) => (
         <MultiItem
           key={i}
           $isActive={!!ActiveWeatherBoxes[i]}
