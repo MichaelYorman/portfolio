@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useTranslate } from "./LanguageContext";
 import { useState } from "react";
+import api from "../api/api"
 
 const NewListDiv=styled.div`
 display:flex;
@@ -163,6 +164,11 @@ const CancelButton=styled.div`
 font-size:25px;
 cursor:pointer;
 `;
+const Test=styled.div`
+width:100px;
+height:100px;
+background-color:red;
+`
 const getSource = (t) => ({
 DestinationTypes: [
   { value: 'forest', label: `${t("typeforest")}`, symbol: '🌲' },
@@ -231,6 +237,17 @@ vehicles:[],
 destination:[],
 weather:[]
 })
+const [message,setMessage]=useState("")
+const handlePost=async()=>{
+try {
+const payload={data:optionsChosen};
+const res= await api.post("/test",payload);
+setMessage(res.data.message+" | You sent: "+JSON.stringify(res.data.received));
+} catch(err) {
+  console.error(err);
+  setMessage("Error sending POST request");
+}
+};
   function clickMe() {
     console.log(optionsChosen)
   }
@@ -362,6 +379,7 @@ return (
     <>
     <div>
     <NewListDiv>
+    <Test onClick={handlePost}></Test>
     <MapDiv/>
     <UpperListSection>
     <OverViewSettingsDiv1>

@@ -3,7 +3,6 @@ import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
 import MainComponent from './components/MainComponent';
 import GlobalStyle from './components/GlobalStyle'
 import MainMenu from './components/MainMenu'
-import Footer from './components/Footer'
 import Info from './components/Info'
 import LoginRegisterHead from './components/LoginRegisterHead'
 import LoginMenu from './components/LoginMenu'
@@ -12,7 +11,6 @@ import UserHome from './components/UserHome'
 import NewList from './components/NewList';
 
 function App() {
-
   return (
     <>
     <div>
