@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const api=axios.create({
-     baseURL: "https://henrijor.com/portfolio/fashionguide",
+     baseURL: "http://localhost:3000/api",
 })
 
 const NewListDiv=styled.div`
@@ -238,8 +238,8 @@ destinationName:"",
 types:[],
 purposes:[],
 vehicles:[],
-destination:[],
-weather:[]
+weather:[],
+temperature:""
 })
 const [message,setMessage]=useState("")
 const handlePost=async()=>{
@@ -263,21 +263,7 @@ const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
-//UseState of List Name and Destination Name
-const defaultText="testing";
-const [ListName,SetListName]=useState("");
-const [text,setText]=useState("");
 
-const handleFocus = () => {
-    if (!text) setText(defaultText); // fill default value on focus
-  };
-   const handleBlur = () => {
-    if (text) {
-      SetListName(text); // move text above
-    }
-    setText(""); // clear textarea back to placeholder
-  };
-const [DestinationName,SetDestinationName]=useState("testings")
 //UseState of multi-choose items
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
 const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
@@ -388,20 +374,27 @@ return (
     <UpperListSection>
     <OverViewSettingsDiv1>
     <MyListHeader><header>{t("newlist-listname")}</header>
-    <h2>{defaultText}</h2>
     <div>
     <ConfirmOrCancel $DisplayButtons={confirmOrCancelActive}>
     <ConfirmButton onClick={() => SetListName("changed")}>✅</ConfirmButton>
     <CancelButton onClick={() => SetListName("changed")}>❌</CancelButton>
     </ConfirmOrCancel>
-    <StyledTextArea value={defaultText} onFocus={handleFocus}
-    onBlur={handleBlur}
-    rows={4} cols={40} placeholder={t("typelistname")} required/>
     </div>
+    <textarea
+  onChange={(e) => {
+    console.log(e.target.value);
+    setOptionsChosen(prev => ({ ...prev, listName: e.target.value }))
+  }}
+  name="destinationname" rows={4} cols={40} placeholder={t("typelistname")}>
+    </textarea>
     </MyListHeader>
     <MyListHeader ><header>{t("newlist-destinationname")}</header>
-    <h2>{DestinationName}</h2>
-    <textarea name="destinationname" rows={4} cols={40} placeholder={t("typelistdestination")}>
+    <textarea
+  onChange={(e) => {
+    console.log(e.target.value);
+    setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
+  }}
+  name="destinationname" rows={4} cols={40} placeholder={t("typelistdestination")}>
     </textarea></MyListHeader>
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
     <h2>Paikan tyyppi</h2>
