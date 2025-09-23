@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { useTranslate } from "./LanguageContext";
 import { useState } from "react";
-import api from "../api/api"
+import axios from "axios";
+
+const api=axios.create({
+     baseURL: "https://henrijor.com/portfolio/fashionguide",
+})
 
 const NewListDiv=styled.div`
 display:flex;
