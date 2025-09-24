@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
 import WidgetPanel from "./WidgetPanel";
 import { useTranslate } from "./LanguageContext";
-import { useTheme } from "./ThemeContext";
+import {useEffect,useState} from "react";
+import axios from "axios";
 
 const NavButton = styled(NavLink)`
   text-decoration: none;
@@ -52,8 +53,20 @@ outline-style:dashed;
 background-color:white;
 `;
 function UserHome() {
-  const {s}=useTheme();
-  const bgColor = s("background"); 
+  const [data,setData]=useState([]);
+
+  useEffect(() => {
+    const fetchData=async()=>{
+      try {
+        const response=await axios.get("http://localhost:3000/api/list");
+        setData(response.data);
+      } catch (err) {
+        console.error("Error fetching data:",err);
+      }
+    };
+    fetchData();
+  },[]);
+
   const {t,setLang}=useTranslate();
   return (
     <>
@@ -68,14 +81,11 @@ function UserHome() {
           <Block>
             <h4>You have nothing here yet...</h4>
             </Block>
-            <Block/>
-            <Block/>
-            <Block/>
-            <Block/>
-            <Block/>
-            <Block/>
-            <Block/>
-            <Block/>
+            {data.map((item,index)=> (
+              <Block key={item.id}>
+                <p>{item.list_name}</p>
+              </Block>
+          ))}
         </ListingDiv>
       </div>
     </>
