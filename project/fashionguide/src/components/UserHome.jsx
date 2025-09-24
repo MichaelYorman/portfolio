@@ -22,7 +22,7 @@ height:auto;
 margin-right:60px;
 `;
 
-const ListingDiv=styled.div`
+const ListingDiv2=styled.div`
 display:flex;
 flex-direction:row;
 justify-content:center;
@@ -37,6 +37,19 @@ align-items:center;
 height:250px;
 width:250px;
 outline:5px dashed black;
+`;
+const ListingDiv=styled.div`
+display:flex;
+flex-direction:row;
+flex-wrap:wrap;
+padding:10px;
+margin-left:50px;
+margin-right:50px;
+margin-top:100px;
+width:80%;
+height:auto;
+outline-style:dashed;
+background-color:white;
 `;
 function UserHome() {
   const {s}=useTheme();
@@ -55,6 +68,14 @@ function UserHome() {
           <Block>
             <h4>You have nothing here yet...</h4>
             </Block>
+            <Block/>
+            <Block/>
+            <Block/>
+            <Block/>
+            <Block/>
+            <Block/>
+            <Block/>
+            <Block/>
         </ListingDiv>
       </div>
     </>
