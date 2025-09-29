@@ -53,7 +53,7 @@ height:fit-content;
 position:absolute;
 gap:10px;
 margin-bottom:200px;
-margin-left:150px;
+margin-left:120px;
 `
 const Block=styled.div`
 display:flex;
@@ -69,6 +69,7 @@ function UserHome() {
   const navigate = useNavigate();
   const [data,setData]=useState([]);
 
+  // Get data from server when loading up the page
   useEffect(() => {
     const controller= new AbortController(); //
     const fetchData=async()=>{
@@ -86,17 +87,24 @@ function UserHome() {
     fetchData();
     return () => controller.abort();
   },[]);
+  // Goes to Edit Page of certain item
   const handleEdit = (listName) => {
     navigate(`/edit-list/${encodeURIComponent(listName)}`);
   }
+  // Deletes an item
   const handleDelete=async(id)=>{
     try {
       await axios.delete(`http://localhost:3000/api/list/${id}`);
+      // Updates State of the current item data
       setData(prev => prev.filter(item => item.id !== id));
     } catch (err) {
       console.error("Error deleting item:",err)
     }
   };
+  // Goes to View Page of certain item
+  const handleView=(listName,id)=>{
+    navigate(`/view-list/${encodeURIComponent(listName)}`, { state: {id} });
+  }
   const {t,setLang}=useTranslate();
   return (
     <>
@@ -110,6 +118,7 @@ function UserHome() {
             {data.length >0 ? data.map(item => (
               <Block key={item.id}>
                 <ListButtonDiv>
+                  <ListButton onClick={()=>handleView(item.list_name,item.id)} src="icons/magnifying_glass.svg"></ListButton>
                   <ListButton onClick={()=>handleEdit(item.list_name)} src="icons/wrench.svg"></ListButton>
                   <ListButton onClick={()=>handleDelete(item.id)} src="icons/trashcan.svg"></ListButton>
                 </ListButtonDiv>
