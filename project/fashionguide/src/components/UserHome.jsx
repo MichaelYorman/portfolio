@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import WidgetPanel from "./WidgetPanel";
 import { useTranslate } from "./LanguageContext";
 import {useEffect,useState} from "react";
@@ -22,15 +23,6 @@ const NewListLogo=styled.img`
 width:80px;
 height:auto;
 `;
-
-const Block=styled.div`
-display:flex;
-justify-content:center;
-align-items:center;
-height:250px;
-width:250px;
-outline:5px dashed black;
-`;
 const ListingDiv=styled.div`
 display:flex;
 flex-direction:row;
@@ -45,14 +37,36 @@ height:auto;
 outline-style:dashed;
 background-color:white;
 `;
+const ListButton=styled.img`
+width:30px;
+&:hover{background-color:gray;}
+display:none;
+cursor:pointer;
+height:30px;
+`
+
 const ListButtonDiv=styled.div`
 display:flex;
-width:30px;
-height:30px;
-position:relative;
-background-color:blue;
+flex-direction:row;
+width:fit-content;
+height:fit-content;
+position:absolute;
+gap:10px;
+margin-bottom:200px;
+margin-left:150px;
 `
+const Block=styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+height:250px;
+width:250px;
+outline:5px dashed black;
+&:hover ${ListButton} {
+display:inline-block;}
+`;
 function UserHome() {
+  const navigate = useNavigate();
   const [data,setData]=useState([]);
 
   useEffect(() => {
@@ -72,6 +86,9 @@ function UserHome() {
     fetchData();
     return () => controller.abort();
   },[]);
+  const handleEdit = (listName) => {
+    navigate(`/edit-list/${encodeURIComponent(listName)}`);
+  }
   const handleDelete=async(id)=>{
     try {
       await axios.delete(`http://localhost:3000/api/list/${id}`);
@@ -92,7 +109,10 @@ function UserHome() {
         </CreateNewListDiv>
             {data.length >0 ? data.map(item => (
               <Block key={item.id}>
-                <ListButtonDiv onClick={()=>handleDelete(item.id)} src="icons/trashcan.svg"/>
+                <ListButtonDiv>
+                  <ListButton onClick={()=>handleEdit(item.list_name)} src="icons/wrench.svg"></ListButton>
+                  <ListButton onClick={()=>handleDelete(item.id)} src="icons/trashcan.svg"></ListButton>
+                </ListButtonDiv>
                 <p>{item.list_name}</p>
               </Block>
           )) : (

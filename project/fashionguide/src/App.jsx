@@ -9,6 +9,7 @@ import LoginMenu from './components/LoginMenu'
 import RegisterMenu from './components/RegisterMenu'
 import UserHome from './components/UserHome'
 import NewList from './components/NewList';
+import EditList from './components/EditList';
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
         </Route>
         <Route path="/new-list" element={<NewList/>}>
         </Route>
-        <Route path="/new-list" element={<NewList/>}>
+        <Route path="/edit-list/:listName" element={<EditList/>}>
         </Route>
         </Route>
       </Routes>

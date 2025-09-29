@@ -136,12 +136,6 @@ cursor:pointer;
 &:hover {background-color:green;}
 transition:background-color:0.3s;
 `;
-
-const N=styled.div`
-width:100px;
-height:100px;
-background-color:yellow;
-`;
 const StyledTextArea=styled.textarea`
 `;
 const ConfirmOrCancel=styled.div`
@@ -166,6 +160,23 @@ width:100px;
 height:100px;
 background-color:red;
 `
+const SaveGenerateDiv=styled.div`
+display:flex;
+flex-direction:row;
+width:fit-content;
+height:fit-content;
+margin-left:100px;
+margin-top:50px;
+gap:10px;
+`;
+const SaveListButton=styled.button`
+width:200px;
+height:50px;
+`
+const GenerateListButton=styled.button`
+width:200px;
+height:50px;;
+`;
 const getSource = (t) => ({
 DestinationTypes: [
   { value: 'forest', label: `${t("typeforest")}`, symbol: '🌲' },
@@ -224,7 +235,7 @@ Temperature: [
 ]
 });
 //NewList function
-function NewList() {
+function EditList() {
 const [optionsChosen, setOptionsChosen] = useState({
 listName:"",
 destinationName:"",
@@ -235,6 +246,7 @@ weather:[],
 temperature:""
 })
 const [message,setMessage]=useState("")
+
 const handlePost=async()=>{
 try {
 const payload={data:optionsChosen};
@@ -245,9 +257,6 @@ setMessage(res.data.message+" | You sent: "+JSON.stringify(res.data.received));
   setMessage("Error sending POST request");
 }
 };
-  function clickMe() {
-    console.log(optionsChosen)
-  }
 //Translation
 const {t,setLang}=useTranslate();
 // With Source, can take hold of different values with ease
@@ -362,6 +371,14 @@ return (
     <>
     <div>
     <NewListDiv>
+    <SaveGenerateDiv>
+    <SaveListButton>
+    <h1>Save List</h1>
+    </SaveListButton>
+    <GenerateListButton>
+    <h1>Generate List</h1>
+    </GenerateListButton>
+    </SaveGenerateDiv>
     <Test onClick={handlePost}></Test>
     <MapDiv/>
     <UpperListSection>
@@ -391,7 +408,6 @@ return (
     </textarea></MyListHeader>
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
     <h2>Paikan tyyppi</h2>
-    <N onClick={clickMe}/>
     <MultiItemDiv>
       {DestinationTypes.map((item, i) => (
         <MultiItem
@@ -451,7 +467,6 @@ return (
     </MyListHeader>
     </OverViewSettingsDiv2>
     </UpperListSection>
-
     <OverviewContentDiv>
     <ClothHeaderDiv>
     <h2>{t("headwear")}</h2>
@@ -505,4 +520,4 @@ return (
 )
 }
 
-export default NewList;
+export default EditList;
