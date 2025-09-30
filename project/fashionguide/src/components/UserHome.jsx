@@ -88,8 +88,8 @@ function UserHome() {
     return () => controller.abort();
   },[]);
   // Goes to Edit Page of certain item
-  const handleEdit = (listName) => {
-    navigate(`/edit-list/${encodeURIComponent(listName)}`);
+  const handleEdit = (listName,id) => {
+    navigate(`/edit-list/${encodeURIComponent(listName)}`,{state: {id} });
   }
   // Deletes an item
   const handleDelete=async(id)=>{
@@ -119,7 +119,7 @@ function UserHome() {
               <Block key={item.id}>
                 <ListButtonDiv>
                   <ListButton onClick={()=>handleView(item.list_name,item.id)} src="icons/magnifying_glass.svg"></ListButton>
-                  <ListButton onClick={()=>handleEdit(item.list_name)} src="icons/wrench.svg"></ListButton>
+                  <ListButton onClick={()=>handleEdit(item.list_name,item.id)} src="icons/wrench.svg"></ListButton>
                   <ListButton onClick={()=>handleDelete(item.id)} src="icons/trashcan.svg"></ListButton>
                 </ListButtonDiv>
                 <p>{item.list_name}</p>

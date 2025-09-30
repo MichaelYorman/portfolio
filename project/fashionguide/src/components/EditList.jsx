@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useTranslate } from "./LanguageContext";
-import { useState } from "react";
+import { useEffect,useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const api=axios.create({
@@ -136,25 +137,6 @@ cursor:pointer;
 &:hover {background-color:green;}
 transition:background-color:0.3s;
 `;
-const StyledTextArea=styled.textarea`
-`;
-const ConfirmOrCancel=styled.div`
-display:flex;
-flex-direction:row;
-position:absolute;
-gap:10px;
-margin-left:320px;
-margin-top:20px;
-display:${props => (props.$DisplayButtons ? "" : "none")};
-`;
-const ConfirmButton=styled.div`
-font-size:25px;
-cursor:pointer;
-`;
-const CancelButton=styled.div`
-font-size:25px;
-cursor:pointer;
-`;
 const Test=styled.div`
 width:100px;
 height:100px;
@@ -245,17 +227,56 @@ vehicles:[],
 weather:[],
 temperature:""
 })
+
+const [item,setItem]=useState(null);
+const location = useLocation();
+const { id } = location.state || {};
+
+ //Brings information about the item from backend
+ useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/list/${id}`);
+        setItem(response.data.data);
+      } catch (err) {
+        console.error("Error fetching item:", err);
+      }
+    };
+    fetchItem();
+  }, [id]);
+
+useEffect(() => {
+  if (item) {
+    setOptionsChosen({
+      listName: item.list_name,
+      destinationName: item.place_name,
+      types: item.place_type,
+      purposes: item.purpose,
+      vehicles: item.vehicle,
+      weather: item.weather,
+      temperature: item.temperature
+    });
+  }
+}, [item]);
+
+console.log(optionsChosen)
+
 const [message,setMessage]=useState("")
 
-const handlePost=async()=>{
-try {
-const payload={data:optionsChosen};
-const res= await api.post("/test",payload);
-setMessage(res.data.message+" | You sent: "+JSON.stringify(res.data.received));
-} catch(err) {
-  console.error(err);
-  setMessage("Error sending POST request");
-}
+//Update the list
+const handlePut = async () => {
+  try {
+    const res = await api.put(`/update/${id}`,
+      optionsChosen
+    );
+
+    setMessage(
+      res.data.message + " | You sent: " + JSON.stringify(res.data.received)
+    );
+  } catch (err) {
+    console.error("Error sending PUT request:", err);
+    setMessage("Error sending PUT request");
+  }
 };
 //Translation
 const {t,setLang}=useTranslate();
@@ -267,12 +288,49 @@ const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
 
 //UseState of multi-choose items
+const [ActiveListName,setActiveListName]=useState({})
+const [ActiveDestinationName,setActiveDestinationName]=useState({})
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
 const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
 const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
 const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
 
-const [confirmOrCancelActive,setConfirmOrCancelActive] =useState();
+const initialActiveBoxes = {};
+const initialPurposeBoxes={};
+const initialVehicleBoxes={};
+const initialWeatherBoxes={};
+
+useEffect(() => {
+  if (item) {
+    DestinationTypes.forEach((dt, index) => {
+      if (item.place_type.includes(dt.value)) {
+        initialActiveBoxes[index] = true;
+      }
+    });
+        DestinationPurposes.forEach((db, index) => {
+      if (item.place_type.includes(db.value)) {
+        initialPurposeBoxes[index] = true;
+      }
+    });
+    Vehicles.forEach((vhc, index) => {
+      if (item.vehicle.includes(vhc.value)) {
+        initialVehicleBoxes[index] = true;
+      }
+    });
+        Weather.forEach((vhc, index) => {
+      if (item.weather.includes(vhc.value)) {
+        initialWeatherBoxes[index] = true;
+      }
+    });
+
+    setActiveListName(item.list_name);
+    setActiveDestinationName(item.place_name);
+    setActiveTypeBoxes(initialActiveBoxes);
+    setActivePurposeBoxes(initialActiveBoxes);
+    setActiveVehicleBoxes(initialVehicleBoxes);
+    setActiveWeatherBoxes(initialVehicleBoxes);
+  }
+}, [item]);
 
 const toggleTypeBox = (index) => {
   const value = DestinationTypes[index].value; // get types
@@ -367,6 +425,7 @@ setActiveWeatherBoxes(prev=> ({
     }
   });
 };
+
 return (
     <>
     <div>
@@ -379,23 +438,17 @@ return (
     <h1>Generate List</h1>
     </GenerateListButton>
     </SaveGenerateDiv>
-    <Test onClick={handlePost}></Test>
+    <Test onClick={handlePut}></Test>
     <MapDiv/>
     <UpperListSection>
     <OverViewSettingsDiv1>
     <MyListHeader><header>{t("newlist-listname")}</header>
-    <div>
-    <ConfirmOrCancel $DisplayButtons={confirmOrCancelActive}>
-    <ConfirmButton onClick={() => SetListName("changed")}>✅</ConfirmButton>
-    <CancelButton onClick={() => SetListName("changed")}>❌</CancelButton>
-    </ConfirmOrCancel>
-    </div>
     <textarea
   onChange={(e) => {
     console.log(e.target.value);
     setOptionsChosen(prev => ({ ...prev, listName: e.target.value }))
   }}
-  name="destinationname" rows={4} cols={40} placeholder={t("typelistname")}>
+  name="destinationname" rows={4} cols={40} placeholder={ActiveListName||t("typelistname")}>
     </textarea>
     </MyListHeader>
     <MyListHeader ><header>{t("newlist-destinationname")}</header>
@@ -404,10 +457,9 @@ return (
     console.log(e.target.value);
     setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
   }}
-  name="destinationname" rows={4} cols={40} placeholder={t("typelistdestination")}>
+  name="destinationname" rows={4} cols={40} placeholder={ActiveDestinationName||t("typelistdestination")}>
     </textarea></MyListHeader>
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
-    <h2>Paikan tyyppi</h2>
     <MultiItemDiv>
       {DestinationTypes.map((item, i) => (
         <MultiItem

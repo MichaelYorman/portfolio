@@ -188,7 +188,6 @@ const [item,setItem]=useState(null);
     };
     fetchItem();
   }, [id]);
-  console.log(item)
 //Translation
 const {t,setLang}=useTranslate();
 // With Source, can take hold of different values with ease
@@ -197,6 +196,7 @@ const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
+
 return (
     <>
     <div>

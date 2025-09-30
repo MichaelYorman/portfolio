@@ -127,7 +127,7 @@ flex-direction:row;
 align-items:center;
 justify-content:center;
 gap:10px;
-background-color:whitesmoke;
+background-color:${props => (props.$isActive ? "green" : "whitesmoke")};;
 outline-style:solid;
 outline-width:2px;
 cursor:pointer;
