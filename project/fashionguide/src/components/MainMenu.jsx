@@ -22,7 +22,7 @@ font-size:3em;
 text-align:center;
 margin-top:400px;
 `;
-const ButtonPlacerDiv=styled.div`
+const MainMenuButtonDiv=styled.div`
 display:flex;
 flex-direction:row;
 margin-top:100px;
@@ -40,7 +40,7 @@ function MainMenu() {
         {t("mainheader")}
         </MainMenuHeader>
         </header>
-        <ButtonPlacerDiv>
+        <MainMenuButtonDiv>
         <NavButton to="/user-home">
         <Logo src="/icons/arrow.svg" alt="Arrow bubble symbol"/>
         <h2>{t("start")}</h2>
@@ -53,7 +53,7 @@ function MainMenu() {
         <Logo src="/icons/links.svg" alt="Joined links symbol"/>
         <h2>{t("links")}</h2>
         </NavButton>
-        </ButtonPlacerDiv>
+        </MainMenuButtonDiv>
       </div>
     </>
   )

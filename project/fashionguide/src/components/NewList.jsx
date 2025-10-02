@@ -14,12 +14,12 @@ position:relative;
 background-color:whitesmoke;
 margin-top:250px;
 `;
-const UpperListSection=styled.div`
+const TopListSectionGrid=styled.div`
 display:grid;
 grid-template-columns:1fr 1fr;
 gird-template-rows:1fr;
 `
-const OverViewSettingsDiv1=styled.div`
+const TopListContentDiv1=styled.div`
 display:flex;
 flex-direction:column;
 grid-column:1;
@@ -28,7 +28,7 @@ margin-top:50px;
 margin-left:150px;
 `;
 
-const OverViewSettingsDiv2=styled.div`
+const TopListContentDiv2=styled.div`
 display:flex;
 flex-direction:column;
 grid-column:2;
@@ -36,14 +36,14 @@ gap:20px;
 margin-top:600px;
 margin-left:150px;
 `;
-const MapDiv=styled.div`
+const MapApiDiv=styled.div`
 background-color:gray;
 position:absolute;
 right:0;
 height:512px;
 width:512px;
 `;
-const OverviewContentDiv=styled.div`
+const BottomContentDiv=styled.div`
 display:flex;
 flex-direction:column;
 margin-top:100px;
@@ -140,25 +140,6 @@ width:100px;
 height:100px;
 background-color:yellow;
 `;
-const StyledTextArea=styled.textarea`
-`;
-const ConfirmOrCancel=styled.div`
-display:flex;
-flex-direction:row;
-position:absolute;
-gap:10px;
-margin-left:320px;
-margin-top:20px;
-display:${props => (props.$DisplayButtons ? "" : "none")};
-`;
-const ConfirmButton=styled.div`
-font-size:25px;
-cursor:pointer;
-`;
-const CancelButton=styled.div`
-font-size:25px;
-cursor:pointer;
-`;
 const Test=styled.div`
 width:100px;
 height:100px;
@@ -223,6 +204,7 @@ Temperature: [
 });
 //NewList function
 function NewList() {
+// Array of which the items are saved for POST request
 const [optionsChosen, setOptionsChosen] = useState({
 listName:"",
 destinationName:"",
@@ -232,7 +214,9 @@ vehicles:[],
 weather:[],
 temperature:""
 })
+//
 const [message,setMessage]=useState("")
+// Handles POST request to server
 const handlePost=async()=>{
 try {
 const payload={data:optionsChosen};
@@ -243,27 +227,29 @@ setMessage(res.data.message+" | You sent: "+JSON.stringify(res.data.received));
   setMessage("Error sending POST request");
 }
 };
-  function clickMe() {
+//
+
+function clickMe() {
     console.log(optionsChosen)
   }
 //Translation
 const {t,setLang}=useTranslate();
-// With Source, can take hold of different values with ease
+// With Source, can call different objects easily
 const Source = getSource(t);
 const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
 
-//UseState of multi-choose items
+//UseState for multi-pickable items
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
 const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
 const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
 const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
+//
 
-const [confirmOrCancelActive,setConfirmOrCancelActive] =useState();
-
-const toggleTypeBox = (index) => {
+// Update chosen options from Destination Type Box
+const toggleDestinationTypeBox = (index) => {
   const value = DestinationTypes[index].value; // get types
 
   // 1. Update UI state
@@ -289,8 +275,8 @@ const toggleTypeBox = (index) => {
     }
   });
 };
-
-const togglePurposeBox=(index)=> {
+// Update chosen options from Destination Purpose Box
+const toggleDestinationPurposeBox=(index)=> {
 const value = DestinationPurposes[index].value; // get purposes
 setActivePurposeBoxes(prev=> ({
     ...prev,[index]: !prev[index]
@@ -312,6 +298,7 @@ setActivePurposeBoxes(prev=> ({
     }
   });
 };
+// Update chosen options from Destination Vehicle Box
 const toggleVehicleBox=(index)=> {
   const value = Vehicles[index].value; // get vehicles
 setActiveVehicleBoxes(prev=> ({
@@ -334,8 +321,9 @@ setActiveVehicleBoxes(prev=> ({
     }
   });
 };
+// Update chosen options from Weather Box
 const toggleWeatherBox=(index)=> {
-  const value = Weather[index].value; // get weatherconditions
+  const value = Weather[index].value; // get weather conditions
 setActiveWeatherBoxes(prev=> ({
     ...prev,[index]: !prev[index]
 }))
@@ -361,16 +349,10 @@ return (
     <div>
     <NewListDiv>
     <Test onClick={handlePost}></Test>
-    <MapDiv/>
-    <UpperListSection>
-    <OverViewSettingsDiv1>
+    <MapApiDiv/>
+    <TopListSectionGrid>
+    <TopListContentDiv1>
     <MyListHeader><header>{t("newlist-listname")}</header>
-    <div>
-    <ConfirmOrCancel $DisplayButtons={confirmOrCancelActive}>
-    <ConfirmButton onClick={() => SetListName("changed")}>✅</ConfirmButton>
-    <CancelButton onClick={() => SetListName("changed")}>❌</CancelButton>
-    </ConfirmOrCancel>
-    </div>
     <textarea
   onChange={(e) => {
     console.log(e.target.value);
@@ -388,14 +370,13 @@ return (
   name="destinationname" rows={4} cols={40} placeholder={t("typelistdestination")}>
     </textarea></MyListHeader>
     <MyListHeader><header>{t("newlist-destinationtype")}</header>
-    <h2>Paikan tyyppi</h2>
     <N onClick={clickMe}/>
     <MultiItemDiv>
       {DestinationTypes.map((item, i) => (
         <MultiItem
           key={i}
           $isActive={!!ActiveTypeBoxes[i]}
-          onClick={() => toggleTypeBox(i)
+          onClick={() => toggleDestinationTypeBox(i)
           }
         >
           {item.symbol}
@@ -409,7 +390,7 @@ return (
         <MultiItem
           key={i}
           $isActive={!!ActivePurposeBoxes[i]}
-          onClick={() => togglePurposeBox(i)
+          onClick={() => toggleDestinationPurposeBox(i)
           }
         >
           {item.symbol}
@@ -417,8 +398,8 @@ return (
       ))}
     </MultiItemDiv>
     </MyListHeader> 
-    </OverViewSettingsDiv1>
-    <OverViewSettingsDiv2>
+    </TopListContentDiv1>
+    <TopListContentDiv2>
         <MyListHeader><header>{t("newlist-vehicle")}</header>
     <MultiItemDiv>
         {Vehicles.map((item, i) => (
@@ -447,10 +428,10 @@ return (
       ))}  
     </MultiItemDiv>
     </MyListHeader>
-    </OverViewSettingsDiv2>
-    </UpperListSection>
+    </TopListContentDiv2>
+    </TopListSectionGrid>
 
-    <OverviewContentDiv>
+    <BottomContentDiv>
     <ClothHeaderDiv>
     <h2>{t("headwear")}</h2>
     </ClothHeaderDiv>
@@ -496,7 +477,7 @@ return (
     </AddMoreButtonDiv>
     </ClothContentDiv>
 
-    </OverviewContentDiv>
+    </BottomContentDiv>
     </NewListDiv>
     </div>
     </>

@@ -55,7 +55,7 @@ gap:10px;
 margin-bottom:200px;
 margin-left:120px;
 `
-const Block=styled.div`
+const ListItem=styled.div`
 display:flex;
 justify-content:center;
 align-items:center;
@@ -69,7 +69,7 @@ function UserHome() {
   const navigate = useNavigate();
   const [data,setData]=useState([]);
 
-  // Get data from server when loading up the page
+  // Get data of items from server when loading up the page
   useEffect(() => {
     const controller= new AbortController(); //
     const fetchData=async()=>{
@@ -87,11 +87,15 @@ function UserHome() {
     fetchData();
     return () => controller.abort();
   },[]);
-  // Goes to Edit Page of certain item
+  //
+
+  // Goes to Edit Page of selected item
   const handleEdit = (listName,id) => {
     navigate(`/edit-list/${encodeURIComponent(listName)}`,{state: {id} });
   }
-  // Deletes an item
+  //
+
+  // Deletes the selected item
   const handleDelete=async(id)=>{
     try {
       await axios.delete(`http://localhost:3000/api/list/${id}`);
@@ -101,10 +105,12 @@ function UserHome() {
       console.error("Error deleting item:",err)
     }
   };
-  // Goes to View Page of certain item
+  // Goes to View Page of selected item
+  // Takes ListName as URL parameter and id as state parameter
   const handleView=(listName,id)=>{
     navigate(`/view-list/${encodeURIComponent(listName)}`, { state: {id} });
   }
+  //
   const {t,setLang}=useTranslate();
   return (
     <>
@@ -116,18 +122,18 @@ function UserHome() {
         <NewListLogo src="/icons/pluscircle.svg" alt="Plus circle symbol"/></NavButton>
         </CreateNewListDiv>
             {data.length >0 ? data.map(item => (
-              <Block key={item.id}>
+              <ListItem key={item.id}>
                 <ListButtonDiv>
                   <ListButton onClick={()=>handleView(item.list_name,item.id)} src="icons/magnifying_glass.svg"></ListButton>
                   <ListButton onClick={()=>handleEdit(item.list_name,item.id)} src="icons/wrench.svg"></ListButton>
                   <ListButton onClick={()=>handleDelete(item.id)} src="icons/trashcan.svg"></ListButton>
                 </ListButtonDiv>
                 <p>{item.list_name}</p>
-              </Block>
+              </ListItem>
           )) : (
-            <Block>
+            <ListItem>
             <h4>You have nothing here yet...</h4>
-            </Block>)}
+            </ListItem>)}
         </ListingDiv>
       </div>
     </>
