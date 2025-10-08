@@ -262,7 +262,7 @@ useEffect(() => {
   }
 }, [item]);
 
-console.log(optionsChosen)
+console.log("optionsChosen",optionsChosen)
 
 const [message,setMessage]=useState("")
 
@@ -313,7 +313,7 @@ useEffect(() => {
       }
     });
         DestinationPurposes.forEach((db, index) => {
-      if (item.place_type.includes(db.value)) {
+      if (item.purpose.includes(db.value)) {
         initialPurposeBoxes[index] = true;
       }
     });
@@ -331,9 +331,9 @@ useEffect(() => {
     setActiveListName(item.list_name);
     setActiveDestinationName(item.place_name);
     setActiveTypeBoxes(initialActiveBoxes);
-    setActivePurposeBoxes(initialActiveBoxes);
+    setActivePurposeBoxes(initialPurposeBoxes);
     setActiveVehicleBoxes(initialVehicleBoxes);
-    setActiveWeatherBoxes(initialVehicleBoxes);
+    setActiveWeatherBoxes(initialWeatherBoxes);
   }
 }, [item]);
 
@@ -453,7 +453,6 @@ return (
     <MyListHeader><header>{t("newlist-listname")}</header>
     <textarea
   onChange={(e) => {
-    console.log(e.target.value);
     setOptionsChosen(prev => ({ ...prev, listName: e.target.value }))
   }}
   name="destinationname" rows={4} cols={40} placeholder={ActiveListName||t("typelistname")}>
@@ -462,7 +461,6 @@ return (
     <MyListHeader ><header>{t("newlist-destinationname")}</header>
     <textarea
   onChange={(e) => {
-    console.log(e.target.value);
     setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
   }}
   name="destinationname" rows={4} cols={40} placeholder={ActiveDestinationName||t("typelistdestination")}>
