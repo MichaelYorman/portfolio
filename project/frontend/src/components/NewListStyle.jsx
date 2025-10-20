@@ -108,12 +108,89 @@ export const MyListHeader = styled.header`
   }
 `;
 
-export const Object = styled.div`
+export const SearchListItem = styled.div`
+  display:flex;
+  align-items:center;
+  justify-content:center;
   width:100px;
   height:100px;
   margin:10px 10px 0px 10px;
-  background-color:black;
+  outline-style:solid;
+  outline-width:2px;
+  cursor:pointer;
+  &:hover {background-color:green;}
 `;
+export const ClothItem = styled.div`
+  display:flex;
+  position:relative;
+  align-items:center;
+  justify-content:center;
+  width:100px;
+  height:100px;
+  margin:20px 20px 20px 20px;
+  outline-style:solid;
+  outline-width:2px;
+  cursor:pointer;
+`;
+export const ClothCounter=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:1.5rem;
+width:30px;
+height:30px;
+outline-style:solid;
+outline-width:2px;
+position:absolute;
+margin-left:100px;
+margin-top:100px;
+z-index:10;
+background-color:whitesmoke;
+`;
+export const ClothItemButtonDiv=styled.div`
+display: ${props => (props.active ? "flex" : "none")};
+flex-direction:row;
+position:absolute;
+top:0;
+right:0;
+`
+export const ClothItemPlusButton=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:1.5rem;
+width:25px;
+height:25px;
+outline-style:solid;
+outline-width:2px;
+background-color:whitesmoke;
+&:hover {background-color:green;}
+`
+export const ClothItemMinusButton=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:1.5rem;
+width:25px;
+height:25px;
+outline-style:solid;
+outline-width:2px;
+background-color:whitesmoke;
+&:hover {background-color:green;}
+`;
+export const ClothItemDeleteButton=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:1.5rem;
+width:25px;
+height:25px;
+outline-style:solid;
+outline-width:2px;
+background-color:whitesmoke;
+&:hover {background-color:green;}
+`;
+
 
 export const MultiItemDiv = styled.div`
   display:flex;
@@ -137,7 +214,6 @@ export const MultiItem = styled.div`
   outline-style:solid;
   outline-width:2px;
   cursor:pointer;
-  &:hover {background-color:green;}
   transition:background-color:0.3s;
 `;
 

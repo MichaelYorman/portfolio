@@ -13,7 +13,13 @@ import {
   AddMoreButtonDiv,
   Logo,
   MyListHeader,
-  Object,
+  SearchListItem,
+  ClothItem,
+  ClothItemButtonDiv,
+  ClothCounter,
+  ClothItemPlusButton,
+  ClothItemMinusButton,
+  ClothItemDeleteButton,
   MultiItemDiv,
   MultiItem,
   N,
@@ -26,6 +32,7 @@ import {
   HeadWearSearchInput,
   HeadWearContainer
 } from "./NewListStyle";
+import { ClothAccessoryList } from "./ListItems.jsx";
 
 const api=axios.create({
      baseURL: "http://localhost:3000/api",
@@ -126,12 +133,19 @@ function clickMe() {
   }
 //Translation
 const {t,setLang}=useTranslate();
-// With Source, you can call different objects easily
+// With Source, get the information of clickable boxes
 const Source = getSource(t);
 const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
+// With WearList, get the information of clothing items
+const WearList=ClothAccessoryList();
+const HeadWear=WearList.HeadWear;
+const BodyWear=WearList.BodyWear;
+const HandWear=WearList.HandWear;
+const LegWear=WearList.LegWear;
+const FootWear=WearList.FootWear;
 
 //UseState for multipickable items
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
@@ -143,12 +157,28 @@ const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
 const [IsHeadWearTableActive,setHeadWearTableActive]=useState(true);
 
 //UseState for user chosen wear
-  const [ChosenHeadWear, setChosenHeadWear] = useState({});
+  const [ChosenHeadWear, setChosenHeadWear] = useState([]);
   const [ChosenBodyWear, setChosenBodyWear] = useState({});
   const [ChosenHandWear, setChosenHandWear] = useState({});
   const [ChosenLegWear, setChosenLegWear] = useState({});
   const [ChosenFootWear, setChosenFootWear] = useState({});
 
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+// Add HeadWear item to chosen list
+const addHeadWear=(i)=>{
+  const label=HeadWear[i].label;
+  const itemIsIncluded=ChosenHeadWear.find(h=>h.item===label);
+  if(itemIsIncluded) {setChosenHeadWear(prev =>
+      prev.map(h =>
+        h.item === label ? { ...h, amount: h.amount + 1 } : h
+      )
+    );
+  }
+  else {
+    setChosenHeadWear(prev => [...prev, { item: label, amount: 1 }]);
+  }
+}
 // Update chosen options from Destination Type Box
 const toggleDestinationTypeBox = (index) => {
   const value = DestinationTypes[index].value; // get types
@@ -308,8 +338,7 @@ return (
           key={i}
           $isActive={!!ActiveVehicleBoxes[i]}
           onClick={() => toggleVehicleBox(i)
-          }
-        >
+          }>
           {item.symbol}
         </MultiItem>
       ))}  
@@ -340,21 +369,37 @@ return (
     <HeadWearSearchInput placeholder="Search headwear..."  $IsHeadWearTableActive={IsHeadWearTableActive}>
     </HeadWearSearchInput>
     <HeadWearTable $IsHeadWearTableActive={IsHeadWearTableActive}>
-    <Object/>
-    <Object/>
-    <Object/>
-    <Object/>
-    <Object/>
-    <Object/>
-    <Object/>
-    <Object/>
-    <Object/>
+    {HeadWear.map((item, i) => (
+    <SearchListItem
+    key={i}
+    onClick={() => addHeadWear(i)}
+    >
+    <p>{item.label}</p>
+    </SearchListItem>
+      ))}
     </HeadWearTable>
     </HeadWearContainer>
     <ClothContentDiv>
     <AddMoreButtonDiv>
     <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol" onClick={() => setHeadWearTableActive(prev=>!prev)}/>
     </AddMoreButtonDiv>
+    {ChosenHeadWear.map((item, i) => (
+    <ClothItem
+    key={i}
+    onMouseEnter={()=>setHoveredIndex(true)}
+    onMouseLeave={()=>setHoveredIndex(false)}
+    >
+    <p>{item.item}</p>
+    <ClothItemButtonDiv $active={hoveredIndex===i}>
+    <ClothItemPlusButton>+</ClothItemPlusButton>
+    <ClothItemMinusButton>-</ClothItemMinusButton>
+    <ClothItemDeleteButton></ClothItemDeleteButton>
+    </ClothItemButtonDiv>
+    <ClothCounter>
+    <p>{item.amount}</p>
+    </ClothCounter>
+    </ClothItem>
+      ))}
     </ClothContentDiv>
 
     <ClothHeaderDiv>
