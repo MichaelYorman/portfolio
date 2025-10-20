@@ -3,6 +3,7 @@ import express from "express";
 export default function (connection) {
 const router=express.Router();
 
+// Saves a new list to database
 router.post('/test',(req,res)=> {
   const {
     listName,
@@ -11,13 +12,19 @@ router.post('/test',(req,res)=> {
     purposes,
     vehicles,
     weather,
-    temperature
+    temperature,
+    headwear,
+    bodywear,
+    handwear,
+    legwear,
+    footwear,
+    accessory
   } =req.body.data;
 console.log(listName)
     const query = `
     INSERT INTO list
-    (list_name, place_name, place_type, purpose, vehicle, weather, temperature)
-    VALUES (?,?,?,?,?,?,?)
+    (list_name, place_name, place_type, purpose, vehicle, weather, temperature,headwear,bodywear,handwear,legwear,footwear,accessory)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
   `;
     const values = [
       listName,
@@ -26,7 +33,13 @@ console.log(listName)
       JSON.stringify(purposes),
       JSON.stringify(vehicles),
       JSON.stringify(weather),
-      temperature
+      temperature,
+      JSON.stringify(headwear),
+      JSON.stringify(bodywear),
+      JSON.stringify(handwear),
+      JSON.stringify(legwear),
+      JSON.stringify(footwear),
+      JSON.stringify(accessory),
     ];
 
     connection.query(query,values,(err,result) => {
@@ -37,6 +50,7 @@ console.log(listName)
     res.json({message:"Data saved to MySQL!",id:result.insertId})
     });
 });
+// Gets all lists from database
 router.get("/list", (req, res) => {
         const query = `
         SELECT * FROM list
@@ -51,12 +65,21 @@ router.get("/list", (req, res) => {
   place_type: row.place_type ? JSON.parse(row.place_type) : [],
   purpose: row.purpose ? JSON.parse(row.purpose) : [],
   vehicle: row.vehicle ? JSON.parse(row.vehicle) : [],
-  weather: row.weather ? JSON.parse(row.weather) : []
+  weather: row.weather ? JSON.parse(row.weather) : [],
+  temperature:row.temperature ? JSON.parse(row.temperature) : "",
+  headwear:row.headwear ? JSON.parse(row.headwear) : [],
+  bodywear:row.bodywear ? JSON.parse(row.bodywear) : [],
+  handwear:row.handwear ? JSON.parse(row.handwear) : [],
+  legwear:row.legwear ? JSON.parse(row.legwear) : [],
+  footwear:row.footwear ? JSON.parse(row.footwear) : [],
+  accessory:row.accessory ? JSON.parse(row.accessory) : []
 }));
 
     res.json({data:formattedResult});
     });
 });
+
+// Gets a data of a single list from database
 router.get("/list/:id", (req, res) => {
   const {id}=req.params;
         const query = `
@@ -77,12 +100,21 @@ const formattedItem = {
   place_type: row.place_type ? JSON.parse(row.place_type) : [],
   purpose: row.purpose ? JSON.parse(row.purpose) : [],
   vehicle: row.vehicle ? JSON.parse(row.vehicle) : [],
-  weather: row.weather ? JSON.parse(row.weather) : []
+  weather: row.weather ? JSON.parse(row.weather) : [],
+  temperature:row.temperature ? JSON.parse(row.temperature) : "",
+  headwear:row.headwear ? JSON.parse(row.headwear) : [],
+  bodywear:row.bodywear ? JSON.parse(row.bodywear) : [],
+  handwear:row.handwear ? JSON.parse(row.handwear) : [],
+  legwear:row.legwear ? JSON.parse(row.legwear) : [],
+  footwear:row.footwear ? JSON.parse(row.footwear) : [],
+  accessory:row.accessory ? JSON.parse(row.accessory) : []
 };
 
     res.json({data:formattedItem});
     });
 });
+
+// Updates a list
 router.put("/update/:id",(req,res)=> {
   const {id}=req.params;
    const {
@@ -92,11 +124,17 @@ router.put("/update/:id",(req,res)=> {
     purposes,
     vehicles,
     weather,
-    temperature
+    temperature,
+    headwear,
+    bodywear,
+    handwear,
+    legwear,
+    footwear,
+    accessory
   } = req.body;
   const query=`
   UPDATE list
-  SET list_name=?,place_name=?,place_type=?,purpose=?,vehicle=?,weather=?,temperature=?
+  SET list_name=?,place_name=?,place_type=?,purpose=?,vehicle=?,weather=?,temperature=?,headwear=?,bodywear=?,handwear=?,legwear=?,footwear=?,accessory=?
   WHERE id=?
   `;
       const values = [
@@ -107,6 +145,12 @@ router.put("/update/:id",(req,res)=> {
       JSON.stringify(vehicles),
       JSON.stringify(weather),
       temperature,
+      JSON.stringify(headwear),
+      JSON.stringify(bodywear),
+      JSON.stringify(handwear),
+      JSON.stringify(legwear),
+      JSON.stringify(footwear),
+      JSON.stringify(accessory),
       id
     ];
   connection.query(query,values,(err,result)=>{
@@ -123,6 +167,8 @@ res.json({message:"Item updated succesfully!",id})
 });
 })
 
+
+// Deletes a list
 router.delete("/list/:id",(req,res)=> {
 const {id}=req.params;
 

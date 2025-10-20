@@ -1,150 +1,36 @@
-import styled from "styled-components";
 import { useTranslate } from "./LanguageContext";
 import { useState } from "react";
 import axios from "axios";
+import { 
+  NewListDiv,
+  TopListSectionGrid,
+  TopListContentDiv1,
+  TopListContentDiv2,
+  MapApiDiv,
+  BottomContentDiv,
+  ClothHeaderDiv,
+  ClothContentDiv,
+  AddMoreButtonDiv,
+  Logo,
+  MyListHeader,
+  Object,
+  MultiItemDiv,
+  MultiItem,
+  N,
+  Test,
+  HeadWearTable,
+  BodyWearTable,
+  HandWearTable,
+  LegWearTable,
+  FootWearTable,
+  HeadWearSearchInput,
+  HeadWearContainer
+} from "./NewListStyle";
 
 const api=axios.create({
      baseURL: "http://localhost:3000/api",
 })
 
-const NewListDiv=styled.div`
-display:flex;
-flex-direction:column;
-position:relative;
-background-color:whitesmoke;
-margin-top:250px;
-`;
-const TopListSectionGrid=styled.div`
-display:grid;
-grid-template-columns:1fr 1fr;
-gird-template-rows:1fr;
-`
-const TopListContentDiv1=styled.div`
-display:flex;
-flex-direction:column;
-grid-column:1;
-gap:20px;
-margin-top:50px;
-margin-left:150px;
-`;
-
-const TopListContentDiv2=styled.div`
-display:flex;
-flex-direction:column;
-grid-column:2;
-gap:20px;
-margin-top:600px;
-margin-left:150px;
-`;
-const MapApiDiv=styled.div`
-background-color:gray;
-position:absolute;
-right:0;
-height:512px;
-width:512px;
-`;
-const BottomContentDiv=styled.div`
-display:flex;
-flex-direction:column;
-margin-top:100px;
-width:1080px;
-height:auto;
-align-items:center;
-padding-bottom:100px;
-}
-`;
-const ClothHeaderDiv=styled.div`
-display:flex;
-flex-direction:column;
-margin-top:50px;
-width:400px;
-height:100px;
-outline-style:dashed;
-background-color:white;
-align-items:center;
-justify-content:center;
-`;
-const ClothContentDiv=styled.div`
-display:flex;
-flex-direction:row;
-flex-wrap:wrap;
-padding:10px;
-margin-top:50px;
-margin-right:200px;
-width:800px;
-height:auto;
-outline-style:dashed;
-background-color:white;
-`;
-const AddMoreButtonDiv=styled.div`
-display:flex;
-padding:5px;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-margin:10px 20px 10px 10px;
-width:fit-content;
-height:fit-content;
-background-color:whitesmoke;
-outline-style:dashed;
-cursor:pointer;
-`;
-
-const Logo=styled.img`
-width:50px;
-height:auto;
-`;
-const MyListHeader=styled.header`
-display:flex;
-flex-direction:column;
-width:fit-content;
-gap:10px;
-header{text-decoration:underline;
-font-size:1.5em;}
-h1{cursor:pointer;}
-`;
-
-const Object=styled.div`
-width:100px;
-height:100px;
-margin:10px 10px 0px 10px;
-background-color:black;
-`;
-const MultiItemDiv=styled.div`
-display:flex;
-flex-direction:row;
-width:300px;
-height:fit-content;
-background-color:snow;
-flex-wrap:wrap;
-`;
-const MultiItem=styled.div`
-display:flex;
-width:100px;
-height:100px;
-font-size:2rem;
-flex-direction:row;
-align-items:center;
-justify-content:center;
-gap:10px;
-background-color:${props => (props.$isActive ? "green" : "whitesmoke")};;
-outline-style:solid;
-outline-width:2px;
-cursor:pointer;
-&:hover {background-color:green;}
-transition:background-color:0.3s;
-`;
-
-const N=styled.div`
-width:100px;
-height:100px;
-background-color:yellow;
-`;
-const Test=styled.div`
-width:100px;
-height:100px;
-background-color:red;
-`
 const getSource = (t) => ({
 DestinationTypes: [
   { value: 'forest', label: `${t("typeforest")}`, symbol: '🌲' },
@@ -212,7 +98,13 @@ types:[],
 purposes:[],
 vehicles:[],
 weather:[],
-temperature:""
+temperature:"",
+headwear:[],
+bodywear:[],
+handwear:[],
+legwear:[],
+footwear:[],
+accessory:[]
 })
 //
 const [message,setMessage]=useState("")
@@ -234,19 +126,28 @@ function clickMe() {
   }
 //Translation
 const {t,setLang}=useTranslate();
-// With Source, can call different objects easily
+// With Source, you can call different objects easily
 const Source = getSource(t);
 const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
 
-//UseState for multi-pickable items
+//UseState for multipickable items
 const [ActiveTypeBoxes,setActiveTypeBoxes]=useState({})
 const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
 const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
 const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
-//
+
+//UseState for different Wear Search Tables
+const [IsHeadWearTableActive,setHeadWearTableActive]=useState(true);
+
+//UseState for user chosen wear
+  const [ChosenHeadWear, setChosenHeadWear] = useState({});
+  const [ChosenBodyWear, setChosenBodyWear] = useState({});
+  const [ChosenHandWear, setChosenHandWear] = useState({});
+  const [ChosenLegWear, setChosenLegWear] = useState({});
+  const [ChosenFootWear, setChosenFootWear] = useState({});
 
 // Update chosen options from Destination Type Box
 const toggleDestinationTypeBox = (index) => {
@@ -435,9 +336,24 @@ return (
     <ClothHeaderDiv>
     <h2>{t("headwear")}</h2>
     </ClothHeaderDiv>
+    <HeadWearContainer>
+    <HeadWearSearchInput placeholder="Search headwear..."  $IsHeadWearTableActive={IsHeadWearTableActive}>
+    </HeadWearSearchInput>
+    <HeadWearTable $IsHeadWearTableActive={IsHeadWearTableActive}>
+    <Object/>
+    <Object/>
+    <Object/>
+    <Object/>
+    <Object/>
+    <Object/>
+    <Object/>
+    <Object/>
+    <Object/>
+    </HeadWearTable>
+    </HeadWearContainer>
     <ClothContentDiv>
     <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
+    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol" onClick={() => setHeadWearTableActive(prev=>!prev)}/>
     </AddMoreButtonDiv>
     </ClothContentDiv>
 
