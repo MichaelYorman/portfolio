@@ -163,21 +163,45 @@ const [IsHeadWearTableActive,setHeadWearTableActive]=useState(true);
   const [ChosenLegWear, setChosenLegWear] = useState({});
   const [ChosenFootWear, setChosenFootWear] = useState({});
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState();
 
 // Add HeadWear item to chosen list
 const addHeadWear=(i)=>{
-  const label=HeadWear[i].label;
-  const itemIsIncluded=ChosenHeadWear.find(h=>h.item===label);
+  if (ChosenHeadWear.length===0) {
+    const label=HeadWear[i].label;
+    console.log(label)
+    setChosenHeadWear(prev => [...prev, { name: label, amount: 1 }]);}
+  const itemName=ChosenHeadWear[i].name;
+  const itemIsIncluded=ChosenHeadWear.find(h=>h.name===itemName);
   if(itemIsIncluded) {setChosenHeadWear(prev =>
       prev.map(h =>
-        h.item === label ? { ...h, amount: h.amount + 1 } : h
+        h.name === itemName ? { ...h, amount: h.amount + 1 } : h
       )
     );
   }
   else {
-    setChosenHeadWear(prev => [...prev, { item: label, amount: 1 }]);
+    setChosenHeadWear(prev => [...prev, { name: label, amount: 1 }]);
   }
+}
+const removeHeadWear=(i)=>{
+  console.log(i)
+  const itemName=ChosenHeadWear[i].name;
+if(ChosenHeadWear[i].amount===1) {
+  deleteHeadWear(i);
+}
+else {
+  setChosenHeadWear(prev =>
+      prev.map(h =>
+        h.name === itemName ? { ...h, amount: h.amount - 1 } : h
+      )
+    );
+    }
+}
+const deleteHeadWear=(i)=>{
+  console.log(i)
+  const itemName=ChosenHeadWear[i].name;
+  setChosenHeadWear(prev=>prev.filter(h=>h.name!==itemName));
+  
 }
 // Update chosen options from Destination Type Box
 const toggleDestinationTypeBox = (index) => {
@@ -275,6 +299,7 @@ setActiveWeatherBoxes(prev=> ({
     }
   });
 };
+console.log("Chosen headwear",ChosenHeadWear)
 return (
     <>
     <div>
@@ -386,14 +411,20 @@ return (
     {ChosenHeadWear.map((item, i) => (
     <ClothItem
     key={i}
-    onMouseEnter={()=>setHoveredIndex(true)}
-    onMouseLeave={()=>setHoveredIndex(false)}
+    onMouseEnter={()=>setHoveredIndex(i)}
+    onMouseLeave={()=>setHoveredIndex(null)}
     >
-    <p>{item.item}</p>
-    <ClothItemButtonDiv $active={hoveredIndex===i}>
-    <ClothItemPlusButton>+</ClothItemPlusButton>
-    <ClothItemMinusButton>-</ClothItemMinusButton>
-    <ClothItemDeleteButton></ClothItemDeleteButton>
+    <p>{item.name}</p>
+    <ClothItemButtonDiv $clothItemHovered={hoveredIndex===i}>
+    <ClothItemPlusButton
+    onClick={() => addHeadWear(i)}
+    >+</ClothItemPlusButton>
+    <ClothItemMinusButton
+    onClick={() => removeHeadWear(i)}
+    >-</ClothItemMinusButton>
+    <ClothItemDeleteButton
+    onClick={() => deleteHeadWear(i)}
+    >D</ClothItemDeleteButton>
     </ClothItemButtonDiv>
     <ClothCounter>
     <p>{item.amount}</p>

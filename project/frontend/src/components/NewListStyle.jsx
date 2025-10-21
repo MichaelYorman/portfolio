@@ -148,13 +148,13 @@ z-index:10;
 background-color:whitesmoke;
 `;
 export const ClothItemButtonDiv=styled.div`
-display: ${props => (props.active ? "flex" : "none")};
+display: ${({ $clothItemHovered }) => ($clothItemHovered ? "flex" : "none")};
 flex-direction:row;
 position:absolute;
 top:0;
 right:0;
 `
-export const ClothItemPlusButton=styled.div`
+export const ClothItemPlusButton=styled.button`
 display:flex;
 align-items:center;
 justify-content:center;
@@ -166,7 +166,7 @@ outline-width:2px;
 background-color:whitesmoke;
 &:hover {background-color:green;}
 `
-export const ClothItemMinusButton=styled.div`
+export const ClothItemMinusButton=styled.button`
 display:flex;
 align-items:center;
 justify-content:center;
@@ -178,7 +178,7 @@ outline-width:2px;
 background-color:whitesmoke;
 &:hover {background-color:green;}
 `;
-export const ClothItemDeleteButton=styled.div`
+export const ClothItemDeleteButton=styled.button`
 display:flex;
 align-items:center;
 justify-content:center;
