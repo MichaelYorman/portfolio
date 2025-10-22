@@ -167,11 +167,7 @@ const [IsHeadWearTableActive,setHeadWearTableActive]=useState(true);
 
 // Add HeadWear item to chosen list
 const addHeadWear=(i)=>{
-  if (ChosenHeadWear.length===0) {
-    const label=HeadWear[i].label;
-    console.log(label)
-    setChosenHeadWear(prev => [...prev, { name: label, amount: 1 }]);}
-  const itemName=ChosenHeadWear[i].name;
+  const itemName=HeadWear[i].label;
   const itemIsIncluded=ChosenHeadWear.find(h=>h.name===itemName);
   if(itemIsIncluded) {setChosenHeadWear(prev =>
       prev.map(h =>
@@ -180,7 +176,7 @@ const addHeadWear=(i)=>{
     );
   }
   else {
-    setChosenHeadWear(prev => [...prev, { name: label, amount: 1 }]);
+    setChosenHeadWear(prev => [...prev, { name: itemName, amount: 1 }]);
   }
 }
 const removeHeadWear=(i)=>{
