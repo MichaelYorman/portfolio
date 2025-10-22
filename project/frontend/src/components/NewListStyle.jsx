@@ -254,7 +254,114 @@ height:25px;
 align-self:center;
 display:${props => (props.$IsHeadWearTableActive ? "none" : "inline-block")};
 `;
-export const BodyWearTable = styled.div``;
-export const HandWearTable = styled.div``;
-export const LegWearTable = styled.div``;
-export const FootWearTable = styled.div``;
+// BodyWear
+export const BodyWearContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+`;
+
+export const BodyWearTable = styled.div`
+  display: ${props => (props.$IsBodyWearTableActive ? "none" : "flex")};
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 50px;
+  margin-right: 200px;
+  width: 800px;
+  height: fit-content;
+  outline-style: dashed;
+  background-color: whitesmoke;
+`;
+
+export const BodyWearSearchInput = styled.input`
+  width: 200px;
+  font-size: 20px;
+  height: 25px;
+  align-self: center;
+  display: ${props => (props.$IsBodyWearTableActive ? "none" : "inline-block")};
+`;
+
+// HandWear
+export const HandWearContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+`;
+
+export const HandWearTable = styled.div`
+  display: ${props => (props.$IsHandWearTableActive ? "none" : "flex")};
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 50px;
+  margin-right: 200px;
+  width: 800px;
+  height: fit-content;
+  outline-style: dashed;
+  background-color: whitesmoke;
+`;
+
+export const HandWearSearchInput = styled.input`
+  width: 200px;
+  font-size: 20px;
+  height: 25px;
+  align-self: center;
+  display: ${props => (props.$IsHandWearTableActive ? "none" : "inline-block")};
+`;
+
+// LegWear
+export const LegWearContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+`;
+
+export const LegWearTable = styled.div`
+  display: ${props => (props.$IsLegWearTableActive ? "none" : "flex")};
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 50px;
+  margin-right: 200px;
+  width: 800px;
+  height: fit-content;
+  outline-style: dashed;
+  background-color: whitesmoke;
+`;
+
+export const LegWearSearchInput = styled.input`
+  width: 200px;
+  font-size: 20px;
+  height: 25px;
+  align-self: center;
+  display: ${props => (props.$IsLegWearTableActive ? "none" : "inline-block")};
+`;
+
+// FootWear
+export const FootWearContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+`;
+
+export const FootWearTable = styled.div`
+  display: ${props => (props.$IsFootWearTableActive ? "none" : "flex")};
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 50px;
+  margin-right: 200px;
+  width: 800px;
+  height: fit-content;
+  outline-style: dashed;
+  background-color: whitesmoke;
+`;
+
+export const FootWearSearchInput = styled.input`
+  width: 200px;
+  font-size: 20px;
+  height: 25px;
+  align-self: center;
+  display: ${props => (props.$IsFootWearTableActive ? "none" : "inline-block")};
+`;
