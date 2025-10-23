@@ -129,12 +129,24 @@ const getSource = () => ({
   ]
 });
 //Listing functions
-function HeadWearListing() {
+function HeadWearListing({
+  IsHeadWearTableActive,
+  setHeadWearTableActive,
+  ChosenHeadWear,
+  setChosenHeadWear,
+  increaseHeadWear,
+  decreaseHeadWear,
+  deleteHeadWear,
+  HeadWear,
+  hoveredIndex,
+  setHoveredIndex,
+  optionsChosen,
+  setOptionsChosen
+}) {
   return (
     <div>
-{/* 🧢 HEADWEAR */}
 <ClothHeaderDiv>
-  <h2>headwear</h2>
+  <h2>Headwear</h2>
 </ClothHeaderDiv>
 
 <HeadWearContainer>
@@ -143,10 +155,10 @@ function HeadWearListing() {
     $IsHeadWearTableActive={IsHeadWearTableActive}
   />
   <HeadWearTable $IsHeadWearTableActive={IsHeadWearTableActive}>
-    {HeadWear.map((item, i) => (
+    {HeadWear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addHeadWearFromSearch(i, HeadWear, ChosenHeadWear, setChosenHeadWear)}
+        onClick={() => addHeadWearFromSearch(i, HeadWear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -163,7 +175,7 @@ function HeadWearListing() {
     />
   </AddMoreButtonDiv>
 
-  {ChosenHeadWear.map((item, i) => (
+  {ChosenHeadWear?.map((item, i) => (
     <ClothItem
       key={i}
       onMouseEnter={() => setHoveredIndex(i)}
@@ -172,13 +184,13 @@ function HeadWearListing() {
       <p>{item.name}</p>
       <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
         <ClothItemPlusButton
-          onClick={() => increaseHeadWear(i, ChosenHeadWear, setChosenHeadWear)}
+          onClick={() => increaseHeadWear(i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
         >+</ClothItemPlusButton>
         <ClothItemMinusButton
-          onClick={() => decreaseHeadWear(i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear)}
+          onClick={() => decreaseHeadWear(i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear,setOptionsChosen)}
         >-</ClothItemMinusButton>
         <ClothItemDeleteButton
-          onClick={() => deleteHeadWear(i, ChosenHeadWear, setChosenHeadWear)}
+          onClick={() => deleteHeadWear(i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
         >D</ClothItemDeleteButton>
       </ClothItemButtonDiv>
       <ClothCounter>
@@ -190,12 +202,22 @@ function HeadWearListing() {
     </div>
   )
 }
-function BodyWearListing() {
+function BodyWearListing({
+  IsBodyWearTableActive,
+  setBodyWearTableActive,
+  ChosenBodyWear,
+  setChosenBodyWear,
+  increaseBodyWear,
+  decreaseBodyWear,
+  deleteBodyWear,
+  BodyWear,
+  hoveredIndex,
+  setHoveredIndex
+}) {
   return (
     <div>
-      {/* 🧍 BODYWEAR */}
 <ClothHeaderDiv>
-  <h2>bodywear</h2>
+  <h2>Bodywear</h2>
 </ClothHeaderDiv>
 
 <BodyWearContainer>
@@ -204,10 +226,10 @@ function BodyWearListing() {
     $IsBodyWearTableActive={IsBodyWearTableActive}
   />
   <BodyWearTable $IsBodyWearTableActive={IsBodyWearTableActive}>
-    {BodyWear.map((item, i) => (
+    {BodyWear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addBodyWearFromSearch(i, BodyWear, ChosenBodyWear, setChosenBodyWear)}
+        onClick={() => addBodyWearFromSearch(i, BodyWear, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -223,7 +245,7 @@ function BodyWearListing() {
       onClick={() => setBodyWearTableActive(prev => !prev)}
     />
   </AddMoreButtonDiv>
-  {ChosenBodyWear.map((item, i) => (
+  {ChosenBodyWear?.map((item, i) => (
     <ClothItem
       key={i}
       onMouseEnter={() => setHoveredIndex(i)}
@@ -232,13 +254,13 @@ function BodyWearListing() {
       <p>{item.name}</p>
       <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
         <ClothItemPlusButton
-          onClick={() => increaseBodyWear(i, ChosenBodyWear, setChosenBodyWear)}
+          onClick={() => increaseBodyWear(i, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
         >+</ClothItemPlusButton>
         <ClothItemMinusButton
-          onClick={() => decreaseBodyWear(i, ChosenBodyWear, setChosenBodyWear, deleteBodyWear)}
+          onClick={() => decreaseBodyWear(i, ChosenBodyWear, setChosenBodyWear, deleteBodyWear,setOptionsChosen)}
         >-</ClothItemMinusButton>
         <ClothItemDeleteButton
-          onClick={() => deleteBodyWear(i, ChosenBodyWear, setChosenBodyWear)}
+          onClick={() => deleteBodyWear(i, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
         >D</ClothItemDeleteButton>
       </ClothItemButtonDiv>
       <ClothCounter>
@@ -251,12 +273,23 @@ function BodyWearListing() {
     </div>
   )
 }
-function HandWearListing() {
+function HandWearListing({
+  IsHandWearTableActive,
+  setHandWearTableActive,
+  ChosenHandWear,
+  setChosenHandWear,
+  increaseHandWear,
+  decreaseHandWear,
+  deleteHandWear,
+  HandWear,
+  hoveredIndex,
+  setHoveredIndex
+}) {
   return (
     <div>
       {/* 🖐 HANDWEAR */}
 <ClothHeaderDiv>
-  <h2>handwear</h2>
+  <h2>Handwear</h2>
 </ClothHeaderDiv>
 
 <HandWearContainer>
@@ -265,10 +298,10 @@ function HandWearListing() {
     $IsHandWearTableActive={IsHandWearTableActive}
   />
   <HandWearTable $IsHandWearTableActive={IsHandWearTableActive}>
-    {HandWear.map((item, i) => (
+    {HandWear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addHandWearFromSearch(i, HandWear, ChosenHandWear, setChosenHandWear)}
+        onClick={() => addHandWearFromSearch(i, HandWear, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -284,7 +317,7 @@ function HandWearListing() {
       onClick={() => setHandWearTableActive(prev => !prev)}
     />
   </AddMoreButtonDiv>
-  {ChosenHandWear.map((item, i) => (
+  {ChosenHandWear?.map((item, i) => (
     <ClothItem
       key={i}
       onMouseEnter={() => setHoveredIndex(i)}
@@ -293,13 +326,13 @@ function HandWearListing() {
       <p>{item.name}</p>
       <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
         <ClothItemPlusButton
-          onClick={() => increaseHandWear(i, ChosenHandWear, setChosenHandWear)}
+          onClick={() => increaseHandWear(i, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
         >+</ClothItemPlusButton>
         <ClothItemMinusButton
-          onClick={() => decreaseHandWear(i, ChosenHandWear, setChosenHandWear, deleteHandWear)}
+          onClick={() => decreaseHandWear(i, ChosenHandWear, setChosenHandWear, deleteHandWear,setOptionsChosen)}
         >-</ClothItemMinusButton>
         <ClothItemDeleteButton
-          onClick={() => deleteHandWear(i, ChosenHandWear, setChosenHandWear)}
+          onClick={() => deleteHandWear(i, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
         >D</ClothItemDeleteButton>
       </ClothItemButtonDiv>
       <ClothCounter>
@@ -312,12 +345,21 @@ function HandWearListing() {
     </div>
   )
 }
-function LegWearListing() {
+function LegWearListing({ 
+  IsLegWearTableActive,
+  setLegWearTableActive,
+  ChosenLegWear,
+  setChosenLegWear,
+  increaseLegWear,
+  decreaseLegWear,
+  deleteLegWear,
+  LegWear,
+  hoveredIndex,
+  setHoveredIndex}){
   return (
     <div>
-     {/* 🦵 LEGWEAR */}
 <ClothHeaderDiv>
-  <h2>legwear</h2>
+  <h2>Legwear</h2>
 </ClothHeaderDiv>
 
 <LegWearContainer>
@@ -326,10 +368,10 @@ function LegWearListing() {
     $IsLegWearTableActive={IsLegWearTableActive}
   />
   <LegWearTable $IsLegWearTableActive={IsLegWearTableActive}>
-    {LegWear.map((item, i) => (
+    {LegWear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addLegWearFromSearch(i, LegWear, ChosenLegWear, setChosenLegWear)}
+        onClick={() => addLegWearFromSearch(i, LegWear, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -345,7 +387,7 @@ function LegWearListing() {
       onClick={() => setLegWearTableActive(prev => !prev)}
     />
   </AddMoreButtonDiv>
-  {ChosenLegWear.map((item, i) => (
+  {ChosenLegWear?.map((item, i) => (
     <ClothItem
       key={i}
       onMouseEnter={() => setHoveredIndex(i)}
@@ -354,13 +396,13 @@ function LegWearListing() {
       <p>{item.name}</p>
       <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
         <ClothItemPlusButton
-          onClick={() => increaseLegWear(i, ChosenLegWear, setChosenLegWear)}
+          onClick={() => increaseLegWear(i, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
         >+</ClothItemPlusButton>
         <ClothItemMinusButton
-          onClick={() => decreaseLegWear(i, ChosenLegWear, setChosenLegWear, deleteLegWear)}
+          onClick={() => decreaseLegWear(i, ChosenLegWear, setChosenLegWear, deleteLegWear,setOptionsChosen)}
         >-</ClothItemMinusButton>
         <ClothItemDeleteButton
-          onClick={() => deleteLegWear(i, ChosenLegWear, setChosenLegWear)}
+          onClick={() => deleteLegWear(i, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
         >D</ClothItemDeleteButton>
       </ClothItemButtonDiv>
       <ClothCounter>
@@ -372,13 +414,22 @@ function LegWearListing() {
     </div>
   )
 }
-function FootWearListing() {
+function FootWearListing({
+  IsFootWearTableActive,
+  setFootWearTableActive,
+  ChosenFootWear,
+  setChosenFootWear,
+  increaseFootWear,
+  decreaseFootWear,
+  deleteFootWear,
+  FootWear,
+  hoveredIndex,
+  setHoveredIndex
+}) {
   return (
     <div>
-     
-{/* 👣 FOOTWEAR */}
 <ClothHeaderDiv>
-  <h2>footwear</h2>
+  <h2>Footwear</h2>
 </ClothHeaderDiv>
 
 <FootWearContainer>
@@ -387,10 +438,10 @@ function FootWearListing() {
     $IsFootWearTableActive={IsFootWearTableActive}
   />
   <FootWearTable $IsFootWearTableActive={IsFootWearTableActive}>
-    {FootWear.map((item, i) => (
+    {FootWear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addFootWearFromSearch(i, FootWear, ChosenFootWear, setChosenFootWear)}
+        onClick={() => addFootWearFromSearch(i, FootWear, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -406,7 +457,7 @@ function FootWearListing() {
       onClick={() => setFootWearTableActive(prev => !prev)}
     />
   </AddMoreButtonDiv>
-  {ChosenFootWear.map((item, i) => (
+  {ChosenFootWear?.map((item, i) => (
     <ClothItem
       key={i}
       onMouseEnter={() => setHoveredIndex(i)}
@@ -415,13 +466,13 @@ function FootWearListing() {
       <p>{item.name}</p>
       <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
         <ClothItemPlusButton
-          onClick={() => increaseFootWear(i, ChosenFootWear, setChosenFootWear)}
+          onClick={() => increaseFootWear(i, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
         >+</ClothItemPlusButton>
         <ClothItemMinusButton
-          onClick={() => decreaseFootWear(i, ChosenFootWear, setChosenFootWear, deleteFootWear)}
+          onClick={() => decreaseFootWear(i, ChosenFootWear, setChosenFootWear, deleteFootWear,setOptionsChosen)}
         >-</ClothItemMinusButton>
         <ClothItemDeleteButton
-          onClick={() => deleteFootWear(i, ChosenFootWear, setChosenFootWear)}
+          onClick={() => deleteFootWear(i, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
         >D</ClothItemDeleteButton>
       </ClothItemButtonDiv>
       <ClothCounter>
@@ -614,8 +665,6 @@ const toggleWeatherBox = (index) => {
   });
 };
 
-console.log("Chosen headwear", ChosenHeadWear);
-
 return (
   <>
     <div>
@@ -625,7 +674,7 @@ return (
         <TopListSectionGrid>
           <TopListContentDiv1>
             <MyListHeader>
-              <header>newlist-listname</header>
+              <header>List name</header>
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -634,12 +683,12 @@ return (
                 name="destinationname"
                 rows={4}
                 cols={40}
-                placeholder="typelistname"
+                placeholder="Type your list name here..."
               ></textarea>
             </MyListHeader>
 
             <MyListHeader>
-              <header>newlist-destinationname</header>
+              <header>Destination name</header>
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -648,12 +697,12 @@ return (
                 name="destinationname"
                 rows={4}
                 cols={40}
-                placeholder="typelistdestination"
+                placeholder="Type your destination name here..."
               ></textarea>
             </MyListHeader>
 
             <MyListHeader>
-              <header>newlist-destinationtype</header>
+              <header>Destination type</header>
               <N onClick={clickMe}/>
               <MultiItemDiv>
                 {DestinationTypes.map((item, i) => (
@@ -669,7 +718,7 @@ return (
             </MyListHeader>
 
             <MyListHeader>
-              <header>newlist-purpose</header>
+              <header>Destination purpose</header>
               <MultiItemDiv>
                 {DestinationPurposes.map((item, i) => (
                   <MultiItem
@@ -686,7 +735,7 @@ return (
 
           <TopListContentDiv2>
             <MyListHeader>
-              <header>newlist-vehicle</header>
+              <header>Destination vehicle</header>
               <MultiItemDiv>
                 {Vehicles.map((item, i) => (
                   <MultiItem
@@ -701,7 +750,7 @@ return (
             </MyListHeader>
 
             <MyListHeader>
-              <header>newlist-weather</header>
+              <header>Weather Conditions</header>
               <MultiItemDiv>
                 {Weather.map((item, i) => (
                   <MultiItem
@@ -718,7 +767,72 @@ return (
         </TopListSectionGrid>
 
         <BottomContentDiv>
-          <Listing/>
+      <HeadWearListing
+    IsHeadWearTableActive={IsHeadWearTableActive}
+    setHeadWearTableActive={setHeadWearTableActive}
+    ChosenHeadWear={ChosenHeadWear}
+    setChosenHeadWear={setChosenHeadWear}
+    increaseHeadWear={increaseHeadWear}
+    decreaseHeadWear={decreaseHeadWear}
+    deleteHeadWear={deleteHeadWear}
+    HeadWear={HeadWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    optionsChosen={optionsChosen}
+    setOptionsChosen={setOptionsChosen}
+  />
+
+  <BodyWearListing
+    IsBodyWearTableActive={IsBodyWearTableActive}
+    setBodyWearTableActive={setBodyWearTableActive}
+    ChosenBodyWear={ChosenBodyWear}
+    setChosenBodyWear={setChosenBodyWear}
+    increaseBodyWear={increaseBodyWear}
+    decreaseBodyWear={decreaseBodyWear}
+    deleteBodyWear={deleteBodyWear}
+    BodyWear={BodyWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+  />
+
+  <HandWearListing
+    IsHandWearTableActive={IsHandWearTableActive}
+    setHandWearTableActive={setHandWearTableActive}
+    ChosenHandWear={ChosenHandWear}
+    setChosenHandWear={setChosenHandWear}
+    increaseHandWear={increaseHandWear}
+    decreaseHandWear={decreaseHandWear}
+    deleteHandWear={deleteHandWear}
+    HandWear={HandWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+  />
+
+  <LegWearListing
+    IsLegWearTableActive={IsLegWearTableActive}
+    setLegWearTableActive={setLegWearTableActive}
+    ChosenLegWear={ChosenLegWear}
+    setChosenLegWear={setChosenLegWear}
+    increaseLegWear={increaseLegWear}
+    decreaseLegWear={decreaseLegWear}
+    deleteLegWear={deleteLegWear}
+    LegWear={LegWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+  />
+
+  <FootWearListing
+    IsFootWearTableActive={IsFootWearTableActive}
+    setFootWearTableActive={setFootWearTableActive}
+    ChosenFootWear={ChosenFootWear}
+    setChosenFootWear={setChosenFootWear}
+    increaseFootWear={increaseFootWear}
+    decreaseFootWear={decreaseFootWear}
+    deleteFootWear={deleteFootWear}
+    FootWear={FootWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+      />
         </BottomContentDiv>
       </NewListDiv>
     </div>

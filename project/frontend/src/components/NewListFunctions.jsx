@@ -2,39 +2,67 @@
 // ---------------------------
 // HeadWear functions
 // ---------------------------
-export const addHeadWearFromSearch = (i, HeadWear, ChosenHeadWear, setChosenHeadWear) => {
+export const addHeadWearFromSearch = (i, HeadWear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen) => {
   const itemName = HeadWear[i].label;
   const itemIsIncluded = ChosenHeadWear.find(h => h.name === itemName);
-  if (itemIsIncluded) alert("Item already added");
-  else setChosenHeadWear(prev => [...prev, { name: itemName, amount: 1 }]);
-};
-
-export const increaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear) => {
-  const itemName = ChosenHeadWear[i].name;
-  const itemIsIncluded = ChosenHeadWear.find(h => h.name === itemName);
-  if (itemIsIncluded) {
-    setChosenHeadWear(prev =>
-      prev.map(h => h.name === itemName ? { ...h, amount: h.amount + 1 } : h)
-    );
+  if (itemIsIncluded) { alert("Item already added");
   } else {
-    setChosenHeadWear(prev => [...prev, { name: itemName, amount: 1 }]);
+    // 1. Add item to ChosenHeadWear
+    setChosenHeadWear(prev => {
+      const newChosen = [...prev, { name: itemName, amount: 1 }];
+
+      // 2. Also update optionsChosen.headwear
+      setOptionsChosen(prev => ({
+        ...prev,
+        headwear: newChosen
+      }));
+      return newChosen;
+    });
   }
 };
+export const increaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen) => {
+  const itemName = ChosenHeadWear[i].name;
+    setChosenHeadWear(prev=>{
+    const newChosen=prev.map(
+      h=>h.name===itemName ? {...h,amount:h.amount+1}:h
+    );
+  setOptionsChosen(prev=>({
+    ...prev,
+    headwear: newChosen
+  }));
+  return newChosen;
+  });
+};
 
-export const decreaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear) => {
+export const decreaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear,setOptionsChosen) => {
   const itemName = ChosenHeadWear[i].name;
   if (ChosenHeadWear[i].amount === 1) {
     deleteHeadWear(i, ChosenHeadWear, setChosenHeadWear);
   } else {
-    setChosenHeadWear(prev =>
-      prev.map(h => h.name === itemName ? { ...h, amount: h.amount - 1 } : h)
-    );
+    setChosenHeadWear(prev =>{
+      const newChosen=prev.map
+      (h => h.name === itemName ? { ...h, amount: h.amount - 1 } : h
+      );
+    setOptionsChosen(prev=>({
+      ...prev,
+      headwear:newChosen
+    }));
+    return newChosen;
+  })
   }
 };
 
-export const deleteHeadWear = (i, ChosenHeadWear, setChosenHeadWear) => {
+export const deleteHeadWear = (i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen) => {
   const itemName = ChosenHeadWear[i].name;
-  setChosenHeadWear(prev => prev.filter(h => h.name !== itemName));
+  setChosenHeadWear(prev => { 
+    const newChosen=prev.filter
+    (h => h.name !== itemName);
+    setOptionsChosen(prev=>({
+      ...prev,
+      headwear:newChosen
+    }))
+    return newChosen;
+  })
 };
 
 // ---------------------------
