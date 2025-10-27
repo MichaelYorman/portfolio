@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23.09.2025 klo 13:29
+-- Generation Time: 27.10.2025 klo 09:09
 -- Palvelimen versio: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,16 +47,24 @@ CREATE TABLE `list` (
   `purpose` varchar(255) NOT NULL,
   `vehicle` varchar(255) NOT NULL,
   `weather` varchar(255) NOT NULL,
-  `temperature` varchar(255) NOT NULL
+  `temperature` varchar(255) NOT NULL,
+  `headwear` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`headwear`)),
+  `bodywear` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`bodywear`)),
+  `handwear` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`handwear`)),
+  `legwear` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`legwear`)),
+  `footwear` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`footwear`)),
+  `accessory` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`accessory`)),
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Vedos taulusta `list`
 --
 
-INSERT INTO `list` (`id`, `list_name`, `place_name`, `place_type`, `purpose`, `vehicle`, `weather`, `temperature`) VALUES
-(1, 'sfdgdsfgsdfg', 'fdssfdgsdf', '[\"beach\"]', '[\"vacation\",\"swimming\",\"hangingout\"]', '[\"bike\"]', '[\"clear\"]', ''),
-(2, 'sfdgdsfgsdfg', 'fdssfdgsdf', '[\"beach\"]', '[\"vacation\",\"swimming\",\"hangingout\"]', '[\"bike\"]', '[\"clear\"]', '');
+INSERT INTO `list` (`id`, `list_name`, `place_name`, `place_type`, `purpose`, `vehicle`, `weather`, `temperature`, `headwear`, `bodywear`, `handwear`, `legwear`, `footwear`, `accessory`, `created_at`, `updated_at`) VALUES
+(7, 'asdfasdfasdf', '', '[\"residentialarea\",\"countryside\"]', '[\"camping\",\"foraging\"]', '[\"watervehicle\"]', '[\"clear\"]', '', '[]', '[]', '[]', '[]', '[]', '[]', '2025-10-27 06:44:53', '2025-10-27 06:44:53'),
+(8, 'fghfghfghfghfgh', '', '[\"forest\"]', '[\"hangingout\"]', '[\"foot\"]', '[\"clear\"]', '', '[]', '[]', '[]', '[]', '[]', '[]', '2025-10-27 08:07:38', '2025-10-27 08:07:38');
 
 -- --------------------------------------------------------
 
@@ -127,7 +135,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `list`
 --
 ALTER TABLE `list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `listrow`
