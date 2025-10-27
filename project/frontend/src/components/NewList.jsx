@@ -140,7 +140,6 @@ function HeadWearListing({
   HeadWear,
   hoveredIndex,
   setHoveredIndex,
-  optionsChosen,
   setOptionsChosen
 }) {
   return (
@@ -212,7 +211,8 @@ function BodyWearListing({
   deleteBodyWear,
   BodyWear,
   hoveredIndex,
-  setHoveredIndex
+  setHoveredIndex,
+  setOptionsChosen
 }) {
   return (
     <div>
@@ -283,7 +283,8 @@ function HandWearListing({
   deleteHandWear,
   HandWear,
   hoveredIndex,
-  setHoveredIndex
+  setHoveredIndex,
+  setOptionsChosen
 }) {
   return (
     <div>
@@ -355,7 +356,8 @@ function LegWearListing({
   deleteLegWear,
   LegWear,
   hoveredIndex,
-  setHoveredIndex}){
+  setHoveredIndex,
+  setOptionsChosen}){
   return (
     <div>
 <ClothHeaderDiv>
@@ -424,7 +426,8 @@ function FootWearListing({
   deleteFootWear,
   FootWear,
   hoveredIndex,
-  setHoveredIndex
+  setHoveredIndex,
+  setOptionsChosen
 }) {
   return (
     <div>
@@ -664,7 +667,7 @@ const toggleWeatherBox = (index) => {
     }
   });
 };
-
+console.log('typeof setOptionsChosen:', typeof setOptionsChosen);
 return (
   <>
     <div>
@@ -793,6 +796,7 @@ return (
     BodyWear={BodyWear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
   />
 
   <HandWearListing
@@ -806,6 +810,7 @@ return (
     HandWear={HandWear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
   />
 
   <LegWearListing
@@ -819,6 +824,7 @@ return (
     LegWear={LegWear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
   />
 
   <FootWearListing
@@ -832,6 +838,7 @@ return (
     FootWear={FootWear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
       />
         </BottomContentDiv>
       </NewListDiv>
