@@ -169,7 +169,19 @@ types:[],
 purposes:[],
 vehicles:[],
 weather:[],
-temperature:""
+temperature:"",
+headwear:[],
+bodywear:[],
+handwear:[],
+legwear:[],
+footwear:[],
+accessory:[],
+headwear:[],
+bodywear:[],
+handwear:[],
+legwear:[],
+footwear:[],
+accessory:[]
 })
 
 const location = useLocation();

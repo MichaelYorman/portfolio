@@ -257,7 +257,13 @@ useEffect(() => {
       purposes: item.purpose,
       vehicles: item.vehicle,
       weather: item.weather,
-      temperature: item.temperature
+      temperature: item.temperature,
+      headwear: item.headwear,
+      bodywear: item.bodywear,
+      handwear: item.handwear,
+      legwear: item.legwear,
+      footwear: item.footwear,
+      accessory: item.accessory
     });
   }
 }, [item]);
