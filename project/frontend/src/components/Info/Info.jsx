@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
-import { useTranslate } from "./LanguageContext";
 
 const ContentDiv = styled.div`
 display:flex;
@@ -29,14 +28,13 @@ padding:50px;
 margin-top:50px;
 `;
 function Info() {
-   const {t,setLang}=useTranslate();
   return (
     <>
       <div>
         <ContentDiv>
         <header>
         <MainMenuHeader>
-          {t("mainheader")}
+        <h1>Fashion and Accessory Guide</h1>
         </MainMenuHeader>
           </header>
         <InfoDiv>

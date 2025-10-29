@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import LanguageSwitch from "./LanguageSwitch";
-import ThemeSwitch from "./ThemeSwitch";
+import ThemeSwitch from "../ThemeStyles/ThemeSwitch";
 
 const QuickSettingsDiv=styled.div`
 display:flex;
@@ -13,9 +12,6 @@ function QuickSettings() {
         <>
         <div>
     <QuickSettingsDiv>
-    <div>
-    <LanguageSwitch/>
-    </div>
     <div>
     <ThemeSwitch/>
     </div> 

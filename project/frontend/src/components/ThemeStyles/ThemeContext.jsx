@@ -1,7 +1,7 @@
 import {createContext,useContext,useState} from "react";
-import defaultmode from "../themes/defaultmode.json"
-import nightmode from "../themes/defaultmode.json"
-import { setCookie,getCookie,checkCookie,deleteCookie } from "./Cookies";
+import defaultmode from "../../themes/defaultmode.json";
+import nightmode from "../../themes/nightmode.json";
+import { setCookie,getCookie,checkCookie,deleteCookie } from "../Cookies/Cookies";
 
 const ThemeContext=createContext();
 

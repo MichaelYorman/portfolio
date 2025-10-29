@@ -1,7 +1,8 @@
+/*
 import {createContext,useContext,useState} from "react";
 import en from "../translation/locales/en/translation.json";
 import fi from "../translation/locales/fi/translation.json";
-import {setCookie,getCookie,checkCookie,deleteCookie} from "./Cookies"
+import {setCookie,getCookie,checkCookie,deleteCookie} from "./Cookies/Cookies"
 
 const LanguageContext=createContext();
 
@@ -29,3 +30,4 @@ function useTranslate() {
 }
 
 export {LanguageProvider,useTranslate}
+*/

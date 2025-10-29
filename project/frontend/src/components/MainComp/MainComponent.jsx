@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import QuickSettings from "./QuickSettings";
-import Footer from "./Footer";
+import QuickSettings from "../QuickSettings/QuickSettings";
+import Footer from "../Footer/Footer";
 
 const Wrapper = styled.div`
   display: grid;

@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useTranslate } from "./LanguageContext";
 import { useEffect,useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const api=axios.create({

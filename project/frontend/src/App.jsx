@@ -1,16 +1,16 @@
 import './App.css'
 import {BrowserRouter as Router,Route,Routes} from "react-router-dom";
-import MainComponent from './components/MainComponent';
-import GlobalStyle from './components/GlobalStyle'
-import MainMenu from './components/MainMenu'
-import Info from './components/Info'
-import LoginRegisterHead from './components/LoginRegisterHead'
-import LoginMenu from './components/LoginMenu'
-import RegisterMenu from './components/RegisterMenu'
-import UserHome from './components/UserHome'
-import NewList from './components/NewList';
-import EditList from './components/EditList';
-import ViewList from './components/ViewList';
+import MainComponent from './components/MainComp/MainComponent';
+import GlobalStyle from './components/GlobalStyle/GlobalStyle'
+import MainMenu from './components/MainMenu/MainMenu'
+import Info from './components/Info/Info'
+import LoginRegisterHead from './components/Register/LoginRegisterHead'
+import LoginMenu from './components/Login/LoginMenu'
+import RegisterMenu from './components/Register/RegisterMenu'
+import UserHome from './components/UserHome/UserHome'
+import NewList from './components/Userlist/NewList'
+import EditList from './components/Userlist/EditList'
+import ViewList from './components/Userlist/ViewList'
 
 function App() {
   return (

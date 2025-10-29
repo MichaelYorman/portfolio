@@ -1,5 +1,5 @@
 import { useTheme } from "./ThemeContext";
-import {setCookie,getCookie,checkCookie,deleteCookie} from "./Cookies"
+import {setCookie,getCookie,checkCookie,deleteCookie} from "../Cookies/Cookies"
 import styled from "styled-components"
 
 const DropDownBlockDefault=styled.div`
@@ -60,7 +60,7 @@ flex-direction:row;
 }
 `;
 function ThemeSwitch() {
-    const {setTheme}=useTheme();
+    //const {setTheme}=useTheme();
     function changeTheme(themeName) {
         setCookie("theme",themeName,"7");
         setTheme(themeName);

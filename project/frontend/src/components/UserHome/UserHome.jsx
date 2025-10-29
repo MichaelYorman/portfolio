@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { NavLink} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import WidgetPanel from "./WidgetPanel";
-import { useTranslate } from "./LanguageContext";
+import WidgetPanel from "../WidgetPanel/WidgetPanel";
 import {useEffect,useState} from "react";
 import axios from "axios";
 
@@ -111,7 +110,6 @@ function UserHome() {
     navigate(`/view-list/${encodeURIComponent(listName)}`, { state: {id} });
   }
   //
-  const {t,setLang}=useTranslate();
   return (
     <>
       <div>

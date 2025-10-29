@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { NavLink} from 'react-router-dom';
-import { useTranslate } from "./LanguageContext";
+import { NavLink } from 'react-router-dom';
 
 const Logo=styled.img`
 width:50px;
@@ -26,7 +25,6 @@ padding-top:15px;
 `;
 
 function WidgetPanel() {
-    const {t,setLang}=useTranslate();
     return (
         <>
     <div>
@@ -34,31 +32,31 @@ function WidgetPanel() {
     <div>
     <NavButton to="/user-home">
     <Logo src="/icons/home.svg" alt="Home cottage symbol"/>
-    <h4>{t("home")}</h4>
+    <h4>Home</h4>
     </NavButton>
     </div>
     <div>
     <NavButton to="/user-home">
      <Logo src="/icons/info.svg" alt="Info circle symbol"/> 
-     <h4>{t("info")}</h4>
+     <h4>Info</h4>
      </NavButton>
     </div>
     <div>
     <NavButton to="/user-home">
      <Logo src="/icons/links.svg" alt="Two links together symbol"/> 
-     <h4>{t("links")}</h4>
+     <h4>Links</h4>
      </NavButton>
     </div>
     <div>
     <NavButton to="/user-home">
      <Logo src="/icons/settings.svg" alt="Settings gear symbol"/> 
-     <h4>{t("settings")}</h4>
+     <h4>Settings</h4>
      </NavButton>
     </div>
     <div>
     <NavButton to="/">
      <Logo src="/icons/logout.svg" alt="Logout circle and arrow symbol"/> 
-     <h4>{t("logout")}</h4>
+     <h4>Logout</h4>
      </NavButton>
     </div>
     </WidgetPanelStyle>

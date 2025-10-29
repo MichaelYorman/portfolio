@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { useTranslate } from "./LanguageContext";
 
 const FooterDiv = styled.footer`
   display: flex;
@@ -40,7 +39,6 @@ width:fit-content;
 `;
 
 function Footer() {
-        const {t,setLang}=useTranslate()
         const d=new Date();
         let year=d.getFullYear()+1;
         const name="Henri Jormanainen.";
