@@ -2,145 +2,72 @@ import styled from "styled-components";
 import { useEffect,useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { ClothAccessoryList } from "./ListItems";
+import { 
+  NewListDiv,
+  TopListSectionGrid,
+  TopListContentDiv1,
+  TopListContentDiv2,
+  MapApiDiv,
+  BottomContentDiv,
+  ClothHeaderDiv,
+  ClothContentDiv,
+  AddMoreButtonDiv,
+  Logo,
+  MyListHeader,
+  SearchListItem,
+  ClothItem,
+  ClothItemButtonDiv,
+  ClothCounter,
+  ClothItemPlusButton,
+  ClothItemMinusButton,
+  ClothItemDeleteButton,
+  MultiItemDiv,
+  MultiItem,
+  N,
+  Test,
+  HeadWearTable,
+  BodyWearTable,
+  HandWearTable,
+  LegWearTable,
+  FootWearTable,
+  HeadWearSearchInput,
+  HeadWearContainer,
+  BodyWearSearchInput,
+  BodyWearContainer,
+  HandWearSearchInput,
+  HandWearContainer,
+  LegWearSearchInput,
+  LegWearContainer,
+  FootWearSearchInput,
+  FootWearContainer
+} from "./NewListStyle";
+import {
+  addHeadWearFromSearch,
+  increaseHeadWear,
+  decreaseHeadWear,
+  deleteHeadWear,
+  addBodyWearFromSearch,
+  increaseBodyWear,
+  decreaseBodyWear,
+  deleteBodyWear,
+  addHandWearFromSearch,
+  increaseHandWear,
+  decreaseHandWear,
+  deleteHandWear,
+  addLegWearFromSearch,
+  increaseLegWear,
+  decreaseLegWear,
+  deleteLegWear,
+  addFootWearFromSearch,
+  increaseFootWear,
+  decreaseFootWear,
+  deleteFootWear
+} from './ListFunctions';
 
 const api=axios.create({
      baseURL: "http://localhost:3000/api",
 })
-
-const NewListDiv=styled.div`
-display:flex;
-flex-direction:column;
-position:relative;
-background-color:whitesmoke;
-margin-top:250px;
-`;
-const TopListSectionGrid=styled.div`
-display:grid;
-grid-template-columns:1fr 1fr;
-gird-template-rows:1fr;
-`
-const TopListContentDiv1=styled.div`
-display:flex;
-flex-direction:column;
-grid-column:1;
-gap:20px;
-margin-top:50px;
-margin-left:150px;
-`;
-
-const TopListContentDiv2=styled.div`
-display:flex;
-flex-direction:column;
-grid-column:2;
-gap:20px;
-margin-top:600px;
-margin-left:150px;
-`;
-const MapApiDiv=styled.div`
-background-color:gray;
-position:absolute;
-right:0;
-height:512px;
-width:512px;
-`;
-const BottomContentDiv=styled.div`
-display:flex;
-flex-direction:column;
-margin-top:100px;
-width:1080px;
-height:auto;
-align-items:center;
-padding-bottom:100px;
-}
-`;
-const ClothHeaderDiv=styled.div`
-display:flex;
-flex-direction:column;
-margin-top:50px;
-width:400px;
-height:100px;
-outline-style:dashed;
-background-color:white;
-align-items:center;
-justify-content:center;
-`;
-const ClothContentDiv=styled.div`
-display:flex;
-flex-direction:row;
-flex-wrap:wrap;
-padding:10px;
-margin-top:50px;
-margin-right:200px;
-width:800px;
-height:auto;
-outline-style:dashed;
-background-color:white;
-`;
-const AddMoreButtonDiv=styled.div`
-display:flex;
-padding:5px;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-margin:10px 20px 10px 10px;
-width:fit-content;
-height:fit-content;
-background-color:whitesmoke;
-outline-style:dashed;
-cursor:pointer;
-`;
-
-const Logo=styled.img`
-width:50px;
-height:auto;
-`;
-const MyListHeader=styled.header`
-display:flex;
-flex-direction:column;
-width:fit-content;
-gap:10px;
-header{text-decoration:underline;
-font-size:1.5em;}
-h1{cursor:pointer;}
-`;
-
-const Object=styled.div`
-width:100px;
-height:100px;
-margin:10px 10px 0px 10px;
-background-color:black;
-`;
-const MultiItemDiv=styled.div`
-display:flex;
-flex-direction:row;
-width:300px;
-height:fit-content;
-background-color:snow;
-outline-style:solid;
-outline-width:1px;
-flex-wrap:wrap;
-`;
-const MultiItem=styled.div`
-display:flex;
-width:100px;
-height:100px;
-font-size:2rem;
-flex-direction:row;
-align-items:center;
-justify-content:center;
-gap:10px;
-background-color:${props => (props.$isActive ? "green" : "whitesmoke")};
-outline-style:solid;
-outline-width:2px;
-cursor:pointer;
-&:hover {background-color:green;}
-transition:background-color:0.3s;
-`;
-const Test=styled.div`
-width:100px;
-height:100px;
-background-color:red;
-`
 const SaveGenerateDiv=styled.div`
 display:flex;
 flex-direction:row;
@@ -158,63 +85,424 @@ const GenerateListButton=styled.button`
 width:200px;
 height:50px;;
 `;
-const getSource = (t) => ({
-DestinationTypes: [
-  { value: 'forest', label: `${t("typeforest")}`, symbol: '🌲' },
-  { value: 'mountain', label: `${t("typemountain")}`, symbol: '🏔️' },
-  { value: 'beach', label: `${t("typebeach")}`, symbol: '🏖️' },
-  { value: 'desert', label: `${t("typedesert")}`, symbol: '🏜️' },
-  { value: 'cave', label: `${t("typecave")}`, symbol: '🪨' },
-  { value: 'bodyofwater', label: `${t("typebodyofwater")}`, symbol: '🌊' },
-  { value: 'residentialarea', label: `${t("typeresidentialarea")}`, symbol: '🏙️' },
-  { value: 'countryside', label: `${t("typecountryside")}`, symbol: '🌽🚜🐑' }
-],
-DestinationPurpose: [
-  { value: 'hangingout', label: `${t("typehangingout")}`, symbol: "😎☕" },
-  { value: 'vacation', label: `${t("typevacation")}`, symbol: "🏖️" },
-  { value: 'swimming', label: `${t("typeswimming")}`, symbol: "🏊‍♂️" },
-  { value: 'sightseeing', label: `${t("typesightseeing")}`, symbol: "🗽" },
-  { value: 'photography', label: `${t("typephotography")}`, symbol: "📸" },
-  { value: 'stargazing', label: `${t("typestargazing")}`, symbol: "🔭🌕" },
-  { value: 'camping', label: `${t("typecamping")}`, symbol: "🏕️" },
-  { value: 'climbing', label: `${t("typeclimbing")}`, symbol: "🧗‍♂️" },
-  { value: 'wildlifewatching', label: `${t("typewildlifewatching")}`, symbol: "🔭🦉" },
-  { value: 'fishing', label: `${t("typefishing")}`, symbol: "🎣" },
-  { value: 'foraging', label: `${t("typeforaging")}`, symbol: "🍄🫐" },
-  { value: 'picnic', label: `${t("typepicnic")}`, symbol: "🧺🥪" }
-],
-Vehicles: [
-  { value: 'foot', label: `${t("typefoot")}`, symbol: "🚶" },
-  { value: 'bike', label: `${t("typebike")}`, symbol: "🚲" },
-  { value: 'car', label: `${t("typecar")}`, symbol: "🚗" },
-  { value: 'publictransportation', label: `${t("typepublictransportation")}`, symbol: "🚌" },
-  { value: 'motorbike', label: `${t("typemotorbike")}`, symbol: "🏍️" },
-  { value: 'airplane', label: `${t("typeairplane")}`, symbol: "✈️" },
-  { value: 'watervehicle', label: `${t("typewatervehicle")}`, symbol: "⛵" },
-  { value: 'skateboard', label: `${t("typeskateboard")}`, symbol: "🛹" },
-  { value: 'scooter', label: `${t("typescooter")}`, symbol: "🛴" },
-  { value: 'rollerblades', label: `${t("typerollerblades")}`, symbol: "🛼" },
-  { value: 'personalelectricvehicle', label: `${t("typepersonalelectricvehicle")}`, symbol: "⚡🛴🛹🚲" }
-],
-WeatherConditions: [
-  { value: 'clear', label: `${t("typeclear")}`, symbol: "☀️" },
-  { value: 'raining', label: `${t("typeraining")}`, symbol: "🌧️" },
-  { value: 'lowvisibility', label: `${t("typelowvisibility")}`, symbol: "👁🚫" },
-  { value: 'sandstorm', label: `${t("typesandstorm")}`, symbol: "💨🏜️" },
-  { value: 'fog', label: `${t("typefog")}`, symbol: "🌫️" }
-],
-Temperature: [
-  { value: 'scorching', label:`${t("typescorching")} 🔥💀`},
-  { value: 'hot', label: `${t("typehot")} 🔥`},
-  { value: 'warm', label: `${t("typewarm")} ☀️`},
-  { value: 'temperate', label: `${t("typetemperate")} 🌳`},
-  { value: 'cool', label: `${t("typecool")} ☀️⚖️❄️`},
-  { value: 'chilly', label: `${t("typechilly")} ❄️`},
-  { value: 'cold', label: `${t("typecold")} 🥶`},
-  { value: 'verycold', label: `${t("typeverycold")} 🧊`},
-  { value: 'freezing', label: `${t("typefreezing")} 🧊💀`}
-]
+const getSource = () => ({
+  DestinationTypes: [
+    { value: 'forest', label: 'Forest', symbol: '🌲' },
+    { value: 'mountain', label: 'Mountain', symbol: '🏔️' },
+    { value: 'beach', label: 'Beach', symbol: '🏖️' },
+    { value: 'desert', label: 'Desert', symbol: '🏜️' },
+    { value: 'cave', label: 'Cave', symbol: '🪨' },
+    { value: 'bodyofwater', label: 'Bodyofwater', symbol: '🌊' },
+    { value: 'residentialarea', label: 'Residentialarea', symbol: '🏙️' },
+    { value: 'countryside', label: 'Countryside', symbol: '🌽🚜🐑' }
+  ],
+  DestinationPurpose: [
+    { value: 'hangingout', label: 'Hangingout', symbol: '😎☕' },
+    { value: 'vacation', label: 'Vacation', symbol: '🏖️' },
+    { value: 'swimming', label: 'Swimming', symbol: '🏊‍♂️' },
+    { value: 'sightseeing', label: 'Sightseeing', symbol: '🗽' },
+    { value: 'photography', label: 'Photography', symbol: '📸' },
+    { value: 'stargazing', label: 'Stargazing', symbol: '🔭🌕' },
+    { value: 'camping', label: 'Camping', symbol: '🏕️' },
+    { value: 'climbing', label: 'Climbing', symbol: '🧗‍♂️' },
+    { value: 'wildlifewatching', label: 'Wildlifewatching', symbol: '🔭🦉' },
+    { value: 'fishing', label: 'Fishing', symbol: '🎣' },
+    { value: 'foraging', label: 'Foraging', symbol: '🍄🫐' },
+    { value: 'picnic', label: 'Picnic', symbol: '🧺🥪' }
+  ],
+  Vehicles: [
+    { value: 'foot', label: 'Foot', symbol: '🚶' },
+    { value: 'bike', label: 'Bike', symbol: '🚲' },
+    { value: 'car', label: 'Car', symbol: '🚗' },
+    { value: 'publictransportation', label: 'Publictransportation', symbol: '🚌' },
+    { value: 'motorbike', label: 'Motorbike', symbol: '🏍️' },
+    { value: 'airplane', label: 'Airplane', symbol: '✈️' },
+    { value: 'watervehicle', label: 'Watervehicle', symbol: '⛵' },
+    { value: 'skateboard', label: 'Skateboard', symbol: '🛹' },
+    { value: 'scooter', label: 'Scooter', symbol: '🛴' },
+    { value: 'rollerblades', label: 'Rollerblades', symbol: '🛼' },
+    { value: 'personalelectricvehicle', label: 'Personalelectricvehicle', symbol: '⚡🛴🛹🚲' }
+  ],
+  WeatherConditions: [
+    { value: 'clear', label: 'Clear', symbol: '☀️' },
+    { value: 'raining', label: 'Raining', symbol: '🌧️' },
+    { value: 'lowvisibility', label: 'Lowvisibility', symbol: '👁🚫' },
+    { value: 'sandstorm', label: 'Sandstorm', symbol: '💨🏜️' },
+    { value: 'fog', label: 'Fog', symbol: '🌫️' }
+  ],
+  Temperature: [
+    { value: 'scorching', label: 'Scorching 🔥💀' },
+    { value: 'hot', label: 'Hot 🔥' },
+    { value: 'warm', label: 'Warm ☀️' },
+    { value: 'temperate', label: 'Temperate 🌳' },
+    { value: 'cool', label: 'Cool ☀️⚖️❄️' },
+    { value: 'chilly', label: 'Chilly ❄️' },
+    { value: 'cold', label: 'Cold 🥶' },
+    { value: 'verycold', label: 'Verycold 🧊' },
+    { value: 'freezing', label: 'Freezing 🧊💀' }
+  ]
 });
+
+//Listing functions
+function HeadWearListing({
+  IsHeadWearTableActive,
+  setHeadWearTableActive,
+  ChosenHeadWear,
+  setChosenHeadWear,
+  increaseHeadWear,
+  decreaseHeadWear,
+  deleteHeadWear,
+  HeadWear,
+  hoveredIndex,
+  setHoveredIndex,
+  setOptionsChosen
+}) {
+  return (
+    <div>
+<ClothHeaderDiv>
+  <h2>Headwear</h2>
+</ClothHeaderDiv>
+
+<HeadWearContainer>
+  <HeadWearSearchInput
+    placeholder="Search headwear..."
+    $IsHeadWearTableActive={IsHeadWearTableActive}
+  />
+  <HeadWearTable $IsHeadWearTableActive={IsHeadWearTableActive}>
+    {HeadWear?.map((item, i) => (
+      <SearchListItem
+        key={i}
+        onClick={() => addHeadWearFromSearch(i, HeadWear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+      >
+        <p>{item.label}</p>
+      </SearchListItem>
+    ))}
+  </HeadWearTable>
+</HeadWearContainer>
+
+<ClothContentDiv>
+  <AddMoreButtonDiv>
+    <Logo
+      src="/icons/pluscircle.svg"
+      alt="Plus circle symbol"
+      onClick={() => setHeadWearTableActive(prev => !prev)}
+    />
+  </AddMoreButtonDiv>
+
+  {ChosenHeadWear?.map((item, i) => (
+    <ClothItem
+      key={i}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <p>{item.name}</p>
+      <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
+        <ClothItemPlusButton
+          onClick={() => increaseHeadWear(i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+        >+</ClothItemPlusButton>
+        <ClothItemMinusButton
+          onClick={() => decreaseHeadWear(i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear,setOptionsChosen)}
+        >-</ClothItemMinusButton>
+        <ClothItemDeleteButton
+          onClick={() => deleteHeadWear(i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+        >D</ClothItemDeleteButton>
+      </ClothItemButtonDiv>
+      <ClothCounter>
+        <p>{item.amount}</p>
+      </ClothCounter>
+    </ClothItem>
+  ))}
+</ClothContentDiv>
+    </div>
+  )
+}
+function BodyWearListing({
+  IsBodyWearTableActive,
+  setBodyWearTableActive,
+  ChosenBodyWear,
+  setChosenBodyWear,
+  increaseBodyWear,
+  decreaseBodyWear,
+  deleteBodyWear,
+  BodyWear,
+  hoveredIndex,
+  setHoveredIndex,
+  setOptionsChosen
+}) {
+  return (
+    <div>
+<ClothHeaderDiv>
+  <h2>Bodywear</h2>
+</ClothHeaderDiv>
+
+<BodyWearContainer>
+  <BodyWearSearchInput
+    placeholder="Search bodywear..."
+    $IsBodyWearTableActive={IsBodyWearTableActive}
+  />
+  <BodyWearTable $IsBodyWearTableActive={IsBodyWearTableActive}>
+    {BodyWear?.map((item, i) => (
+      <SearchListItem
+        key={i}
+        onClick={() => addBodyWearFromSearch(i, BodyWear, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
+      >
+        <p>{item.label}</p>
+      </SearchListItem>
+    ))}
+  </BodyWearTable>
+</BodyWearContainer>
+
+<ClothContentDiv>
+  <AddMoreButtonDiv>
+    <Logo
+      src="/icons/pluscircle.svg"
+      alt="Plus circle symbol"
+      onClick={() => setBodyWearTableActive(prev => !prev)}
+    />
+  </AddMoreButtonDiv>
+  {ChosenBodyWear?.map((item, i) => (
+    <ClothItem
+      key={i}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <p>{item.name}</p>
+      <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
+        <ClothItemPlusButton
+          onClick={() => increaseBodyWear(i, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
+        >+</ClothItemPlusButton>
+        <ClothItemMinusButton
+          onClick={() => decreaseBodyWear(i, ChosenBodyWear, setChosenBodyWear, deleteBodyWear,setOptionsChosen)}
+        >-</ClothItemMinusButton>
+        <ClothItemDeleteButton
+          onClick={() => deleteBodyWear(i, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
+        >D</ClothItemDeleteButton>
+      </ClothItemButtonDiv>
+      <ClothCounter>
+        <p>{item.amount}</p>
+      </ClothCounter>
+    </ClothItem>
+  ))}
+</ClothContentDiv>
+
+    </div>
+  )
+}
+function HandWearListing({
+  IsHandWearTableActive,
+  setHandWearTableActive,
+  ChosenHandWear,
+  setChosenHandWear,
+  increaseHandWear,
+  decreaseHandWear,
+  deleteHandWear,
+  HandWear,
+  hoveredIndex,
+  setHoveredIndex,
+  setOptionsChosen
+}) {
+  return (
+    <div>
+      {/* 🖐 HANDWEAR */}
+<ClothHeaderDiv>
+  <h2>Handwear</h2>
+</ClothHeaderDiv>
+
+<HandWearContainer>
+  <HandWearSearchInput
+    placeholder="Search handwear..."
+    $IsHandWearTableActive={IsHandWearTableActive}
+  />
+  <HandWearTable $IsHandWearTableActive={IsHandWearTableActive}>
+    {HandWear?.map((item, i) => (
+      <SearchListItem
+        key={i}
+        onClick={() => addHandWearFromSearch(i, HandWear, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
+      >
+        <p>{item.label}</p>
+      </SearchListItem>
+    ))}
+  </HandWearTable>
+</HandWearContainer>
+
+<ClothContentDiv>
+  <AddMoreButtonDiv>
+    <Logo
+      src="/icons/pluscircle.svg"
+      alt="Plus circle symbol"
+      onClick={() => setHandWearTableActive(prev => !prev)}
+    />
+  </AddMoreButtonDiv>
+  {ChosenHandWear?.map((item, i) => (
+    <ClothItem
+      key={i}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <p>{item.name}</p>
+      <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
+        <ClothItemPlusButton
+          onClick={() => increaseHandWear(i, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
+        >+</ClothItemPlusButton>
+        <ClothItemMinusButton
+          onClick={() => decreaseHandWear(i, ChosenHandWear, setChosenHandWear, deleteHandWear,setOptionsChosen)}
+        >-</ClothItemMinusButton>
+        <ClothItemDeleteButton
+          onClick={() => deleteHandWear(i, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
+        >D</ClothItemDeleteButton>
+      </ClothItemButtonDiv>
+      <ClothCounter>
+        <p>{item.amount}</p>
+      </ClothCounter>
+    </ClothItem>
+  ))}
+</ClothContentDiv>
+
+    </div>
+  )
+}
+function LegWearListing({ 
+  IsLegWearTableActive,
+  setLegWearTableActive,
+  ChosenLegWear,
+  setChosenLegWear,
+  increaseLegWear,
+  decreaseLegWear,
+  deleteLegWear,
+  LegWear,
+  hoveredIndex,
+  setHoveredIndex,
+  setOptionsChosen}){
+  return (
+    <div>
+<ClothHeaderDiv>
+  <h2>Legwear</h2>
+</ClothHeaderDiv>
+
+<LegWearContainer>
+  <LegWearSearchInput
+    placeholder="Search legwear..."
+    $IsLegWearTableActive={IsLegWearTableActive}
+  />
+  <LegWearTable $IsLegWearTableActive={IsLegWearTableActive}>
+    {LegWear?.map((item, i) => (
+      <SearchListItem
+        key={i}
+        onClick={() => addLegWearFromSearch(i, LegWear, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
+      >
+        <p>{item.label}</p>
+      </SearchListItem>
+    ))}
+  </LegWearTable>
+</LegWearContainer>
+
+<ClothContentDiv>
+  <AddMoreButtonDiv>
+    <Logo
+      src="/icons/pluscircle.svg"
+      alt="Plus circle symbol"
+      onClick={() => setLegWearTableActive(prev => !prev)}
+    />
+  </AddMoreButtonDiv>
+  {ChosenLegWear?.map((item, i) => (
+    <ClothItem
+      key={i}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <p>{item.name}</p>
+      <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
+        <ClothItemPlusButton
+          onClick={() => increaseLegWear(i, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
+        >+</ClothItemPlusButton>
+        <ClothItemMinusButton
+          onClick={() => decreaseLegWear(i, ChosenLegWear, setChosenLegWear, deleteLegWear,setOptionsChosen)}
+        >-</ClothItemMinusButton>
+        <ClothItemDeleteButton
+          onClick={() => deleteLegWear(i, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
+        >D</ClothItemDeleteButton>
+      </ClothItemButtonDiv>
+      <ClothCounter>
+        <p>{item.amount}</p>
+      </ClothCounter>
+    </ClothItem>
+  ))}
+</ClothContentDiv> 
+    </div>
+  )
+}
+function FootWearListing({
+  IsFootWearTableActive,
+  setFootWearTableActive,
+  ChosenFootWear,
+  setChosenFootWear,
+  increaseFootWear,
+  decreaseFootWear,
+  deleteFootWear,
+  FootWear,
+  hoveredIndex,
+  setHoveredIndex,
+  setOptionsChosen
+}) {
+  return (
+    <div>
+<ClothHeaderDiv>
+  <h2>Footwear</h2>
+</ClothHeaderDiv>
+
+<FootWearContainer>
+  <FootWearSearchInput
+    placeholder="Search footwear..."
+    $IsFootWearTableActive={IsFootWearTableActive}
+  />
+  <FootWearTable $IsFootWearTableActive={IsFootWearTableActive}>
+    {FootWear?.map((item, i) => (
+      <SearchListItem
+        key={i}
+        onClick={() => addFootWearFromSearch(i, FootWear, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
+      >
+        <p>{item.label}</p>
+      </SearchListItem>
+    ))}
+  </FootWearTable>
+</FootWearContainer>
+
+<ClothContentDiv>
+  <AddMoreButtonDiv>
+    <Logo
+      src="/icons/pluscircle.svg"
+      alt="Plus circle symbol"
+      onClick={() => setFootWearTableActive(prev => !prev)}
+    />
+  </AddMoreButtonDiv>
+  {ChosenFootWear?.map((item, i) => (
+    <ClothItem
+      key={i}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <p>{item.name}</p>
+      <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
+        <ClothItemPlusButton
+          onClick={() => increaseFootWear(i, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
+        >+</ClothItemPlusButton>
+        <ClothItemMinusButton
+          onClick={() => decreaseFootWear(i, ChosenFootWear, setChosenFootWear, deleteFootWear,setOptionsChosen)}
+        >-</ClothItemMinusButton>
+        <ClothItemDeleteButton
+          onClick={() => deleteFootWear(i, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
+        >D</ClothItemDeleteButton>
+      </ClothItemButtonDiv>
+      <ClothCounter>
+        <p>{item.amount}</p>
+      </ClothCounter>
+    </ClothItem>
+  ))}
+</ClothContentDiv>
+</div>
+  );
+}
+
 //EditList function
 function EditList() {
 // Array of which the items are saved for PUT request
@@ -229,7 +517,7 @@ temperature:""
 })
 //
 //
-const [item,setItem]=useState(null);
+const [userList,setUserList]=useState(null);
 const location = useLocation();
 const { id } = location.state || {};
 
@@ -239,7 +527,7 @@ const { id } = location.state || {};
       try {
         const response = await axios.get(`http://localhost:3000/api/list/${id}`);
         // optionsChosen is given the data
-        setItem(response.data.data);
+        setUserList(response.data.data);
       } catch (err) {
         console.error("Error fetching item:", err);
       }
@@ -248,26 +536,24 @@ const { id } = location.state || {};
   }, [id]);
 // Place data from item to optionsChosen
 useEffect(() => {
-  if (item) {
+  if (userList) {
     setOptionsChosen({
-      listName: item.list_name,
-      destinationName: item.place_name,
-      types: item.place_type,
-      purposes: item.purpose,
-      vehicles: item.vehicle,
-      weather: item.weather,
-      temperature: item.temperature,
-      headwear: item.headwear,
-      bodywear: item.bodywear,
-      handwear: item.handwear,
-      legwear: item.legwear,
-      footwear: item.footwear,
-      accessory: item.accessory
+      listName: userList.list_name,
+      destinationName: userList.place_name,
+      types: userList.place_type,
+      purposes: userList.purpose,
+      vehicles: userList.vehicle,
+      weather: userList.weather,
+      temperature: userList.temperature,
+      headwear: userList.headwear,
+      bodywear: userList.bodywear,
+      handwear: userList.handwear,
+      legwear: userList.legwear,
+      footwear: userList.footwear,
+      accessory: userList.accessory
     });
   }
-}, [item]);
-
-console.log("optionsChosen",optionsChosen)
+}, [userList]);
 
 const [message,setMessage]=useState("")
 
@@ -286,15 +572,19 @@ const handlePut = async () => {
     setMessage("Error sending PUT request");
   }
 };
-//
-//Translation
-const {t,setLang}=useTranslate();
 // With Source, can call different objects easily
-const Source = getSource(t);
+const Source = getSource();
 const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
+
+const WearList = ClothAccessoryList();
+const HeadWear = WearList.HeadWear;
+const BodyWear = WearList.BodyWear;
+const HandWear = WearList.HandWear;
+const LegWear = WearList.LegWear;
+const FootWear = WearList.FootWear;
 
 //UseState for multi-pickable items
 const [ActiveListName,setActiveListName]=useState({})
@@ -304,43 +594,63 @@ const [ActivePurposeBoxes,setActivePurposeBoxes]=useState({})
 const [ActiveVehicleBoxes,setActiveVehicleBoxes]=useState({})
 const [ActiveWeatherBoxes,setActiveWeatherBoxes]=useState({})
 
-// Boxes that are already selected
+// UseState for different Wear Search Tables
+const [IsHeadWearTableActive, setHeadWearTableActive] = useState(true);
+const [IsBodyWearTableActive, setBodyWearTableActive] = useState(true);
+const [IsHandWearTableActive, setHandWearTableActive] = useState(true);
+const [IsLegWearTableActive, setLegWearTableActive] = useState(true);
+const [IsFootWearTableActive, setFootWearTableActive] = useState(true);
+
+// UseState for user chosen wear
+const [ChosenHeadWear, setChosenHeadWear] = useState([]);
+const [ChosenBodyWear, setChosenBodyWear] = useState([]);
+const [ChosenHandWear, setChosenHandWear] = useState([]);
+const [ChosenLegWear, setChosenLegWear] = useState([]);
+const [ChosenFootWear, setChosenFootWear] = useState([]);
+
+const [hoveredIndex, setHoveredIndex] = useState();
+
+// Boxes that are already selected and saved in the list
 const initialActiveBoxes = {};
 const initialPurposeBoxes={};
 const initialVehicleBoxes={};
 const initialWeatherBoxes={};
 
 useEffect(() => {
-  if (item) {
-    DestinationTypes.forEach((dt, index) => {
-      if (item.place_type.includes(dt.value)) {
+  if (userList) {
+    DestinationTypes.forEach((i, index) => {
+      if (userList.place_type.includes(i.value)) {
         initialActiveBoxes[index] = true;
       }
     });
-        DestinationPurposes.forEach((db, index) => {
-      if (item.purpose.includes(db.value)) {
+        DestinationPurposes.forEach((i, index) => {
+      if (userList.purpose.includes(i.value)) {
         initialPurposeBoxes[index] = true;
       }
     });
-    Vehicles.forEach((vhc, index) => {
-      if (item.vehicle.includes(vhc.value)) {
+    Vehicles.forEach((i, index) => {
+      if (userList.vehicle.includes(i.value)) {
         initialVehicleBoxes[index] = true;
       }
     });
-        Weather.forEach((vhc, index) => {
-      if (item.weather.includes(vhc.value)) {
+        Weather.forEach((i, index) => {
+      if (userList.weather.includes(i.value)) {
         initialWeatherBoxes[index] = true;
       }
     });
 
-    setActiveListName(item.list_name);
-    setActiveDestinationName(item.place_name);
+    setActiveListName(userList.list_name);
+    setActiveDestinationName(userList.place_name);
     setActiveTypeBoxes(initialActiveBoxes);
     setActivePurposeBoxes(initialPurposeBoxes);
     setActiveVehicleBoxes(initialVehicleBoxes);
-    setActiveWeatherBoxes(initialWeatherBoxes);
+    setChosenHeadWear(userList.headwear)
+    setChosenBodyWear(userList.bodywear)
+    setChosenHandWear(userList.handwear)
+    setChosenLegWear(userList.legwear)
+    setChosenFootWear(userList.footwear)
   }
-}, [item]);
+}, [userList]);
 
 const toggleDestinationTypeBox = (index) => {
   const value = DestinationTypes[index].value; // get types
@@ -357,7 +667,7 @@ const toggleDestinationTypeBox = (index) => {
       // If value exists, remove it
       return {
         ...prev,
-        types: prev.types.filter(item => item !== value)
+        types: prev.types.filter(userList => userList !== value)
       };
     } else {
       // If value not in list, add it
@@ -381,7 +691,7 @@ setActivePurposeBoxes(prev=> ({
       // If value exists, remove it
       return {
         ...prev,
-        purposes: prev.purposes.filter(item => item !== value)
+        purposes: prev.purposes.filter(userList => userList !== value)
       };
     } else {
       // If value not in list, add it
@@ -404,7 +714,7 @@ setActiveVehicleBoxes(prev=> ({
       // If value exists, remove it
       return {
         ...prev,
-        vehicles: prev.vehicles.filter(item => item !== value)
+        vehicles: prev.vehicles.filter(userList => userList !== value)
       };
     } else {
       // If value not in list, add it
@@ -427,7 +737,7 @@ setActiveWeatherBoxes(prev=> ({
       // If value exists, remove it
       return {
         ...prev,
-        weather: prev.weather.filter(item => item !== value)
+        weather: prev.weather.filter(userList => userList !== value)
       };
     } else {
       // If value not in list, add it
@@ -455,75 +765,75 @@ return (
     <MapApiDiv/>
     <TopListSectionGrid>
     <TopListContentDiv1>
-    <MyListHeader><header>{t("newlist-listname")}</header>
+    <MyListHeader><header>List name</header>
     <textarea
   onChange={(e) => {
     setOptionsChosen(prev => ({ ...prev, listName: e.target.value }))
   }}
-  name="destinationname" rows={4} cols={40} placeholder={ActiveListName||t("typelistname")}>
+  name="destinationname" rows={4} cols={40} placeholder={ActiveListName||"List name"}>
     </textarea>
     </MyListHeader>
-    <MyListHeader ><header>{t("newlist-destinationname")}</header>
+    <MyListHeader ><header>Destination name</header>
     <textarea
   onChange={(e) => {
     setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
   }}
-  name="destinationname" rows={4} cols={40} placeholder={ActiveDestinationName||t("typelistdestination")}>
+  name="destinationname" rows={4} cols={40} placeholder={ActiveDestinationName||"destination"}>
     </textarea></MyListHeader>
-    <MyListHeader><header>{t("newlist-destinationtype")}</header>
+    <MyListHeader><header>Destination type</header>
     <MultiItemDiv>
-      {DestinationTypes.map((item, i) => (
+      {DestinationTypes.map((userList, i) => (
         <MultiItem
           key={i}
           $isActive={!!ActiveTypeBoxes[i]}
           onClick={() => toggleDestinationTypeBox(i)
           }
         >
-          {item.symbol}
+          {userList.symbol}
         </MultiItem>
       ))}
     </MultiItemDiv>
     </MyListHeader>
-    <MyListHeader><header>{t("newlist-purpose")}</header>
+    <MyListHeader><header>Purpose</header>
     <MultiItemDiv>
-          {DestinationPurposes.map((item, i) => (
+          {DestinationPurposes.map((userList, i) => (
         <MultiItem
           key={i}
           $isActive={!!ActivePurposeBoxes[i]}
           onClick={() => toggleDestinationPurposeBox(i)
           }
         >
-          {item.symbol}
+          {userList.symbol}
         </MultiItem>
       ))}
     </MultiItemDiv>
     </MyListHeader> 
     </TopListContentDiv1>
     <TopListContentDiv2>
-        <MyListHeader><header>{t("newlist-vehicle")}</header>
+        <MyListHeader><header>Vehicle</header>
     <MultiItemDiv>
-        {Vehicles.map((item, i) => (
+        {Vehicles.map((userList, i) => (
         <MultiItem
           key={i}
           $isActive={!!ActiveVehicleBoxes[i]}
           onClick={() => toggleVehicleBox(i)
           }
         >
-          {item.symbol}
+          {userList.symbol}
         </MultiItem>
       ))}  
     </MultiItemDiv>
     </MyListHeader>
-    <MyListHeader><header>{t("newlist-weather")}</header>
+    <MyListHeader><header>Weather</header>
         <MultiItemDiv>
-            {Weather.map((item, i) => (
+            {Weather.map((userList, i) => (
         <MultiItem
           key={i}
           $isActive={!!ActiveWeatherBoxes[i]}
           onClick={() => toggleWeatherBox(i)
           }
         >
-          {item.symbol}
+          {userList.symbol}
         </MultiItem>
       ))}  
     </MultiItemDiv>
@@ -531,51 +841,76 @@ return (
     </TopListContentDiv2>
     </TopListSectionGrid>
     <BottomContentDiv>
-    <ClothHeaderDiv>
-    <h2>{t("headwear")}</h2>
-    </ClothHeaderDiv>
-    <ClothContentDiv>
-    <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
-    </AddMoreButtonDiv>
-    </ClothContentDiv>
+ <HeadWearListing
+    IsHeadWearTableActive={IsHeadWearTableActive}
+    setHeadWearTableActive={setHeadWearTableActive}
+    ChosenHeadWear={ChosenHeadWear}
+    setChosenHeadWear={setChosenHeadWear}
+    increaseHeadWear={increaseHeadWear}
+    decreaseHeadWear={decreaseHeadWear}
+    deleteHeadWear={deleteHeadWear}
+    HeadWear={HeadWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    optionsChosen={optionsChosen}
+    setOptionsChosen={setOptionsChosen}
+  />
 
-    <ClothHeaderDiv>
-    <h2>{t("bodywear")}</h2>
-    </ClothHeaderDiv>
-    <ClothContentDiv>
-    <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
-    </AddMoreButtonDiv>
-    </ClothContentDiv>
+  <BodyWearListing
+    IsBodyWearTableActive={IsBodyWearTableActive}
+    setBodyWearTableActive={setBodyWearTableActive}
+    ChosenBodyWear={ChosenBodyWear}
+    setChosenBodyWear={setChosenBodyWear}
+    increaseBodyWear={increaseBodyWear}
+    decreaseBodyWear={decreaseBodyWear}
+    deleteBodyWear={deleteBodyWear}
+    BodyWear={BodyWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
+  />
 
-    <ClothHeaderDiv>
-    <h2>{t("handwear")}</h2>
-    </ClothHeaderDiv>
-    <ClothContentDiv>
-    <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
-    </AddMoreButtonDiv>
-    </ClothContentDiv>
+  <HandWearListing
+    IsHandWearTableActive={IsHandWearTableActive}
+    setHandWearTableActive={setHandWearTableActive}
+    ChosenHandWear={ChosenHandWear}
+    setChosenHandWear={setChosenHandWear}
+    increaseHandWear={increaseHandWear}
+    decreaseHandWear={decreaseHandWear}
+    deleteHandWear={deleteHandWear}
+    HandWear={HandWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
+  />
 
-    <ClothHeaderDiv>
-    <h2>{t("legwear")}</h2>
-    </ClothHeaderDiv>
-    <ClothContentDiv>
-    <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
-    </AddMoreButtonDiv>
-    </ClothContentDiv>
+  <LegWearListing
+    IsLegWearTableActive={IsLegWearTableActive}
+    setLegWearTableActive={setLegWearTableActive}
+    ChosenLegWear={ChosenLegWear}
+    setChosenLegWear={setChosenLegWear}
+    increaseLegWear={increaseLegWear}
+    decreaseLegWear={decreaseLegWear}
+    deleteLegWear={deleteLegWear}
+    LegWear={LegWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
+  />
 
-    <ClothHeaderDiv>
-    <h2>{t("footwear")}</h2>
-    </ClothHeaderDiv>
-    <ClothContentDiv>
-    <AddMoreButtonDiv>
-    <Logo src="/icons/pluscircle.svg" alt="Plus circle symbol"/>
-    </AddMoreButtonDiv>
-    </ClothContentDiv>
-
+  <FootWearListing
+    IsFootWearTableActive={IsFootWearTableActive}
+    setFootWearTableActive={setFootWearTableActive}
+    ChosenFootWear={ChosenFootWear}
+    setChosenFootWear={setChosenFootWear}
+    increaseFootWear={increaseFootWear}
+    decreaseFootWear={decreaseFootWear}
+    deleteFootWear={deleteFootWear}
+    FootWear={FootWear}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    setOptionsChosen={setOptionsChosen}
+      />
     </BottomContentDiv>
     </NewListDiv>
     </div>

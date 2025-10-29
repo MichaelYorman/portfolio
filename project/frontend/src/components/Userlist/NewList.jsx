@@ -61,7 +61,7 @@ import {
   increaseFootWear,
   decreaseFootWear,
   deleteFootWear
-} from './NewListFunctions';
+} from './ListFunctions';
 const api=axios.create({
      baseURL: "http://localhost:3000/api",
 })
@@ -666,7 +666,6 @@ const toggleWeatherBox = (index) => {
     }
   });
 };
-console.log('typeof setOptionsChosen:', typeof setOptionsChosen);
 return (
   <>
     <div>

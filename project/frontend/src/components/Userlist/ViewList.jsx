@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect,useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { ClothAccessoryList } from "./ListItems";
 
 const api=axios.create({
      baseURL: "http://localhost:3000/api",
@@ -102,62 +103,62 @@ outline-style:solid;
 outline-width:2px;
 `;
 
-const getSource = (t) => ({
-DestinationTypes: [
-  { value: 'forest', label: `${t("typeforest")}`, symbol: '🌲' },
-  { value: 'mountain', label: `${t("typemountain")}`, symbol: '🏔️' },
-  { value: 'beach', label: `${t("typebeach")}`, symbol: '🏖️' },
-  { value: 'desert', label: `${t("typedesert")}`, symbol: '🏜️' },
-  { value: 'cave', label: `${t("typecave")}`, symbol: '🪨' },
-  { value: 'bodyofwater', label: `${t("typebodyofwater")}`, symbol: '🌊' },
-  { value: 'residentialarea', label: `${t("typeresidentialarea")}`, symbol: '🏙️' },
-  { value: 'countryside', label: `${t("typecountryside")}`, symbol: '🌽🚜🐑' }
-],
-DestinationPurpose: [
-  { value: 'hangingout', label: `${t("typehangingout")}`, symbol: "😎☕" },
-  { value: 'vacation', label: `${t("typevacation")}`, symbol: "🏖️" },
-  { value: 'swimming', label: `${t("typeswimming")}`, symbol: "🏊‍♂️" },
-  { value: 'sightseeing', label: `${t("typesightseeing")}`, symbol: "🗽" },
-  { value: 'photography', label: `${t("typephotography")}`, symbol: "📸" },
-  { value: 'stargazing', label: `${t("typestargazing")}`, symbol: "🔭🌕" },
-  { value: 'camping', label: `${t("typecamping")}`, symbol: "🏕️" },
-  { value: 'climbing', label: `${t("typeclimbing")}`, symbol: "🧗‍♂️" },
-  { value: 'wildlifewatching', label: `${t("typewildlifewatching")}`, symbol: "🔭🦉" },
-  { value: 'fishing', label: `${t("typefishing")}`, symbol: "🎣" },
-  { value: 'foraging', label: `${t("typeforaging")}`, symbol: "🍄🫐" },
-  { value: 'picnic', label: `${t("typepicnic")}`, symbol: "🧺🥪" }
-],
-Vehicles: [
-  { value: 'foot', label: `${t("typefoot")}`, symbol: "🚶" },
-  { value: 'bike', label: `${t("typebike")}`, symbol: "🚲" },
-  { value: 'car', label: `${t("typecar")}`, symbol: "🚗" },
-  { value: 'publictransportation', label: `${t("typepublictransportation")}`, symbol: "🚌" },
-  { value: 'motorbike', label: `${t("typemotorbike")}`, symbol: "🏍️" },
-  { value: 'airplane', label: `${t("typeairplane")}`, symbol: "✈️" },
-  { value: 'watervehicle', label: `${t("typewatervehicle")}`, symbol: "⛵" },
-  { value: 'skateboard', label: `${t("typeskateboard")}`, symbol: "🛹" },
-  { value: 'scooter', label: `${t("typescooter")}`, symbol: "🛴" },
-  { value: 'rollerblades', label: `${t("typerollerblades")}`, symbol: "🛼" },
-  { value: 'personalelectricvehicle', label: `${t("typepersonalelectricvehicle")}`, symbol: "⚡🛴🛹🚲" }
-],
-WeatherConditions: [
-  { value: 'clear', label: `${t("typeclear")}`, symbol: "☀️" },
-  { value: 'raining', label: `${t("typeraining")}`, symbol: "🌧️" },
-  { value: 'lowvisibility', label: `${t("typelowvisibility")}`, symbol: "👁🚫" },
-  { value: 'sandstorm', label: `${t("typesandstorm")}`, symbol: "💨🏜️" },
-  { value: 'fog', label: `${t("typefog")}`, symbol: "🌫️" }
-],
-Temperature: [
-  { value: 'scorching', label:`${t("typescorching")} 🔥💀`},
-  { value: 'hot', label: `${t("typehot")} 🔥`},
-  { value: 'warm', label: `${t("typewarm")} ☀️`},
-  { value: 'temperate', label: `${t("typetemperate")} 🌳`},
-  { value: 'cool', label: `${t("typecool")} ☀️⚖️❄️`},
-  { value: 'chilly', label: `${t("typechilly")} ❄️`},
-  { value: 'cold', label: `${t("typecold")} 🥶`},
-  { value: 'verycold', label: `${t("typeverycold")} 🧊`},
-  { value: 'freezing', label: `${t("typefreezing")} 🧊💀`}
-]
+const getSource = () => ({
+  DestinationTypes: [
+    { value: 'forest', label: 'Forest', symbol: '🌲' },
+    { value: 'mountain', label: 'Mountain', symbol: '🏔️' },
+    { value: 'beach', label: 'Beach', symbol: '🏖️' },
+    { value: 'desert', label: 'Desert', symbol: '🏜️' },
+    { value: 'cave', label: 'Cave', symbol: '🪨' },
+    { value: 'bodyofwater', label: 'Bodyofwater', symbol: '🌊' },
+    { value: 'residentialarea', label: 'Residentialarea', symbol: '🏙️' },
+    { value: 'countryside', label: 'Countryside', symbol: '🌽🚜🐑' }
+  ],
+  DestinationPurpose: [
+    { value: 'hangingout', label: 'Hangingout', symbol: '😎☕' },
+    { value: 'vacation', label: 'Vacation', symbol: '🏖️' },
+    { value: 'swimming', label: 'Swimming', symbol: '🏊‍♂️' },
+    { value: 'sightseeing', label: 'Sightseeing', symbol: '🗽' },
+    { value: 'photography', label: 'Photography', symbol: '📸' },
+    { value: 'stargazing', label: 'Stargazing', symbol: '🔭🌕' },
+    { value: 'camping', label: 'Camping', symbol: '🏕️' },
+    { value: 'climbing', label: 'Climbing', symbol: '🧗‍♂️' },
+    { value: 'wildlifewatching', label: 'Wildlifewatching', symbol: '🔭🦉' },
+    { value: 'fishing', label: 'Fishing', symbol: '🎣' },
+    { value: 'foraging', label: 'Foraging', symbol: '🍄🫐' },
+    { value: 'picnic', label: 'Picnic', symbol: '🧺🥪' }
+  ],
+  Vehicles: [
+    { value: 'foot', label: 'Foot', symbol: '🚶' },
+    { value: 'bike', label: 'Bike', symbol: '🚲' },
+    { value: 'car', label: 'Car', symbol: '🚗' },
+    { value: 'publictransportation', label: 'Publictransportation', symbol: '🚌' },
+    { value: 'motorbike', label: 'Motorbike', symbol: '🏍️' },
+    { value: 'airplane', label: 'Airplane', symbol: '✈️' },
+    { value: 'watervehicle', label: 'Watervehicle', symbol: '⛵' },
+    { value: 'skateboard', label: 'Skateboard', symbol: '🛹' },
+    { value: 'scooter', label: 'Scooter', symbol: '🛴' },
+    { value: 'rollerblades', label: 'Rollerblades', symbol: '🛼' },
+    { value: 'personalelectricvehicle', label: 'Personalelectricvehicle', symbol: '⚡🛴🛹🚲' }
+  ],
+  WeatherConditions: [
+    { value: 'clear', label: 'Clear', symbol: '☀️' },
+    { value: 'raining', label: 'Raining', symbol: '🌧️' },
+    { value: 'lowvisibility', label: 'Lowvisibility', symbol: '👁🚫' },
+    { value: 'sandstorm', label: 'Sandstorm', symbol: '💨🏜️' },
+    { value: 'fog', label: 'Fog', symbol: '🌫️' }
+  ],
+  Temperature: [
+    { value: 'scorching', label: 'Scorching 🔥💀' },
+    { value: 'hot', label: 'Hot 🔥' },
+    { value: 'warm', label: 'Warm ☀️' },
+    { value: 'temperate', label: 'Temperate 🌳' },
+    { value: 'cool', label: 'Cool ☀️⚖️❄️' },
+    { value: 'chilly', label: 'Chilly ❄️' },
+    { value: 'cold', label: 'Cold 🥶' },
+    { value: 'verycold', label: 'Verycold 🧊' },
+    { value: 'freezing', label: 'Freezing 🧊💀' }
+  ]
 });
 //NewList function
 function ViewList() {
@@ -186,27 +187,34 @@ accessory:[]
 const location = useLocation();
 const { id } = location.state || {};
 
-const [item,setItem]=useState(null);
+//This is the state we save the users list
+const [userList,setUserList]=useState(null);
 
  useEffect(() => {
     const fetchItem = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/list/${id}`);
-        setItem(response.data.data);
+        setUserList(response.data.data);
       } catch (err) {
         console.error("Error fetching item:", err);
       }
     };
     fetchItem();
   }, [id]);
-//Translation
-const {t,setLang}=useTranslate();
+
 // With Source, can take hold of different values with ease
-const Source = getSource(t);
+const Source = getSource();
 const DestinationTypes=Source.DestinationTypes;
 const DestinationPurposes=Source.DestinationPurpose;
 const Vehicles=Source.Vehicles;
 const Weather=Source.WeatherConditions;
+
+const WearList = ClothAccessoryList();
+const HeadWear = WearList.HeadWear;
+const BodyWear = WearList.BodyWear;
+const HandWear = WearList.HandWear;
+const LegWear = WearList.LegWear;
+const FootWear = WearList.FootWear;
 
 return (
     <>
@@ -215,15 +223,15 @@ return (
     <MapDiv/>
     <UpperListSection>
     <OverViewSettingsDiv1>
-    <MyListHeader><header>{t("newlist-listname")}</header>
-    <p>{item?.list_name}</p>
+    <MyListHeader><header>List name</header>
+    <p>{userList?.list_name}</p>
     </MyListHeader>
-    <MyListHeader ><header>{t("newlist-destinationname")}</header>
-    <p>{item?.place_name}</p>
+    <MyListHeader ><header>Destination name</header>
+    <p>{userList?.place_name}</p>
     </MyListHeader>
-    <MyListHeader><header>{t("newlist-destinationtype")}</header>
+    <MyListHeader><header>Destination type</header>
 <MultiItemDiv>
-  {item?.place_type.map((typeValue, i) => {
+  {userList?.place_type.map((typeValue, i) => {
     const typeObj = DestinationTypes.find(dt => dt.value === typeValue);
     return (
       <MultiItem key={i}>
@@ -233,9 +241,9 @@ return (
   })}
 </MultiItemDiv>
     </MyListHeader>
-    <MyListHeader><header>{t("newlist-purpose")}</header>
+    <MyListHeader><header>Purpose</header>
 <MultiItemDiv>
-  {item?.purpose.map((typeValue, i) => {
+  {userList?.purpose.map((typeValue, i) => {
     const typeObj = DestinationPurposes.find(dt => dt.value === typeValue);
     return (
       <MultiItem key={i}>
@@ -245,9 +253,9 @@ return (
   })}
 </MultiItemDiv>
     </MyListHeader> 
-        <MyListHeader><header>{t("newlist-vehicle")}</header>
+        <MyListHeader><header>Vehicle</header>
   <MultiItemDiv>
-  {item?.vehicle.map((typeValue, i) => {
+  {userList?.vehicle.map((typeValue, i) => {
     const typeObj = Vehicles.find(dt => dt.value === typeValue);
     return (
       <MultiItem key={i}>
@@ -257,10 +265,11 @@ return (
   })}
 </MultiItemDiv>
     </MyListHeader>
-    <MyListHeader><header>{t("newlist-weather")}</header>
+    <MyListHeader><header>Weather</header>
   <MultiItemDiv>
-  {item?.weather.map((typeValue, i) => {
+  {userList?.weather.map((typeValue, i) => {
     const typeObj = Weather.find(dt => dt.value === typeValue);
+    console.log("TypeObj weather",typeObj)
     return (
       <MultiItem key={i}>
         {typeObj ? typeObj.symbol : "❓"}
@@ -273,33 +282,73 @@ return (
     </UpperListSection>
     <OverviewContentDiv>
     <ClothHeaderDiv>
-    <h2>{t("headwear")}</h2>
+    <h2>Headwear</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
+      {userList?.headwear.map((typeValue, i) => {
+    const typeObj = HeadWear.find(dt => dt.label === typeValue.name);
+    return (
+      <MultiItem key={i}>
+        {typeObj ? typeObj.label : "❓"}
+      </MultiItem>
+    );
+  })}
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>{t("bodywear")}</h2>
+    <h2>Bodywear</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
+    {userList?.bodywear.map((typeValue, i) => {
+    const typeObj = BodyWear.find(dt => dt.label === typeValue.name);
+    return (
+      <MultiItem key={i}>
+        {typeObj ? typeObj.label : "❓"}
+      </MultiItem>
+    );
+  })}
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>{t("handwear")}</h2>
+    <h2>Handwear</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
+    {userList?.handwear.map((typeValue, i) => {
+    const typeObj = HandWear.find(dt => dt.label === typeValue.name);
+    return (
+      <MultiItem key={i}>
+        {typeObj ? typeObj.label : "❓"}
+      </MultiItem>
+    );
+  })}
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>{t("legwear")}</h2>
+    <h2>Legwear</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
+  {userList?.legwear.map((typeValue, i) => {
+    const typeObj = LegWear.find(dt => dt.label === typeValue.name);
+    return (
+      <MultiItem key={i}>
+        {typeObj ? typeObj.label : "❓"}
+      </MultiItem>
+    );
+  })}
     </ClothContentDiv>
 
     <ClothHeaderDiv>
-    <h2>{t("footwear")}</h2>
+    <h2>Footwear</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
+      {userList?.footwear.map((typeValue, i) => {
+    const typeObj = FootWear.find(dt => dt.label === typeValue.name);
+    return (
+      <MultiItem key={i}>
+        {typeObj ? typeObj.label : "❓"}
+      </MultiItem>
+    );
+  })}
     </ClothContentDiv>
 
     </OverviewContentDiv>
