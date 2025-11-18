@@ -5,10 +5,7 @@ import axios from "axios";
 import { ClothAccessoryList } from "./ListItems";
 import { 
   NewListDiv,
-  TopListSectionGrid,
-  TopListContentDiv1,
-  TopListContentDiv2,
-  MapApiDiv,
+  TopListContentDiv,
   BottomContentDiv,
   ClothHeaderDiv,
   ClothContentDiv,
@@ -762,8 +759,6 @@ return (
     </GenerateListButton>
     </SaveGenerateDiv>
     <Test onClick={handlePut}></Test>
-    <MapApiDiv/>
-    <TopListSectionGrid>
     <TopListContentDiv1>
     <MyListHeader><header>List name</header>
     <textarea
@@ -839,7 +834,6 @@ return (
     </MultiItemDiv>
     </MyListHeader>
     </TopListContentDiv2>
-    </TopListSectionGrid>
     <BottomContentDiv>
  <HeadWearListing
     IsHeadWearTableActive={IsHeadWearTableActive}

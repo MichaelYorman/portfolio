@@ -8,36 +8,10 @@ export const NewListDiv = styled.div`
   margin-top:250px;
 `;
 
-export const TopListSectionGrid = styled.div`
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-rows:1fr;
-`;
-
-export const TopListContentDiv1 = styled.div`
+export const TopListContentDiv = styled.div`
   display:flex;
   flex-direction:column;
-  grid-column:1;
-  gap:20px;
-  margin-top:50px;
-  margin-left:150px;
-`;
-
-export const TopListContentDiv2 = styled.div`
-  display:flex;
-  flex-direction:column;
-  grid-column:2;
-  gap:20px;
-  margin-top:600px;
-  margin-left:150px;
-`;
-
-export const MapApiDiv = styled.div`
-  background-color:gray;
-  position:absolute;
-  right:0;
-  height:512px;
-  width:512px;
+  align-items:center;
 `;
 
 export const BottomContentDiv = styled.div`
@@ -100,11 +74,7 @@ export const MyListHeader = styled.header`
   width:fit-content;
   gap:10px;
   header{
-    text-decoration:underline;
     font-size:1.5em;
-  }
-  h1{
-    cursor:pointer;
   }
 `;
 
@@ -197,7 +167,6 @@ export const MultiItemDiv = styled.div`
   flex-direction:row;
   width:300px;
   height:fit-content;
-  background-color:snow;
   flex-wrap:wrap;
 `;
 
@@ -209,12 +178,11 @@ export const MultiItem = styled.div`
   flex-direction:row;
   align-items:center;
   justify-content:center;
-  gap:10px;
   background-color:${props => (props.$isActive ? "green" : "whitesmoke")};
   outline-style:solid;
   outline-width:2px;
   cursor:pointer;
-  transition:background-color:0.3s;
+  &:hover {border-style:solid;border-color:yellow;}
 `;
 
 export const N = styled.div`

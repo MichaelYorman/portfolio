@@ -2,10 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { 
   NewListDiv,
-  TopListSectionGrid,
-  TopListContentDiv1,
-  TopListContentDiv2,
-  MapApiDiv,
+  TopListContentDiv,
   BottomContentDiv,
   ClothHeaderDiv,
   ClothContentDiv,
@@ -94,7 +91,6 @@ const getSource = () => ({
   ],
 
   Vehicles: [
-    { value: 'foot', label: 'on foot', symbol: '🚶' },
     { value: 'bike', label: 'bike', symbol: '🚲' },
     { value: 'car', label: 'car', symbol: '🚗' },
     { value: 'publictransportation', label: 'public transportation', symbol: '🚌' },
@@ -671,11 +667,9 @@ return (
     <div>
       <NewListDiv>
         <Test onClick={handlePost}></Test>
-        <MapApiDiv/>
-        <TopListSectionGrid>
-          <TopListContentDiv1>
+          <TopListContentDiv>
             <MyListHeader>
-              <header>List name</header>
+              <header>Name of your style</header>
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -689,7 +683,7 @@ return (
             </MyListHeader>
 
             <MyListHeader>
-              <header>Destination name</header>
+              <header>Describe your style</header>
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
@@ -703,28 +697,13 @@ return (
             </MyListHeader>
 
             <MyListHeader>
-              <header>Destination type</header>
+              <header>Situations fitting your style</header>
               <N onClick={clickMe}/>
-              <MultiItemDiv>
-                {DestinationTypes.map((item, i) => (
-                  <MultiItem
-                    key={i}
-                    $isActive={!!ActiveTypeBoxes[i]}
-                    onClick={() => toggleDestinationTypeBox(i)}
-                  >
-                    {item.symbol}
-                  </MultiItem>
-                ))}
-              </MultiItemDiv>
-            </MyListHeader>
-
-            <MyListHeader>
-              <header>Destination purpose</header>
               <MultiItemDiv>
                 {DestinationPurposes.map((item, i) => (
                   <MultiItem
                     key={i}
-                    $isActive={!!ActivePurposeBoxes[i]}
+                    $isActive={!!ActiveTypeBoxes[i]}
                     onClick={() => toggleDestinationPurposeBox(i)}
                   >
                     {item.symbol}
@@ -732,11 +711,9 @@ return (
                 ))}
               </MultiItemDiv>
             </MyListHeader>
-          </TopListContentDiv1>
 
-          <TopListContentDiv2>
             <MyListHeader>
-              <header>Destination vehicle</header>
+              <header>Vehicles fitting your style</header>
               <MultiItemDiv>
                 {Vehicles.map((item, i) => (
                   <MultiItem
@@ -744,29 +721,12 @@ return (
                     $isActive={!!ActiveVehicleBoxes[i]}
                     onClick={() => toggleVehicleBox(i)}
                   >
-                    {item.symbol}
+                  {item.symbol}
                   </MultiItem>
                 ))}
               </MultiItemDiv>
             </MyListHeader>
-
-            <MyListHeader>
-              <header>Weather Conditions</header>
-              <MultiItemDiv>
-                {Weather.map((item, i) => (
-                  <MultiItem
-                    key={i}
-                    $isActive={!!ActiveWeatherBoxes[i]}
-                    onClick={() => toggleWeatherBox(i)}
-                  >
-                    {item.symbol}
-                  </MultiItem>
-                ))}
-              </MultiItemDiv>
-            </MyListHeader>
-          </TopListContentDiv2>
-        </TopListSectionGrid>
-
+          </TopListContentDiv>
         <BottomContentDiv>
       <HeadWearListing
     IsHeadWearTableActive={IsHeadWearTableActive}
