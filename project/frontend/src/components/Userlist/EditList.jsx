@@ -6,7 +6,6 @@ import { ClothAccessoryList } from "./ListItems";
 import { 
   NewListDiv,
   TopListContentDiv,
-  BottomContentDiv,
   ClothHeaderDiv,
   ClothContentDiv,
   AddMoreButtonDiv,

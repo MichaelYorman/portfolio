@@ -2,8 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import { 
   NewListDiv,
+  SearchBarWindow,
+  StyleCreatorDiv,
+  StyleButtonPositions,
+  StyleButton,
   TopListContentDiv,
-  BottomContentDiv,
   ClothHeaderDiv,
   ClothContentDiv,
   AddMoreButtonDiv,
@@ -59,70 +62,13 @@ import {
   decreaseFootWear,
   deleteFootWear
 } from './ListFunctions';
+import {
+  getSource
+} from "./Source"
+
 const api=axios.create({
      baseURL: "http://localhost:3000/api",
 })
-
-const getSource = () => ({
-  DestinationTypes: [
-    { value: 'forest', label: 'forest', symbol: '🌲' },
-    { value: 'mountain', label: 'mountain', symbol: '🏔️' },
-    { value: 'beach', label: 'beach', symbol: '🏖️' },
-    { value: 'desert', label: 'desert', symbol: '🏜️' },
-    { value: 'cave', label: 'cave', symbol: '🪨' },
-    { value: 'bodyofwater', label: 'body of water', symbol: '🌊' },
-    { value: 'residentialarea', label: 'residential area', symbol: '🏙️' },
-    { value: 'countryside', label: 'countryside', symbol: '🌽🚜🐑' }
-  ],
-
-  DestinationPurpose: [
-    { value: 'hangingout', label: 'hanging out', symbol: '😎☕' },
-    { value: 'vacation', label: 'vacation', symbol: '🏖️' },
-    { value: 'swimming', label: 'swimming', symbol: '🏊‍♂️' },
-    { value: 'sightseeing', label: 'sightseeing', symbol: '🗽' },
-    { value: 'photography', label: 'photography', symbol: '📸' },
-    { value: 'stargazing', label: 'stargazing', symbol: '🔭🌕' },
-    { value: 'camping', label: 'camping', symbol: '🏕️' },
-    { value: 'climbing', label: 'climbing', symbol: '🧗‍♂️' },
-    { value: 'wildlifewatching', label: 'wildlife watching', symbol: '🔭🦉' },
-    { value: 'fishing', label: 'fishing', symbol: '🎣' },
-    { value: 'foraging', label: 'foraging', symbol: '🍄🫐' },
-    { value: 'picnic', label: 'picnic', symbol: '🧺🥪' }
-  ],
-
-  Vehicles: [
-    { value: 'bike', label: 'bike', symbol: '🚲' },
-    { value: 'car', label: 'car', symbol: '🚗' },
-    { value: 'publictransportation', label: 'public transportation', symbol: '🚌' },
-    { value: 'motorbike', label: 'motorbike', symbol: '🏍️' },
-    { value: 'airplane', label: 'airplane', symbol: '✈️' },
-    { value: 'watervehicle', label: 'water vehicle', symbol: '⛵' },
-    { value: 'skateboard', label: 'skateboard', symbol: '🛹' },
-    { value: 'scooter', label: 'scooter', symbol: '🛴' },
-    { value: 'rollerblades', label: 'rollerblades', symbol: '🛼' },
-    { value: 'personalelectricvehicle', label: 'personal electric vehicle', symbol: '⚡🛴🛹🚲' }
-  ],
-
-  WeatherConditions: [
-    { value: 'clear', label: 'clear', symbol: '☀️' },
-    { value: 'raining', label: 'raining', symbol: '🌧️' },
-    { value: 'lowvisibility', label: 'low visibility', symbol: '👁🚫' },
-    { value: 'sandstorm', label: 'sandstorm', symbol: '💨🏜️' },
-    { value: 'fog', label: 'fog', symbol: '🌫️' }
-  ],
-
-  Temperature: [
-    { value: 'scorching', label: 'scorching 🔥💀' },
-    { value: 'hot', label: 'hot 🔥' },
-    { value: 'warm', label: 'warm ☀️' },
-    { value: 'temperate', label: 'temperate 🌳' },
-    { value: 'cool', label: 'cool ☀️⚖️❄️' },
-    { value: 'chilly', label: 'chilly ❄️' },
-    { value: 'cold', label: 'cold 🥶' },
-    { value: 'verycold', label: 'very cold 🧊' },
-    { value: 'freezing', label: 'freezing 🧊💀' }
-  ]
-});
 //Listing functions
 function HeadWearListing({
   IsHeadWearTableActive,
@@ -523,7 +469,7 @@ function clickMe() {
 // With Source, get the information of clickable boxes
 const Source = getSource();
 const DestinationTypes = Source.DestinationTypes;
-const DestinationPurposes = Source.DestinationPurpose;
+const Situations = Source.DestinationPurpose;
 const Vehicles = Source.Vehicles;
 const Weather = Source.WeatherConditions;
 
@@ -536,10 +482,8 @@ const LegWear = WearList.LegWear;
 const FootWear = WearList.FootWear;
 
 // UseState for multipickable items
-const [ActiveTypeBoxes, setActiveTypeBoxes] = useState({});
-const [ActivePurposeBoxes, setActivePurposeBoxes] = useState({});
+const [ActiveSituationBoxes, setActiveSituationBoxes] = useState({});
 const [ActiveVehicleBoxes, setActiveVehicleBoxes] = useState({});
-const [ActiveWeatherBoxes, setActiveWeatherBoxes] = useState({});
 
 // UseState for different Wear Search Tables
 const [IsHeadWearTableActive, setHeadWearTableActive] = useState(true);
@@ -555,40 +499,30 @@ const [ChosenHandWear, setChosenHandWear] = useState([]);
 const [ChosenLegWear, setChosenLegWear] = useState([]);
 const [ChosenFootWear, setChosenFootWear] = useState([]);
 
-const [hoveredIndex, setHoveredIndex] = useState();
-
-// Update chosen options from Destination Type Box
-const toggleDestinationTypeBox = (index) => {
-  const value = DestinationTypes[index].value; // get types
-
-  // 1. Update UI state
-  setActiveTypeBoxes(prev => ({
-    ...prev,
-    [index]: !prev[index]
-  }));
-
-  // 2. Update chosen options
-  setOptionsChosen(prev => {
-    if (prev.types.includes(value)) {
-      // If value exists, remove it
-      return {
-        ...prev,
-        types: prev.types.filter(item => item !== value)
-      };
-    } else {
-      // If value not in list, add it
-      return {
-        ...prev,
-        types: [...prev.types, value]
-      };
-    }
+  const [styleButtonIsClicked, setButtonClicked] = useState({
+    headWear: true,
+    bodyWear: true,
+    handWear: true,
+    legWear: true,
+    footWear: true,
+    accessory: true,
+    equipment: true,
   });
+
+const toggleCategory = (category) => {
+  setButtonClicked((prev) => ({
+    ...prev,
+    [category]: !prev[category],
+  }));
 };
 
+
+const [hoveredIndex, setHoveredIndex] = useState();
+
 // Update chosen options from Destination Purpose Box
-const toggleDestinationPurposeBox = (index) => {
-  const value = DestinationPurposes[index].value; // get purposes
-  setActivePurposeBoxes(prev => ({
+const toggleSituationBox = (index) => {
+  const value = Situations[index].value; // get purposes
+  setActiveSituationBoxes(prev => ({
     ...prev,
     [index]: !prev[index]
   }));
@@ -636,98 +570,17 @@ const toggleVehicleBox = (index) => {
     }
   });
 };
-
-// Update chosen options from Weather Box
-const toggleWeatherBox = (index) => {
-  const value = Weather[index].value; // get weather conditions
-  setActiveWeatherBoxes(prev => ({
-    ...prev,
-    [index]: !prev[index]
-  }));
-
-  // 2. Update chosen options
-  setOptionsChosen(prev => {
-    if (prev.weather.includes(value)) {
-      // If value exists, remove it
-      return {
-        ...prev,
-        weather: prev.weather.filter(item => item !== value)
-      };
-    } else {
-      // If value not in list, add it
-      return {
-        ...prev,
-        weather: [...prev.weather, value]
-      };
-    }
-  });
-};
+console.log(styleButtonIsClicked)
 return (
   <>
     <div>
       <NewListDiv>
-        <Test onClick={handlePost}></Test>
-          <TopListContentDiv>
-            <MyListHeader>
-              <header>Name of your style</header>
-              <textarea
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setOptionsChosen(prev => ({ ...prev, listName: e.target.value }))
-                }}
-                name="destinationname"
-                rows={4}
-                cols={40}
-                placeholder="Type your list name here..."
-              ></textarea>
-            </MyListHeader>
-
-            <MyListHeader>
-              <header>Describe your style</header>
-              <textarea
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
-                }}
-                name="destinationname"
-                rows={4}
-                cols={40}
-                placeholder="Type your destination name here..."
-              ></textarea>
-            </MyListHeader>
-
-            <MyListHeader>
-              <header>Situations fitting your style</header>
-              <N onClick={clickMe}/>
-              <MultiItemDiv>
-                {DestinationPurposes.map((item, i) => (
-                  <MultiItem
-                    key={i}
-                    $isActive={!!ActiveTypeBoxes[i]}
-                    onClick={() => toggleDestinationPurposeBox(i)}
-                  >
-                    {item.symbol}
-                  </MultiItem>
-                ))}
-              </MultiItemDiv>
-            </MyListHeader>
-
-            <MyListHeader>
-              <header>Vehicles fitting your style</header>
-              <MultiItemDiv>
-                {Vehicles.map((item, i) => (
-                  <MultiItem
-                    key={i}
-                    $isActive={!!ActiveVehicleBoxes[i]}
-                    onClick={() => toggleVehicleBox(i)}
-                  >
-                  {item.symbol}
-                  </MultiItem>
-                ))}
-              </MultiItemDiv>
-            </MyListHeader>
-          </TopListContentDiv>
-        <BottomContentDiv>
+      <StyleCreatorDiv>
+      {StyleButtonPositions.map((pos, i) => (
+        <StyleButton key={i} {...pos} onClick={()=>toggleCategory(pos.category)}>
+        </StyleButton>
+      ))}
+      </StyleCreatorDiv>
       <HeadWearListing
     IsHeadWearTableActive={IsHeadWearTableActive}
     setHeadWearTableActive={setHeadWearTableActive}
@@ -798,7 +651,67 @@ return (
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
       />
-        </BottomContentDiv>
+        <Test onClick={handlePost}></Test>
+          <TopListContentDiv>
+            <MyListHeader>
+              <header>Name of your style</header>
+              <textarea
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setOptionsChosen(prev => ({ ...prev, listName: e.target.value }))
+                }}
+                name="destinationname"
+                rows={4}
+                cols={40}
+                placeholder="Type your list name here..."
+              ></textarea>
+            </MyListHeader>
+
+            <MyListHeader>
+              <header>Describe your style</header>
+              <textarea
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
+                }}
+                name="destinationname"
+                rows={4}
+                cols={40}
+                placeholder="Type your destination name here..."
+              ></textarea>
+            </MyListHeader>
+
+            <MyListHeader>
+              <header>Situations fitting your style</header>
+              <N onClick={clickMe}/>
+              <MultiItemDiv>
+                {Situations.map((item, i) => (
+                  <MultiItem
+                    key={i}
+                    $isActive={!!ActiveSituationBoxes[i]}
+                    onClick={() => toggleSituationBox(i)}
+                  >
+                    {item.symbol}
+                  </MultiItem>
+                ))}
+              </MultiItemDiv>
+            </MyListHeader>
+
+            <MyListHeader>
+              <header>Vehicles fitting your style</header>
+              <MultiItemDiv>
+                {Vehicles.map((item, i) => (
+                  <MultiItem
+                    key={i}
+                    $isActive={!!ActiveVehicleBoxes[i]}
+                    onClick={() => toggleVehicleBox(i)}
+                  >
+                  {item.symbol}
+                  </MultiItem>
+                ))}
+              </MultiItemDiv>
+            </MyListHeader>
+          </TopListContentDiv>
       </NewListDiv>
     </div>
   </>

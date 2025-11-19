@@ -175,12 +175,6 @@ bodywear:[],
 handwear:[],
 legwear:[],
 footwear:[],
-accessory:[],
-headwear:[],
-bodywear:[],
-handwear:[],
-legwear:[],
-footwear:[],
 accessory:[]
 })
 

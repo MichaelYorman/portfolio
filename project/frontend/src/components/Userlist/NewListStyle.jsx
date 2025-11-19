@@ -8,27 +8,58 @@ export const NewListDiv = styled.div`
   margin-top:250px;
 `;
 
+export const StyleCreatorDiv=styled.div`
+display:flex;
+flex-direction:column;
+background-color:gray;
+align-self:center;
+width:500px;
+height:500px;
+`
+
+export const StyleButtonPositions = [
+  { $top: "10px", $right: "300px", $category: "headWear" },
+  { $top: "70px", $right: "250px", $category: "bodyWear" },
+  { $top: "130px", $right: "200px", $category: "handWear" },
+  { $top: "190px", $right: "150px", $category: "legWear" },
+  { $top: "250px", $right: "200px", $category: "footWear" },
+  { $top: "310px", $right: "250px", $category: "accessory" },
+  { $top: "370px", $right: "300px", $category: "equipment" },
+];
+
+export const StyleButton=styled.div`
+position:absolute;
+width:50px;
+height:50px;
+background-color:black;
+border-radius:50%;
+top: ${({ $top }) => $top};
+right: ${({ $right }) => $right};
+&:hover {background-color:green;};
+cursor:pointer;
+`
+
+export const SearchBarWindow=styled.div`
+position:absolute;
+width:50px;
+height:200px;
+background-color:lightgray;
+display: ${({ $StyleButtonIsClicked }) => ($StyleButtonIsClicked ? "flex" : "none")};
+`;
 export const TopListContentDiv = styled.div`
   display:flex;
   flex-direction:column;
   align-items:center;
-`;
-
-export const BottomContentDiv = styled.div`
-  display:flex;
-  flex-direction:column;
-  margin-top:100px;
-  width:1080px;
-  height:auto;
-  align-items:center;
+  gap:20px;
   padding-bottom:100px;
+  height:auto;
 `;
 
 export const ClothHeaderDiv = styled.div`
   display:flex;
   flex-direction:column;
   margin-top:50px;
-  width:400px;
+  width:200px;
   height:100px;
   outline-style:dashed;
   background-color:white;
@@ -43,7 +74,8 @@ export const ClothContentDiv = styled.div`
   padding:10px;
   margin-top:50px;
   margin-right:200px;
-  width:800px;
+  width:100px;
+  max-width:800px;
   height:auto;
   outline-style:dashed;
   background-color:white;
