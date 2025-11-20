@@ -6,6 +6,7 @@ import {
   StyleCreatorDiv,
   StyleButtonPositions,
   StyleButton,
+  StyleButtonDiv,
   TopListContentDiv,
   ClothHeaderDiv,
   ClothContentDiv,
@@ -468,10 +469,8 @@ function clickMe() {
 
 // With Source, get the information of clickable boxes
 const Source = getSource();
-const DestinationTypes = Source.DestinationTypes;
 const Situations = Source.DestinationPurpose;
 const Vehicles = Source.Vehicles;
-const Weather = Source.WeatherConditions;
 
 // With WearList, get the information of clothing items
 const WearList = ClothAccessoryList();
@@ -499,23 +498,39 @@ const [ChosenHandWear, setChosenHandWear] = useState([]);
 const [ChosenLegWear, setChosenLegWear] = useState([]);
 const [ChosenFootWear, setChosenFootWear] = useState([]);
 
-  const [styleButtonIsClicked, setButtonClicked] = useState({
-    headWear: true,
-    bodyWear: true,
-    handWear: true,
-    legWear: true,
-    footWear: true,
-    accessory: true,
-    equipment: true,
-  });
+// UseState for activating specific search window by clicking the round object
+const [SearchWindowsActive, setSearchWindowActive] = useState([
+  { category: "headWear", active: false },
+  { category: "bodyWear", active: false },
+  { category: "handWear", active: false },
+  { category: "legWear", active: false },
+  { category: "footWear", active: false },
+  { category: "accessory", active: false },
+  { category: "equipment", active: false },
+]);
+// UseState for keeping search window display on and off
+const [SearchWindowsOpen,setSearchWindowsOpen]=useState(false)
 
 const toggleCategory = (category) => {
-  setButtonClicked((prev) => ({
-    ...prev,
-    [category]: !prev[category],
-  }));
-};
-
+  const AnotherWindowIsOpen = SearchWindowsActive.some(i=>i.category!==category&&i.active===true)
+  //if other categories are active, close them (they become false)
+  if(AnotherWindowIsOpen) {
+      setSearchWindowActive((prev) =>
+    prev.map((item)=>
+    item.category===category
+  ? {...item,active:!item.active}
+  : {...item,active:false}
+));
+  } else {
+  //if no other categories are active
+  setSearchWindowActive((prev) =>
+    prev.map((item)=>
+    item.category===category
+  ? {...item,active:!item.active}:item));
+}
+const isActive=SearchWindowsActive.some(i=>i.active===true)
+setSearchWindowsOpen(isActive)
+}
 
 const [hoveredIndex, setHoveredIndex] = useState();
 
@@ -570,18 +585,21 @@ const toggleVehicleBox = (index) => {
     }
   });
 };
-console.log(styleButtonIsClicked)
 return (
   <>
     <div>
       <NewListDiv>
       <StyleCreatorDiv>
+      <StyleButtonDiv>
       {StyleButtonPositions.map((pos, i) => (
-        <StyleButton key={i} {...pos} onClick={()=>toggleCategory(pos.category)}>
+        <StyleButton key={i} {...pos} onClick={()=>toggleCategory(pos.$category)}>
+          <p>{pos.$category}</p>
         </StyleButton>
       ))}
+      <SearchBarWindow $searchWindowsOpen={SearchWindowsOpen}></SearchBarWindow>
+      </StyleButtonDiv>
       </StyleCreatorDiv>
-      <HeadWearListing
+  <HeadWearListing
     IsHeadWearTableActive={IsHeadWearTableActive}
     setHeadWearTableActive={setHeadWearTableActive}
     ChosenHeadWear={ChosenHeadWear}
@@ -594,7 +612,7 @@ return (
     setHoveredIndex={setHoveredIndex}
     optionsChosen={optionsChosen}
     setOptionsChosen={setOptionsChosen}
-  />
+  ></HeadWearListing>
 
   <BodyWearListing
     IsBodyWearTableActive={IsBodyWearTableActive}
@@ -608,7 +626,7 @@ return (
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
-  />
+  ></BodyWearListing>
 
   <HandWearListing
     IsHandWearTableActive={IsHandWearTableActive}
@@ -622,7 +640,7 @@ return (
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
-  />
+  ></HandWearListing>
 
   <LegWearListing
     IsLegWearTableActive={IsLegWearTableActive}
@@ -636,7 +654,7 @@ return (
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
-  />
+  ></LegWearListing>
 
   <FootWearListing
     IsFootWearTableActive={IsFootWearTableActive}
@@ -650,7 +668,7 @@ return (
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
-      />
+  ></FootWearListing>
         <Test onClick={handlePost}></Test>
           <TopListContentDiv>
             <MyListHeader>

@@ -10,16 +10,17 @@ export const NewListDiv = styled.div`
 
 export const StyleCreatorDiv=styled.div`
 display:flex;
-flex-direction:column;
+flex-direction:row;
+position:relative;
 background-color:gray;
-align-self:center;
-width:500px;
-height:500px;
+width:auto;
+height:1000px;
+justify-content:center;
 `
 
 export const StyleButtonPositions = [
   { $top: "10px", $right: "300px", $category: "headWear" },
-  { $top: "70px", $right: "250px", $category: "bodyWear" },
+  { $top: "80px", $right: "250px", $category: "bodyWear" },
   { $top: "130px", $right: "200px", $category: "handWear" },
   { $top: "190px", $right: "150px", $category: "legWear" },
   { $top: "250px", $right: "200px", $category: "footWear" },
@@ -28,23 +29,37 @@ export const StyleButtonPositions = [
 ];
 
 export const StyleButton=styled.div`
-position:absolute;
-width:50px;
-height:50px;
+display:flex;
+position:relative;
+width:75px;
+height:75px;
 background-color:black;
 border-radius:50%;
 top: ${({ $top }) => $top};
 right: ${({ $right }) => $right};
 &:hover {background-color:green;};
 cursor:pointer;
+justify-content:center;
+align-items:center;
+p {color:white}
 `
+export const StyleButtonDiv=styled.div`
+top:50px;
+left:1000px;
+display:flex;
+flex-direction:column;
+position:absolute;
+width:fit-content;
+height:fit-content;
+`;
 
 export const SearchBarWindow=styled.div`
 position:absolute;
-width:50px;
-height:200px;
-background-color:lightgray;
-display: ${({ $StyleButtonIsClicked }) => ($StyleButtonIsClicked ? "flex" : "none")};
+top:100px;
+width:500px;
+height:500px;
+background-color:blue;
+display: ${({ $searchWindowsOpen }) => ($searchWindowsOpen ? "absolute" : "none")};
 `;
 export const TopListContentDiv = styled.div`
   display:flex;
