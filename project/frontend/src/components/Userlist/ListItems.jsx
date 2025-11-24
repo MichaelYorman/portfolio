@@ -1,5 +1,5 @@
 export const ClothAccessoryList=()=>({
-  HeadWear: [
+  headwear: [
     { id: 0, value: 'baseballcap', label: 'Baseball Cap' },
     { id: 1, value: 'beanie', label: 'Beanie' },
     { id: 2, value: 'fedora', label: 'Fedora' },
@@ -21,7 +21,7 @@ export const ClothAccessoryList=()=>({
     { id: 18, value: 'top_hat', label: 'Top Hat' },
     { id: 19, value: 'bowler_hat', label: 'Bowler Hat' }
   ],
-  BodyWear: [
+  bodywear: [
     { id: 1, value: 'tshirt', label: 'T-Shirt' },
     { id: 2, value: 'shirt', label: 'Shirt' },
     { id: 3, value: 'hoodie', label: 'Hoodie' },
@@ -43,7 +43,7 @@ export const ClothAccessoryList=()=>({
     { id: 19, value: 'tunic', label: 'Tunic' },
     { id: 20, value: 'bomber_jacket', label: 'Bomber Jacket' }
   ],
-  HandWear: [
+  handwear: [
     { id: 1, value: 'gloves', label: 'Gloves' },
     { id: 2, value: 'mittens', label: 'Mittens' },
     { id: 3, value: 'leather_gloves', label: 'Leather Gloves' },
@@ -65,7 +65,7 @@ export const ClothAccessoryList=()=>({
     { id: 19, value: 'driving_mitts', label: 'Driving Mitts' },
     { id: 20, value: 'sports_gloves', label: 'Sports Gloves' }
   ],
-  LegWear: [
+  legwear: [
     { id: 1, value: 'jeans', label: 'Jeans' },
     { id: 2, value: 'chinos', label: 'Chinos' },
     { id: 3, value: 'shorts', label: 'Shorts' },
@@ -87,7 +87,7 @@ export const ClothAccessoryList=()=>({
     { id: 19, value: 'jeggings', label: 'Jeggings' },
     { id: 20, value: 'short_shorts', label: 'Short Shorts' }
   ],
-  FootWear: [
+  footwear: [
     { id: 1, value: 'sneakers', label: 'Sneakers' },
     { id: 2, value: 'boots', label: 'Boots' },
     { id: 3, value: 'sandals', label: 'Sandals' },

@@ -31,8 +31,8 @@ export const StyleButtonPositions = [
 export const StyleButton=styled.div`
 display:flex;
 position:relative;
-width:75px;
-height:75px;
+width:100px;
+height:100px;
 background-color:black;
 border-radius:50%;
 top: ${({ $top }) => $top};
@@ -54,6 +54,10 @@ height:fit-content;
 `;
 
 export const SearchBarWindow=styled.div`
+display:flex;
+flex-direction:rcolumn;
+justify-content:center;
+align-items:center;
 position:absolute;
 top:100px;
 width:500px;
@@ -61,6 +65,25 @@ height:500px;
 background-color:blue;
 display: ${({ $searchWindowsOpen }) => ($searchWindowsOpen ? "absolute" : "none")};
 `;
+
+export const SearchBarWindowInput=styled.textarea`
+position:absolute;
+top:100px;
+width:400px;
+`;
+
+export const SearchBarWindowItemScreen=styled.div`
+display:flex;
+position:absolute;
+top:150px;
+width:400px;
+max-width:400px;
+height:300px;
+background-color:white;
+overflow-y:scroll;
+flex-wrap:wrap;
+`;
+
 export const TopListContentDiv = styled.div`
   display:flex;
   flex-direction:column;

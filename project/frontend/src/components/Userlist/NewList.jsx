@@ -3,6 +3,8 @@ import axios from "axios";
 import { 
   NewListDiv,
   SearchBarWindow,
+  SearchBarWindowInput,
+  SearchBarWindowItemScreen,
   StyleCreatorDiv,
   StyleButtonPositions,
   StyleButton,
@@ -79,7 +81,7 @@ function HeadWearListing({
   increaseHeadWear,
   decreaseHeadWear,
   deleteHeadWear,
-  HeadWear,
+  headwear,
   hoveredIndex,
   setHoveredIndex,
   setOptionsChosen
@@ -96,10 +98,10 @@ function HeadWearListing({
     $IsHeadWearTableActive={IsHeadWearTableActive}
   />
   <HeadWearTable $IsHeadWearTableActive={IsHeadWearTableActive}>
-    {HeadWear?.map((item, i) => (
+    {headwear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addHeadWearFromSearch(i, HeadWear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+        onClick={() => addHeadWearFromSearch(i, headwear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -151,7 +153,7 @@ function BodyWearListing({
   increaseBodyWear,
   decreaseBodyWear,
   deleteBodyWear,
-  BodyWear,
+  bodywear,
   hoveredIndex,
   setHoveredIndex,
   setOptionsChosen
@@ -168,10 +170,10 @@ function BodyWearListing({
     $IsBodyWearTableActive={IsBodyWearTableActive}
   />
   <BodyWearTable $IsBodyWearTableActive={IsBodyWearTableActive}>
-    {BodyWear?.map((item, i) => (
+    {bodywear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addBodyWearFromSearch(i, BodyWear, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
+        onClick={() => addBodyWearFromSearch(i, bodywear, ChosenBodyWear, setChosenBodyWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -223,7 +225,7 @@ function HandWearListing({
   increaseHandWear,
   decreaseHandWear,
   deleteHandWear,
-  HandWear,
+  handwear,
   hoveredIndex,
   setHoveredIndex,
   setOptionsChosen
@@ -241,10 +243,10 @@ function HandWearListing({
     $IsHandWearTableActive={IsHandWearTableActive}
   />
   <HandWearTable $IsHandWearTableActive={IsHandWearTableActive}>
-    {HandWear?.map((item, i) => (
+    {handwear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addHandWearFromSearch(i, HandWear, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
+        onClick={() => addHandWearFromSearch(i, handwear, ChosenHandWear, setChosenHandWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -296,7 +298,7 @@ function LegWearListing({
   increaseLegWear,
   decreaseLegWear,
   deleteLegWear,
-  LegWear,
+  legwear,
   hoveredIndex,
   setHoveredIndex,
   setOptionsChosen}){
@@ -312,10 +314,10 @@ function LegWearListing({
     $IsLegWearTableActive={IsLegWearTableActive}
   />
   <LegWearTable $IsLegWearTableActive={IsLegWearTableActive}>
-    {LegWear?.map((item, i) => (
+    {legwear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addLegWearFromSearch(i, LegWear, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
+        onClick={() => addLegWearFromSearch(i, legwear, ChosenLegWear, setChosenLegWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -366,7 +368,7 @@ function FootWearListing({
   increaseFootWear,
   decreaseFootWear,
   deleteFootWear,
-  FootWear,
+  footwear,
   hoveredIndex,
   setHoveredIndex,
   setOptionsChosen
@@ -383,10 +385,10 @@ function FootWearListing({
     $IsFootWearTableActive={IsFootWearTableActive}
   />
   <FootWearTable $IsFootWearTableActive={IsFootWearTableActive}>
-    {FootWear?.map((item, i) => (
+    {footwear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addFootWearFromSearch(i, FootWear, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
+        onClick={() => addFootWearFromSearch(i, footwear, ChosenFootWear, setChosenFootWear,setOptionsChosen)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -434,13 +436,11 @@ function FootWearListing({
 function NewList() {
 // Array of which the items are saved for POST request
 const [optionsChosen, setOptionsChosen] = useState({
-listName:"",
-destinationName:"",
-types:[],
-purposes:[],
+styleName:"",
+styleDescription:"",
+styleSituations:[],
+styleTags:[],
 vehicles:[],
-weather:[],
-temperature:"",
 headwear:[],
 bodywear:[],
 handwear:[],
@@ -474,11 +474,11 @@ const Vehicles = Source.Vehicles;
 
 // With WearList, get the information of clothing items
 const WearList = ClothAccessoryList();
-const HeadWear = WearList.HeadWear;
-const BodyWear = WearList.BodyWear;
-const HandWear = WearList.HandWear;
-const LegWear = WearList.LegWear;
-const FootWear = WearList.FootWear;
+const headwear = WearList.headwear;
+const bodywear = WearList.bodywear;
+const handwear = WearList.handwear;
+const legwear = WearList.legwear;
+const footwear = WearList.footwear;
 
 // UseState for multipickable items
 const [ActiveSituationBoxes, setActiveSituationBoxes] = useState({});
@@ -490,6 +490,10 @@ const [IsBodyWearTableActive, setBodyWearTableActive] = useState(true);
 const [IsHandWearTableActive, setHandWearTableActive] = useState(true);
 const [IsLegWearTableActive, setLegWearTableActive] = useState(true);
 const [IsFootWearTableActive, setFootWearTableActive] = useState(true);
+
+//UseState for SearchBarWindow Text
+
+const [CurrentSearchCategoryTitle,setCurrentSearchCategoryTitle]=useState("");
 
 // UseState for user chosen wear
 const [ChosenHeadWear, setChosenHeadWear] = useState([]);
@@ -521,12 +525,14 @@ const toggleCategory = (category) => {
   ? {...item,active:!item.active}
   : {...item,active:false}
 ));
+setCurrentSearchCategoryTitle(category);
   } else {
   //if no other categories are active
   setSearchWindowActive((prev) =>
     prev.map((item)=>
     item.category===category
   ? {...item,active:!item.active}:item));
+  setCurrentSearchCategoryTitle(category)
 }
 const isActive=SearchWindowsActive.some(i=>i.active===true)
 setSearchWindowsOpen(isActive)
@@ -596,7 +602,22 @@ return (
           <p>{pos.$category}</p>
         </StyleButton>
       ))}
-      <SearchBarWindow $searchWindowsOpen={SearchWindowsOpen}></SearchBarWindow>
+      <SearchBarWindow $searchWindowsOpen={SearchWindowsOpen}>
+                <SearchBarWindowInput
+                name="destinationname"
+                placeholder={`Type something to start searching ${CurrentSearchCategoryTitle.toLowerCase()}...`}
+              ></SearchBarWindowInput>
+              <SearchBarWindowItemScreen>
+      {headwear?.map((item, i) => (
+      <SearchListItem
+        key={i}
+        onClick={() => addHeadWearFromSearch(i, headwear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+      >
+        <p>{item.label}</p>
+      </SearchListItem>
+    ))}
+      </SearchBarWindowItemScreen>
+      </SearchBarWindow>
       </StyleButtonDiv>
       </StyleCreatorDiv>
   <HeadWearListing
@@ -607,7 +628,7 @@ return (
     increaseHeadWear={increaseHeadWear}
     decreaseHeadWear={decreaseHeadWear}
     deleteHeadWear={deleteHeadWear}
-    HeadWear={HeadWear}
+    headwear={headwear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     optionsChosen={optionsChosen}
@@ -622,7 +643,7 @@ return (
     increaseBodyWear={increaseBodyWear}
     decreaseBodyWear={decreaseBodyWear}
     deleteBodyWear={deleteBodyWear}
-    BodyWear={BodyWear}
+    bodywear={bodywear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
@@ -636,7 +657,7 @@ return (
     increaseHandWear={increaseHandWear}
     decreaseHandWear={decreaseHandWear}
     deleteHandWear={deleteHandWear}
-    HandWear={HandWear}
+    handwear={handwear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
@@ -650,7 +671,7 @@ return (
     increaseLegWear={increaseLegWear}
     decreaseLegWear={decreaseLegWear}
     deleteLegWear={deleteLegWear}
-    LegWear={LegWear}
+    legwear={legwear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
@@ -664,7 +685,7 @@ return (
     increaseFootWear={increaseFootWear}
     decreaseFootWear={decreaseFootWear}
     deleteFootWear={deleteFootWear}
-    FootWear={FootWear}
+    footwear={footwear}
     hoveredIndex={hoveredIndex}
     setHoveredIndex={setHoveredIndex}
     setOptionsChosen={setOptionsChosen}
