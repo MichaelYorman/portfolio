@@ -10,7 +10,7 @@ export const getSource = () => ({
     { value: 'countryside', label: 'countryside', symbol: '🌽🚜🐑' }
   ],
 
-  DestinationPurpose: [
+  Situations: [
     { value: 'hangingout', label: 'hanging out', symbol: '😎☕' },
     { value: 'vacation', label: 'vacation', symbol: '🏖️' },
     { value: 'swimming', label: 'swimming', symbol: '🏊‍♂️' },
@@ -37,24 +37,4 @@ export const getSource = () => ({
     { value: 'rollerblades', label: 'rollerblades', symbol: '🛼' },
     { value: 'personalelectricvehicle', label: 'personal electric vehicle', symbol: '⚡🛴🛹🚲' }
   ],
-
-  WeatherConditions: [
-    { value: 'clear', label: 'clear', symbol: '☀️' },
-    { value: 'raining', label: 'raining', symbol: '🌧️' },
-    { value: 'lowvisibility', label: 'low visibility', symbol: '👁🚫' },
-    { value: 'sandstorm', label: 'sandstorm', symbol: '💨🏜️' },
-    { value: 'fog', label: 'fog', symbol: '🌫️' }
-  ],
-
-  Temperature: [
-    { value: 'scorching', label: 'scorching 🔥💀' },
-    { value: 'hot', label: 'hot 🔥' },
-    { value: 'warm', label: 'warm ☀️' },
-    { value: 'temperate', label: 'temperate 🌳' },
-    { value: 'cool', label: 'cool ☀️⚖️❄️' },
-    { value: 'chilly', label: 'chilly ❄️' },
-    { value: 'cold', label: 'cold 🥶' },
-    { value: 'verycold', label: 'very cold 🧊' },
-    { value: 'freezing', label: 'freezing 🧊💀' }
-  ]
 });

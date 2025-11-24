@@ -19,11 +19,11 @@ justify-content:center;
 `
 
 export const StyleButtonPositions = [
-  { $top: "10px", $right: "300px", $category: "headWear" },
-  { $top: "80px", $right: "250px", $category: "bodyWear" },
-  { $top: "130px", $right: "200px", $category: "handWear" },
-  { $top: "190px", $right: "150px", $category: "legWear" },
-  { $top: "250px", $right: "200px", $category: "footWear" },
+  { $top: "10px", $right: "300px", $category: "headwear" },
+  { $top: "80px", $right: "250px", $category: "bodywear" },
+  { $top: "130px", $right: "200px", $category: "handwear" },
+  { $top: "190px", $right: "150px", $category: "legwear" },
+  { $top: "250px", $right: "200px", $category: "footwear" },
   { $top: "310px", $right: "250px", $category: "accessory" },
   { $top: "370px", $right: "300px", $category: "equipment" },
 ];
@@ -112,7 +112,7 @@ export const ClothContentDiv = styled.div`
   padding:10px;
   margin-top:50px;
   margin-right:200px;
-  width:100px;
+  width:800px;
   max-width:800px;
   height:auto;
   outline-style:dashed;
@@ -291,115 +291,4 @@ font-size:20px;
 height:25px;
 align-self:center;
 display:${props => (props.$IsHeadWearTableActive ? "none" : "inline-block")};
-`;
-// BodyWear
-export const BodyWearContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-`;
-
-export const BodyWearTable = styled.div`
-  display: ${props => (props.$IsBodyWearTableActive ? "none" : "flex")};
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 10px;
-  margin-top: 50px;
-  margin-right: 200px;
-  width: 800px;
-  height: fit-content;
-  outline-style: dashed;
-  background-color: whitesmoke;
-`;
-
-export const BodyWearSearchInput = styled.input`
-  width: 200px;
-  font-size: 20px;
-  height: 25px;
-  align-self: center;
-  display: ${props => (props.$IsBodyWearTableActive ? "none" : "inline-block")};
-`;
-
-// HandWear
-export const HandWearContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-`;
-
-export const HandWearTable = styled.div`
-  display: ${props => (props.$IsHandWearTableActive ? "none" : "flex")};
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 10px;
-  margin-top: 50px;
-  margin-right: 200px;
-  width: 800px;
-  height: fit-content;
-  outline-style: dashed;
-  background-color: whitesmoke;
-`;
-
-export const HandWearSearchInput = styled.input`
-  width: 200px;
-  font-size: 20px;
-  height: 25px;
-  align-self: center;
-  display: ${props => (props.$IsHandWearTableActive ? "none" : "inline-block")};
-`;
-
-// LegWear
-export const LegWearContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-`;
-
-export const LegWearTable = styled.div`
-  display: ${props => (props.$IsLegWearTableActive ? "none" : "flex")};
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 10px;
-  margin-top: 50px;
-  margin-right: 200px;
-  width: 800px;
-  height: fit-content;
-  outline-style: dashed;
-  background-color: whitesmoke;
-`;
-
-export const LegWearSearchInput = styled.input`
-  width: 200px;
-  font-size: 20px;
-  height: 25px;
-  align-self: center;
-  display: ${props => (props.$IsLegWearTableActive ? "none" : "inline-block")};
-`;
-
-// FootWear
-export const FootWearContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-`;
-
-export const FootWearTable = styled.div`
-  display: ${props => (props.$IsFootWearTableActive ? "none" : "flex")};
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 10px;
-  margin-top: 50px;
-  margin-right: 200px;
-  width: 800px;
-  height: fit-content;
-  outline-style: dashed;
-  background-color: whitesmoke;
-`;
-
-export const FootWearSearchInput = styled.input`
-  width: 200px;
-  font-size: 20px;
-  height: 25px;
-  align-self: center;
-  display: ${props => (props.$IsFootWearTableActive ? "none" : "inline-block")};
 `;
