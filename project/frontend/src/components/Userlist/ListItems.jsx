@@ -108,5 +108,11 @@ export const ClothAccessoryList=()=>({
     { id: 18, value: 'hiking_boots', label: 'Hiking Boots' },
     { id: 19, value: 'trainers', label: 'Trainers' },
     { id: 20, value: 'basketball_shoes', label: 'Basketball Shoes' }
+  ],
+  accessory: [
+    { id: 1, value: 'backpack', label: 'Backpack' },
+  ],
+  equipment: [
+    { id: 1, value: 'hook', label: 'Hook' },
   ]
 })

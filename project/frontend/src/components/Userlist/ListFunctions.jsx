@@ -1,7 +1,7 @@
 // ---------------------------
 // HeadWear functions
 // ---------------------------
-export const addHeadWearFromSearch = (i, HeadWear, ChosenHeadWear, setChosenHeadWear, setOptionsChosen) => {
+export const addItemFromSearch = (i, HeadWear, ChosenHeadWear, setChosenHeadWear, setOptionsChosen) => {
   const itemName = HeadWear[i].label;
   const itemIsIncluded = ChosenHeadWear.find(h => h.name === itemName);
   if (itemIsIncluded) {
@@ -18,7 +18,7 @@ export const addHeadWearFromSearch = (i, HeadWear, ChosenHeadWear, setChosenHead
   }
 };
 
-export const increaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear, setOptionsChosen) => {
+export const increaseItemAmount = (i, ChosenHeadWear, setChosenHeadWear, setOptionsChosen) => {
   const itemName = ChosenHeadWear[i].name;
   setChosenHeadWear(prev => {
     const newChosen = prev.map(h => h.name === itemName ? { ...h, amount: h.amount + 1 } : h);
@@ -30,7 +30,7 @@ export const increaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear, setOption
   });
 };
 
-export const decreaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear, setOptionsChosen) => {
+export const decreaseItemAmount = (i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear, setOptionsChosen) => {
   const itemName = ChosenHeadWear[i].name;
   if (ChosenHeadWear[i].amount === 1) {
     deleteHeadWear(i, ChosenHeadWear, setChosenHeadWear, setOptionsChosen);
@@ -46,7 +46,7 @@ export const decreaseHeadWear = (i, ChosenHeadWear, setChosenHeadWear, deleteHea
   }
 };
 
-export const deleteHeadWear = (i, ChosenHeadWear, setChosenHeadWear, setOptionsChosen) => {
+export const deleteSingleItem = (i, ChosenHeadWear, setChosenHeadWear, setOptionsChosen) => {
   const itemName = ChosenHeadWear[i].name;
   setChosenHeadWear(prev => {
     const newChosen = prev.filter(h => h.name !== itemName);
