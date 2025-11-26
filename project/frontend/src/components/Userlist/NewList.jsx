@@ -156,24 +156,26 @@ const [SearchWindowsOpen,setSearchWindowOpen]=useState(false)
 const toggleCategory = (category) => {
   const AnotherWindowIsOpen =Object.entries(wearState)
   .some(([key, value]) => key !== category && value.searchActive);
-  //if other window is open, replace them (they become false)
+  //if other windows are open (their searchActive is true), they become false
   if(AnotherWindowIsOpen) {
-      setSearchWindowOpen((prev) =>
-    prev.map((item)=>
-    item===category
-  ? {...item,searchActive:!searchActive}
-  : {...item,searchActive:false}
-));
+setWearState(prev =>
+  Object.fromEntries(
+    Object.entries(prev).map(([key, value]) => [
+      key,
+      { ...value, searchActive: key === category ? !value.searchActive : false }
+    ])
+  )
+);
 setCurrentSearchCategoryTitle(category);
   } else {
-  //if no other windows are active
-  setSearchWindowOpen((prev) =>
+  //if no other windows are active, set searchActive opposite of SearchActive
+  setWearState((prev) =>
     prev.map((item)=>
     item===category
   ? {...item,searchActive:!item.searchActive}:item));
   setCurrentSearchCategoryTitle(category)
 }
-const isActive=SearchWindowsActive.some(i=>i.searchActive===true)
+const isActive=Object.values(wearState).some(i => i.searchActive === true);
 setSearchWindowOpen(isActive)
 }
 
