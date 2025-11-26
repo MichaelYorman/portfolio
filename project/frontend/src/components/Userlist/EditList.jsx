@@ -22,43 +22,12 @@ import {
   MultiItem,
   N,
   Test,
-  HeadWearTable,
-  BodyWearTable,
-  HandWearTable,
-  LegWearTable,
-  FootWearTable,
-  HeadWearSearchInput,
-  HeadWearContainer,
-  BodyWearSearchInput,
-  BodyWearContainer,
-  HandWearSearchInput,
-  HandWearContainer,
-  LegWearSearchInput,
-  LegWearContainer,
-  FootWearSearchInput,
-  FootWearContainer
 } from "./NewListStyle";
 import {
-  addHeadWearFromSearch,
-  increaseHeadWear,
-  decreaseHeadWear,
-  deleteHeadWear,
-  addBodyWearFromSearch,
-  increaseBodyWear,
-  decreaseBodyWear,
-  deleteBodyWear,
-  addHandWearFromSearch,
-  increaseHandWear,
-  decreaseHandWear,
-  deleteHandWear,
-  addLegWearFromSearch,
-  increaseLegWear,
-  decreaseLegWear,
-  deleteLegWear,
-  addFootWearFromSearch,
-  increaseFootWear,
-  decreaseFootWear,
-  deleteFootWear
+  addItemFromSearch,
+  increaseItemAmount,
+  decreaseItemAmount,
+  deleteSingleItem,
 } from './ListFunctions';
 
 const api=axios.create({
@@ -140,7 +109,7 @@ const getSource = () => ({
 });
 
 //Listing functions
-function HeadWearListing({
+function WearListing({
   IsHeadWearTableActive,
   setHeadWearTableActive,
   ChosenHeadWear,
@@ -834,7 +803,7 @@ return (
     </MyListHeader>
     </TopListContentDiv2>
     <BottomContentDiv>
- <HeadWearListing
+ <WearListing
     IsHeadWearTableActive={IsHeadWearTableActive}
     setHeadWearTableActive={setHeadWearTableActive}
     ChosenHeadWear={ChosenHeadWear}
@@ -848,62 +817,6 @@ return (
     optionsChosen={optionsChosen}
     setOptionsChosen={setOptionsChosen}
   />
-
-  <BodyWearListing
-    IsBodyWearTableActive={IsBodyWearTableActive}
-    setBodyWearTableActive={setBodyWearTableActive}
-    ChosenBodyWear={ChosenBodyWear}
-    setChosenBodyWear={setChosenBodyWear}
-    increaseBodyWear={increaseBodyWear}
-    decreaseBodyWear={decreaseBodyWear}
-    deleteBodyWear={deleteBodyWear}
-    BodyWear={BodyWear}
-    hoveredIndex={hoveredIndex}
-    setHoveredIndex={setHoveredIndex}
-    setOptionsChosen={setOptionsChosen}
-  />
-
-  <HandWearListing
-    IsHandWearTableActive={IsHandWearTableActive}
-    setHandWearTableActive={setHandWearTableActive}
-    ChosenHandWear={ChosenHandWear}
-    setChosenHandWear={setChosenHandWear}
-    increaseHandWear={increaseHandWear}
-    decreaseHandWear={decreaseHandWear}
-    deleteHandWear={deleteHandWear}
-    HandWear={HandWear}
-    hoveredIndex={hoveredIndex}
-    setHoveredIndex={setHoveredIndex}
-    setOptionsChosen={setOptionsChosen}
-  />
-
-  <LegWearListing
-    IsLegWearTableActive={IsLegWearTableActive}
-    setLegWearTableActive={setLegWearTableActive}
-    ChosenLegWear={ChosenLegWear}
-    setChosenLegWear={setChosenLegWear}
-    increaseLegWear={increaseLegWear}
-    decreaseLegWear={decreaseLegWear}
-    deleteLegWear={deleteLegWear}
-    LegWear={LegWear}
-    hoveredIndex={hoveredIndex}
-    setHoveredIndex={setHoveredIndex}
-    setOptionsChosen={setOptionsChosen}
-  />
-
-  <FootWearListing
-    IsFootWearTableActive={IsFootWearTableActive}
-    setFootWearTableActive={setFootWearTableActive}
-    ChosenFootWear={ChosenFootWear}
-    setChosenFootWear={setChosenFootWear}
-    increaseFootWear={increaseFootWear}
-    decreaseFootWear={decreaseFootWear}
-    deleteFootWear={deleteFootWear}
-    FootWear={FootWear}
-    hoveredIndex={hoveredIndex}
-    setHoveredIndex={setHoveredIndex}
-    setOptionsChosen={setOptionsChosen}
-      />
     </BottomContentDiv>
     </NewListDiv>
     </div>

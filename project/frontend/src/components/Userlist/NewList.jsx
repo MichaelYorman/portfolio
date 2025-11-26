@@ -12,8 +12,6 @@ import {
   TopListContentDiv,
   ClothHeaderDiv,
   ClothContentDiv,
-  AddMoreButtonDiv,
-  Logo,
   MyListHeader,
   SearchListItem,
   ClothItem,
@@ -26,16 +24,13 @@ import {
   MultiItem,
   N,
   Test,
-  HeadWearTable,
-  HeadWearSearchInput,
-  HeadWearContainer,
 } from "./NewListStyle";
 import { ClothAccessoryList } from "./ListItems";
 import {
   addItemFromSearch,
   increaseItemAmount,
   decreaseItemAmount,
-  deleteItemAmount,
+  deleteSingleItem,
 } from './ListFunctions';
 import {
   getSource
@@ -46,78 +41,45 @@ const api=axios.create({
 })
 //Listing functions
 function WearListing({
-  IsHeadWearTableActive,
-  setHeadWearTableActive,
   wearState,
-  addItemFromSearch,
   increaseItemAmount,
   decreaseItemAmount,
-  deleteItemAmount,
-  wearlist,
+  deleteSingleItem,
+  CurrentSearchCategoryTitle,
   hoveredIndex,
   setHoveredIndex,
   setMyStyle
 }) {
   return (
 <>
-{clothAccessoryList?.map((item, i) => (
-  <div key={i}>
     <ClothHeaderDiv>
-      <h2>Headwear</h2>
+      <h2>Anywear</h2>
     </ClothHeaderDiv>
-
-    <HeadWearContainer>
-      <HeadWearSearchInput
-        placeholder="Search headwear..."
-        $IsHeadWearTableActive={IsHeadWearTableActive}
-      />
-      <HeadWearTable $IsHeadWearTableActive={IsHeadWearTableActive}>
-        {headwear?.map((hw, i) => (
-          <SearchListItem
-            key={i}
-            onClick={() => addHeadWearFromSearch(i, headwear, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
-          >
-            <p>{hw.label}</p>
-          </SearchListItem>
-        ))}
-      </HeadWearTable>
-    </HeadWearContainer>
-
     <ClothContentDiv>
-      <AddMoreButtonDiv>
-        <Logo
-          src="/icons/pluscircle.svg"
-          alt="Plus circle symbol"
-          onClick={() => setHeadWearTableActive(prev => !prev)}
-        />
-      </AddMoreButtonDiv>
-
-      {ChosenHeadWear?.map((hwItem, i) => (
+      {wearState[CurrentSearchCategoryTitle]?.chosenItems?.map((item, i) => (
         <ClothItem
           key={i}
           onMouseEnter={() => setHoveredIndex(i)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <p>{hwItem.name}</p>
+          <p>{item.name}</p>
           <ClothItemButtonDiv $clothItemHovered={hoveredIndex === i}>
             <ClothItemPlusButton
-              onClick={() => increaseHeadWear(i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+              onClick={() => increaseItemAmount(i, wearState,setWearState,setMyStyle)}
             >+</ClothItemPlusButton>
             <ClothItemMinusButton
-              onClick={() => decreaseHeadWear(i, ChosenHeadWear, setChosenHeadWear, deleteHeadWear,setOptionsChosen)}
+              onClick={() => decreaseItemAmount(i, wearState, setWearState, deleteSingleItem,setMyStyle)}
             >-</ClothItemMinusButton>
             <ClothItemDeleteButton
-              onClick={() => deleteHeadWear(i, ChosenHeadWear, setChosenHeadWear,setOptionsChosen)}
+              onClick={() => deleteSingleItem(i, wearState, setCWearState,setMyStyle)}
             >D</ClothItemDeleteButton>
           </ClothItemButtonDiv>
           <ClothCounter>
-            <p>{hwItem.amount}</p>
+            <p>{item.amount}</p>
           </ClothCounter>
         </ClothItem>
       ))}
     </ClothContentDiv>
-  </div>
-))}
 </>
 )
 }
@@ -189,29 +151,30 @@ const [ActiveVehicleBoxes, setActiveVehicleBoxes] = useState({});
 const [CurrentSearchCategoryTitle,setCurrentSearchCategoryTitle]=useState("");
 
 // UseState for keeping search window display on and off
-const [SearchWindowsOpen,setSearchWindowsOpen]=useState(false)
+const [SearchWindowsOpen,setSearchWindowOpen]=useState(false)
 
 const toggleCategory = (category) => {
-  const AnotherWindowIsOpen = wearState.some(i=>i!==category&&i.searchActive===true)
-  //if other categories are active, close them (they become false)
+  const AnotherWindowIsOpen =Object.entries(wearState)
+  .some(([key, value]) => key !== category && value.searchActive);
+  //if other window is open, replace them (they become false)
   if(AnotherWindowIsOpen) {
-      setSearchWindowActive((prev) =>
+      setSearchWindowOpen((prev) =>
     prev.map((item)=>
     item===category
   ? {...item,searchActive:!searchActive}
-  : {...item,active:false}
+  : {...item,searchActive:false}
 ));
 setCurrentSearchCategoryTitle(category);
   } else {
-  //if no other categories are active
-  setSearchWindowActive((prev) =>
+  //if no other windows are active
+  setSearchWindowOpen((prev) =>
     prev.map((item)=>
     item===category
   ? {...item,searchActive:!item.searchActive}:item));
   setCurrentSearchCategoryTitle(category)
 }
 const isActive=SearchWindowsActive.some(i=>i.searchActive===true)
-setSearchWindowsOpen(isActive)
+setSearchWindowOpen(isActive)
 }
 
 const [hoveredIndex, setHoveredIndex] = useState();
@@ -279,6 +242,16 @@ return (
           <p>{pos.$category}</p>
         </StyleButton>
       ))}
+        <WearListing
+    wearState={wearState}
+    increaseItemAmount={increaseItemAmount}
+    decreaseItemAmount={decreaseItemAmount}
+    deleteSingleItem={deleteSingleItem}
+    hoveredIndex={hoveredIndex}
+    setHoveredIndex={setHoveredIndex}
+    myStyle={myStyle}
+    setMyStyle={setMyStyle}
+  ></WearListing>
       <SearchBarWindow $searchWindowsOpen={SearchWindowsOpen}>
                 <SearchBarWindowInput
                 name="destinationname"
@@ -288,7 +261,7 @@ return (
       {headwear?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addHeadWearFromSearch(i, headwear, ChosenHeadWear, setChosenHeadWear,setMyStyle)}
+        onClick={() => addItemFromSearch(i, wearlist, wearState, setWearState,setMyStyle,CurrentSearchCategoryTitle)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -297,20 +270,6 @@ return (
       </SearchBarWindow>
       </StyleButtonDiv>
       </StyleCreatorDiv>
-  <WearListing
-    IsHeadWearTableActive={IsHeadWearTableActive}
-    setHeadWearTableActive={setHeadWearTableActive}
-    ChosenHeadWear={ChosenHeadWear}
-    setChosenHeadWear={setChosenHeadWear}
-    increaseHeadWear={increaseHeadWear}
-    decreaseHeadWear={decreaseHeadWear}
-    deleteHeadWear={deleteHeadWear}
-    headwear={headwear}
-    hoveredIndex={hoveredIndex}
-    setHoveredIndex={setHoveredIndex}
-    myStyle={myStyle}
-    setMyStyle={setMyStyle}
-  ></WearListing>
         <Test onClick={handlePost}></Test>
           <TopListContentDiv>
             <MyListHeader>
@@ -318,12 +277,12 @@ return (
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
-                  setMyStyle(prev => ({ ...prev, listName: e.target.value }))
+                  setMyStyle(prev => ({ ...prev, styleName: e.target.value }))
                 }}
-                name="destinationname"
+                name="stylename"
                 rows={4}
                 cols={40}
-                placeholder="Type your list name here..."
+                placeholder="Type your style name here..."
               ></textarea>
             </MyListHeader>
 
@@ -332,12 +291,12 @@ return (
               <textarea
                 onChange={(e) => {
                   console.log(e.target.value);
-                  setOptionsChosen(prev => ({ ...prev, destinationName: e.target.value }))
+                  setOptionsChosen(prev => ({ ...prev, styleDescription: e.target.value }))
                 }}
-                name="destinationname"
+                name="styledescription"
                 rows={4}
                 cols={40}
-                placeholder="Type your destination name here..."
+                placeholder="Type your style description here..."
               ></textarea>
             </MyListHeader>
 

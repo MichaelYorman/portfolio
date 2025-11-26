@@ -267,13 +267,13 @@ export const Test = styled.div`
   background-color:red;
 `;
 
-export const HeadWearContainer=styled.div`
+export const ItemWearContainer=styled.div`
   display:flex;
   flex-direction:column;
   margin-top:50px;
 `
 
-export const HeadWearTable = styled.div`
+export const ItemWearTable = styled.div`
   display:${props => (props.$IsHeadWearTableActive ? "none" : "flex")};
   flex-direction:row;
   flex-wrap:wrap;
@@ -285,10 +285,10 @@ export const HeadWearTable = styled.div`
   outline-style:dashed;
   background-color:whitesmoke;
 `;
-export const HeadWearSearchInput=styled.input`
+export const ItemWearSearchInput=styled.input`
 width:200px;
 font-size:20px;
 height:25px;
 align-self:center;
-display:${props => (props.$IsHeadWearTableActive ? "none" : "inline-block")};
+display:${props => (props.$IsWearTableActive ? "none" : "inline-block")};
 `;
