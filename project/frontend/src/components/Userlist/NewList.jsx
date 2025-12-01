@@ -22,7 +22,6 @@ import {
   ClothItemDeleteButton,
   MultiItemDiv,
   MultiItem,
-  N,
   Test,
 } from "./NewListStyle";
 import { ClothAccessoryList } from "./ListItems";
@@ -45,7 +44,7 @@ function WearListing({
   increaseItemAmount,
   decreaseItemAmount,
   deleteSingleItem,
-  CurrentSearchCategoryTitle,
+  CurrentSearchTitle,
   hoveredIndex,
   setHoveredIndex,
   setMyStyle
@@ -56,7 +55,7 @@ function WearListing({
       <h2>Anywear</h2>
     </ClothHeaderDiv>
     <ClothContentDiv>
-      {wearState[CurrentSearchCategoryTitle]?.chosenItems?.map((item, i) => (
+      {wearState[CurrentSearchTitle]?.chosenItems?.map((item, i) => (
         <ClothItem
           key={i}
           onMouseEnter={() => setHoveredIndex(i)}
@@ -83,7 +82,6 @@ function WearListing({
 </>
 )
 }
-
 //Main function
 function NewList() {
 // myStyle useState which will be send to server
@@ -124,12 +122,6 @@ setMessage(res.data.message+" | You sent: "+JSON.stringify(res.data.received));
   console.error(err);
 }
 };
-//
-
-function clickMe() {
-  console.log(myStyle)
-}
-
 // With Source, get the information of clickable boxes
 const Source = getSource();
 const Situations = Source.Situations;
@@ -137,47 +129,46 @@ const Vehicles = Source.Vehicles;
 
 // With wearlist, get the information of clothing items
 const wearlist = ClothAccessoryList();
-const headwear = wearlist.headwear;
-const bodywear = wearlist.bodywear;
-const handwear = wearlist.handwear;
-const legwear = wearlist.legwear;
-const footwear = wearlist.footwear;
+const headwear=wearlist.headwear;
 
 // UseState for multipickable items
 const [ActiveSituationBoxes, setActiveSituationBoxes] = useState({});
 const [ActiveVehicleBoxes, setActiveVehicleBoxes] = useState({});
 
 //UseState for SearchBarWindow Text
-const [CurrentSearchCategoryTitle,setCurrentSearchCategoryTitle]=useState("");
+const [CurrentSearchTitle,setCurrentSearchCategoryTitle]=useState("");
 
 // UseState for keeping search window display on and off
 const [SearchWindowsOpen,setSearchWindowOpen]=useState(false)
 
 const toggleCategory = (category) => {
-  const AnotherWindowIsOpen =Object.entries(wearState)
-  .some(([key, value]) => key !== category && value.searchActive);
-  //if other windows are open (their searchActive is true), they become false
-  if(AnotherWindowIsOpen) {
-setWearState(prev =>
-  Object.fromEntries(
-    Object.entries(prev).map(([key, value]) => [
-      key,
-      { ...value, searchActive: key === category ? !value.searchActive : false }
-    ])
-  )
-);
-setCurrentSearchCategoryTitle(category);
+  const anotherWindowIsOpen = Object.entries(wearState)
+    .some(([key, value]) => key !== category && value.searchActive);
+
+  if (anotherWindowIsOpen) {
+    setWearState((prev) =>
+      Object.fromEntries(
+        Object.entries(prev).map(([key, value]) => [
+          key,
+          { ...value, searchActive: key === category ? !value.searchActive : false },
+        ])
+      )
+    );
+    setCurrentSearchCategoryTitle(category);
   } else {
-  //if no other windows are active, set searchActive opposite of SearchActive
-  setWearState((prev) =>
-    prev.map((item)=>
-    item===category
-  ? {...item,searchActive:!item.searchActive}:item));
-  setCurrentSearchCategoryTitle(category)
-}
-const isActive=Object.values(wearState).some(i => i.searchActive === true);
-setSearchWindowOpen(isActive)
-}
+    setWearState((prev) =>
+      Object.fromEntries(
+        Object.entries(prev).map(([key, value]) => [
+          key,
+          { ...value, searchActive: key === category ? !value.searchActive : value.searchActive },
+        ])
+      )
+    );
+    setCurrentSearchCategoryTitle(category);
+  }
+  const isActive = Object.values(wearState).some((i) => i.searchActive === true);
+  setSearchWindowOpen(isActive);
+};
 
 const [hoveredIndex, setHoveredIndex] = useState();
 
@@ -232,7 +223,6 @@ const toggleVehicleBox = (index) => {
     }
   });
 };
-console.log(CurrentSearchCategoryTitle)
 return (
   <>
     <div>
@@ -257,13 +247,13 @@ return (
       <SearchBarWindow $searchWindowsOpen={SearchWindowsOpen}>
                 <SearchBarWindowInput
                 name="destinationname"
-                placeholder={`Type something to start searching ${CurrentSearchCategoryTitle.toLowerCase()}...`}
+                placeholder={`Type something to start searching ${CurrentSearchTitle.toLowerCase()}...`}
               ></SearchBarWindowInput>
               <SearchBarWindowItemScreen>
-      {headwear?.map((item, i) => (
+      {wearlist[CurrentSearchTitle]?.map((item, i) => (
       <SearchListItem
         key={i}
-        onClick={() => addItemFromSearch(i, wearlist, wearState, setWearState,setMyStyle,CurrentSearchCategoryTitle)}
+        onClick={() => addItemFromSearch(i, wearlist, wearState, setWearState,setMyStyle,CurrentSearchTitle)}
       >
         <p>{item.label}</p>
       </SearchListItem>
@@ -304,7 +294,6 @@ return (
 
             <MyListHeader>
               <header>Situations fitting your style</header>
-              <N onClick={clickMe}/>
               <MultiItemDiv>
                 {Situations.map((item, i) => (
                   <MultiItem

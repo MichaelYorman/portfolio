@@ -15,17 +15,16 @@ position:relative;
 background-color:gray;
 width:auto;
 height:1000px;
-justify-content:center;
 `
 
 export const StyleButtonPositions = [
-  { $top: "10px", $right: "300px", $category: "headwear" },
-  { $top: "80px", $right: "250px", $category: "bodywear" },
-  { $top: "130px", $right: "200px", $category: "handwear" },
-  { $top: "190px", $right: "150px", $category: "legwear" },
-  { $top: "250px", $right: "200px", $category: "footwear" },
-  { $top: "310px", $right: "250px", $category: "accessory" },
-  { $top: "370px", $right: "300px", $category: "equipment" },
+  { $top: "0px", $left: "500px", $category: "headwear" },
+  { $top: "20px", $left: "500px", $category: "bodywear" },
+  { $top: "40px", $left: "500px", $category: "handwear" },
+  { $top: "60px", $left: "500px", $category: "legwear" },
+  { $top: "80px", $left: "500px", $category: "footwear" },
+  { $top: "100px", $left: "500px", $category: "accessory" },
+  { $top: "120px", $left: "500px", $category: "equipment" },
 ];
 
 export const StyleButton=styled.div`
@@ -36,7 +35,7 @@ height:100px;
 background-color:black;
 border-radius:50%;
 top: ${({ $top }) => $top};
-right: ${({ $right }) => $right};
+left: ${({ $left }) => $left};
 &:hover {background-color:green;};
 cursor:pointer;
 justify-content:center;
@@ -44,8 +43,7 @@ align-items:center;
 p {color:white}
 `
 export const StyleButtonDiv=styled.div`
-top:50px;
-left:1000px;
+top:10px;
 display:flex;
 flex-direction:column;
 position:absolute;
@@ -55,11 +53,13 @@ height:fit-content;
 
 export const SearchBarWindow=styled.div`
 display:flex;
-flex-direction:rcolumn;
+position:relative;
+flex-direction:column;
 justify-content:center;
 align-items:center;
 position:absolute;
-top:100px;
+bottom:300px;
+left:700px;
 width:500px;
 height:500px;
 background-color:blue;
@@ -253,12 +253,6 @@ export const MultiItem = styled.div`
   outline-width:2px;
   cursor:pointer;
   &:hover {border-style:solid;border-color:yellow;}
-`;
-
-export const N = styled.div`
-  width:100px;
-  height:100px;
-  background-color:yellow;
 `;
 
 export const Test = styled.div`
